@@ -1,18 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
+import Navbar from "./components/Navbar";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
+export default class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello, React App!</h1>
+        <Navbar />
       </div>
     );
   }
 }
-
-export default App;
