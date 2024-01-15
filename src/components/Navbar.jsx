@@ -11,46 +11,49 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-neutral-400 drop-shadow-md">
+    <nav className="bg-neutral-400 z-20">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="flex justify-between h-24 ">
           <div className="flex">
             <a
               href="/"
-              className="flex-shrink-0 sm:px-0 flex items-center w-28 md:w-36 text-white font-bold"
+              className="flex-shrink-0 ml-2 md:ml-0 flex items-center w-24 md:w-36 text-white font-bold"
             >
-              <img src="public/gv_logo.png" alt="logo" />
+              <img src="gv_logo.png" alt="logo" />
             </a>
           </div>
-          <div className="hidden sm:flex sm:items-center justify-center">
+          <div className="hidden sm:flex sm:items-center justify-center text-lg">
             <a
               href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-md font-semibold"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
               INICIO
             </a>
             <a
               href="/about"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-md font-semibold"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
               TIENDA
             </a>
             <a
               href="/services"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-md font-semibold"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md  font-semibold"
             >
               OFERTAS
             </a>
           </div>
-          <div className="flex items-center gap-2 text-neutral-800 ">
-            <button className="hover:text-neutral-950">
-              <MdOutlineSearch size={25} />
+          <div className="flex items-center gap-1 text-neutral-800 text-3xl ">
+            <button className="hover:text-neutral-950" aria-hidden="true">
+              <MdOutlineSearch />
+              <span className="hidden">Buscar</span>
             </button>
-            <button className="hover:text-neutral-950">
-              <MdPerson size={25} />
+            <button className="hover:text-neutral-950" aria-hidden="true">
+              <MdPerson />
+              <span className="hidden">Iniciar Sesión</span>
             </button>
-            <button className="hover:text-neutral-950">
-              <MdShoppingCart size={25} />
+            <button className="hover:text-neutral-950" aria-hidden="true">
+              <MdShoppingCart />
+              <span className="hidden">Carrito</span>
             </button>
             <div className="flex items-center sm:hidden">
               <button

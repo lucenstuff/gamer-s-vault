@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 
 export default function ImageSlider({
@@ -7,16 +7,21 @@ export default function ImageSlider({
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
-  const intervalRef = useRef(); // Ref for the interval ID
+  const handleDotClick = (index) => {
+    setActiveIndex(index);
+    startAutoSlide();
+  };
 
-  const goToNextSlide = () => {
+  const intervalRef = useRef();
+
+  const goToNextSlide = useCallback(() => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % slides.length);
-  };
+  }, [slides.length]);
 
-  const startAutoSlide = () => {
-    stopAutoSlide(); // Clear any existing interval
+  const startAutoSlide = useCallback(() => {
+    stopAutoSlide();
     intervalRef.current = setInterval(goToNextSlide, autoSlideInterval);
-  };
+  }, [goToNextSlide, autoSlideInterval]);
 
   const stopAutoSlide = () => {
     if (intervalRef.current) {
@@ -29,7 +34,6 @@ export default function ImageSlider({
     return () => stopAutoSlide();
   }, [slides.length, autoSlideInterval, startAutoSlide]);
 
-  // Touch event handlers
   const handleTouchStart = (e) => {
     const touchDown = e.touches[0].clientX;
     setTouchStart(touchDown);
@@ -56,7 +60,7 @@ export default function ImageSlider({
     startAutoSlide();
   };
   return (
-    <div className="overflow-hidden relative">
+    <div className="overflow-hidden relative z-0">
       <div
         style={{
           transform: `translateX(-${activeIndex * 100}%)`,
