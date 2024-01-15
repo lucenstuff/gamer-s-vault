@@ -13,7 +13,7 @@ const slides = [
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <div className="bg-neutral-300">
         <Navbar />
         <section>
           <ImageSlider>
@@ -27,8 +27,10 @@ export default class App extends Component {
             ))}
           </ImageSlider>
         </section>
-        <TrendingGames />
-        <Sales />
+        <div className="pb-10">
+          <TrendingGames />
+          <Sales />
+        </div>
       </div>
     );
   }
