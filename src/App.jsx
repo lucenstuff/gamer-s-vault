@@ -13,9 +13,9 @@ const slides = [
 export default class App extends Component {
   render() {
     return (
-      <body>
+      <div>
         <Navbar />
-        <hero>
+        <section>
           <ImageSlider>
             {slides.map((slide) => (
               <img
@@ -26,10 +26,10 @@ export default class App extends Component {
               />
             ))}
           </ImageSlider>
-        </hero>
+        </section>
         <TrendingGames />
         <Sales />
-      </body>
+      </div>
     );
   }
 }
