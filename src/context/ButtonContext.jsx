@@ -7,7 +7,12 @@ const LoginToggle = ({ children }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   return (
-    <ButtonContext.Provider value={{ isLoginModalOpen, setIsLoginModalOpen }}>
+    <ButtonContext.Provider
+      value={{
+        isLoginModalOpen,
+        setIsLoginModalOpen,
+      }}
+    >
       {children}
     </ButtonContext.Provider>
   );
@@ -15,8 +20,14 @@ const LoginToggle = ({ children }) => {
 
 const CartToggle = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+
   return (
-    <ButtonContext.Provider value={{ isCartOpen, setIsCartOpen }}>
+    <ButtonContext.Provider
+      value={{
+        isCartOpen,
+        setIsCartOpen,
+      }}
+    >
       {children}
     </ButtonContext.Provider>
   );

@@ -10,23 +10,30 @@ const MainLayout = ({ children }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  const handleCartToggle = () => {
+    setIsCartOpen((prev) => !prev);
+  };
+
   const handleCloseLoginModal = () => {
     setIsLoginModalOpen(false);
   };
 
   return (
     <div className="bg-neutral-200">
-      <ButtonContext.Provider value={{ isLoginModalOpen, setIsLoginModalOpen }}>
+      <ButtonContext.Provider
+        value={{
+          isLoginModalOpen,
+          setIsLoginModalOpen,
+          isCartOpen,
+          setIsCartOpen,
+        }}
+      >
         <Navbar />
         {isLoginModalOpen && (
-          <LoginModal
-            isOpen={isLoginModalOpen}
-            onClose={handleCloseLoginModal}
-          />
+          <LoginModal isOpen={true} onClose={handleCloseLoginModal} />
         )}
-        {isCartOpen && <Cart isCartOpen={true} setIsCartOpen={setIsCartOpen} />}
+        {isCartOpen && <Cart isOpen={true} onClose={handleCartToggle} />}
       </ButtonContext.Provider>
-      <Cart />
       <main>{children}</main>
       <Footer />
     </div>

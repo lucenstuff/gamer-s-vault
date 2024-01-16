@@ -1,24 +1,14 @@
 import { IoMdClose } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { ButtonContext } from "../context/ButtonContext";
+import PropTypes from "prop-types";
+
 const Cart = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { setIsCartOpen } = useContext(ButtonContext);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
-
-  if (!isOpen) {
-    return null;
-  }
-
-  if (!isOpen) {
-    return null;
-  }
+  const handleCloseCart = () => {
+    setIsCartOpen(false);
+  };
 
   return (
     <div className="fixed bottom-0 right-0 h-screen w-3/4 md:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg">
@@ -27,7 +17,7 @@ const Cart = () => {
           Carrito
         </h2>
         <span className="absolute top-0 right-0 p-6 cursor-pointer">
-          <button className="p-2" onClick={() => setIsOpen((prev) => !prev)}>
+          <button className="p-2" onClick={handleCloseCart}>
             <IoMdClose size={24} />
           </button>
         </span>
@@ -41,6 +31,11 @@ const Cart = () => {
       </div>
     </div>
   );
+};
+
+Cart.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Cart;

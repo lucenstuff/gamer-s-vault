@@ -12,9 +12,14 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { setIsLoginModalOpen } = useContext(ButtonContext);
+  const { setIsCartOpen } = useContext(ButtonContext);
 
   const handleLoginModalToggle = () => {
     setIsLoginModalOpen((prev) => !prev);
+  };
+
+  const handleCartToggle = () => {
+    setIsCartOpen((prev) => !prev);
   };
 
   return (
@@ -65,7 +70,11 @@ const Navbar = () => {
               <MdPerson />
               <span className="hidden">Iniciar Sesión</span>
             </button>
-            <button className="hover:text-neutral-950" aria-hidden="true">
+            <button
+              className="hover:text-neutral-950"
+              aria-hidden="true"
+              onClick={handleCartToggle}
+            >
               <MdShoppingCart />
               <span className="hidden">Carrito</span>
             </button>

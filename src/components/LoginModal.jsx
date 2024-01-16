@@ -3,7 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import PropTypes from "prop-types";
 
 const LoginModal = ({ isOpen, onClose }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Login with:", username, password);
+    console.log("Login with:", email, password);
     onClose();
   };
 
@@ -46,16 +46,14 @@ const LoginModal = ({ isOpen, onClose }) => {
           </span>
           <form onSubmit={handleSubmit} className="w-full">
             <div className="mb-5 ">
-              <label htmlFor="email" className="">
-                Email
-              </label>
-
+              <label htmlFor="email">Email</label>
               <input
                 type="text"
-                id="user"
-                value={username}
+                id="email"
+                value={email}
+                autoComplete="on"
                 placeholder="Ingresa tu email"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full border-none rounded pt-2 bg-transparent focus:outline-none "
               />
               <hr className="border-neutral-500 my-2" />
@@ -93,8 +91,9 @@ const LoginModal = ({ isOpen, onClose }) => {
     </div>
   );
 };
+
 LoginModal.propTypes = {
-  isOpen: PropTypes.node.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
