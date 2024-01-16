@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:3000/api";
+const apiUrl = "http://192.168.1.106:3000/api";
 // const apiUrl = "https://gamersvaultbackend.onrender.com/api";
 
 async function getProducts() {
@@ -95,7 +95,6 @@ async function authenticateUser(email, password) {
   } catch (error) {
     console.error(error);
 
-    // Show a generic error message to the user
     alert("Authentication failed. Please try again.");
   }
 }

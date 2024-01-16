@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import GameCard from "./GameCard.jsx";
 import GameCardSkeleton from "./GameCardSkeleton.jsx";
 import { getProducts } from "../services/apiConnection";
@@ -46,7 +46,7 @@ export default class Sales extends Component {
               <GameCardSkeleton />
             </>
           ) : (
-            products.map((product, index) => (
+            products.map((product) => (
               <GameCard
                 key={product.ProductID}
                 gameImg={product.ImageURL}

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
@@ -12,11 +12,10 @@ export default class GameCard extends Component {
         <div className="group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md ">
           <a href={gameUrl} className="block"></a>
           <img
-            className="rounded-md transform group-hover:scale-110 duration-200"
+            className="rounded-md hover:cursor-pointer"
             src={gameImg}
             alt={gameName}
           />
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 duration-200  cursor-pointer"></div>
         </div>
         <h3 className="text-lg font-semibold py-2 truncate ">{gameName}</h3>
         <div className="flex justify-between items-center">

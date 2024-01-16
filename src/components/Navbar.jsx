@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
+import { ButtonContext } from "../context/ButtonContext";
 
 import {
   MdMenu,
@@ -10,8 +11,14 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const { setIsLoginModalOpen } = useContext(ButtonContext);
+
+  const handleLoginModalToggle = () => {
+    setIsLoginModalOpen((prev) => !prev);
+  };
+
   return (
-    <nav className="bg-neutral-400 z-50 absolute w-full shadow-neutral-600 shadow-sm">
+    <nav className="bg-neutral-400 z-20 absolute w-full shadow-neutral-600 shadow-sm">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
         <div className="flex justify-between h-24 ">
           <div className="flex">
@@ -50,7 +57,11 @@ const Navbar = () => {
               <MdOutlineSearch />
               <span className="hidden">Buscar</span>
             </button>
-            <button className="hover:text-neutral-950" aria-hidden="true">
+            <button
+              className="hover:text-neutral-950"
+              aria-hidden="true"
+              onClick={handleLoginModalToggle}
+            >
               <MdPerson />
               <span className="hidden">Iniciar Sesión</span>
             </button>
@@ -70,7 +81,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      {/* Mobile menu */}
       {isOpen && (
         <div className="sm:hidden">
           <div className="flex flex-col px-4 pt-2 pb-3 space-y-1">

@@ -1,7 +1,9 @@
+import RegisterModal from "../components/RegiterModal";
+
 const RegisterPage = () => {
   return (
-    <div className="bg-neutral-300">
-      <h1>Register Page</h1>
+    <div>
+      <RegisterModal />
     </div>
   );
 };

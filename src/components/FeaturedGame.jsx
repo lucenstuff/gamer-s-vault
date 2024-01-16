@@ -1,13 +1,8 @@
-import React, { Component } from "react";
-
+import { Component } from "react";
+import PropTypes from "prop-types";
 export default class FeaturedGame extends Component {
   render() {
-    const {
-      gameImg,
-      gameUrl = "#",
-      gameName = "",
-      gameDescription = "",
-    } = this.props;
+    const { gameImg, gameUrl = "#", gameName = "" } = this.props;
 
     return (
       <div className="p-2">
@@ -18,10 +13,15 @@ export default class FeaturedGame extends Component {
             src={gameImg}
             alt={gameName}
           />
-          {/* The description panel will appear on hover */}
           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 duration-200  cursor-pointer"></div>
         </div>
       </div>
     );
   }
 }
+
+FeaturedGame.propTypes = {
+  gameImg: PropTypes.string.isRequired,
+  gameUrl: PropTypes.string,
+  gameName: PropTypes.string,
+};

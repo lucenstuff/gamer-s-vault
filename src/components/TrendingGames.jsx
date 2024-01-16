@@ -8,7 +8,7 @@ export default class TrendingGames extends Component {
         <h2 className="text-xl font-bold text-center py-6">
           JUEGOS DESTACADOS
         </h2>
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row ">
           <div className="w-full md:w-1/2">
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317279/games_db_images_compressed/ddakgrie2xsdoebwe7wa.jpg"

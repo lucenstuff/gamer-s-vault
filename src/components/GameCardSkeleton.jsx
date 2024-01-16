@@ -1,5 +1,3 @@
-import React from "react";
-
 const GameCardSkeleton = () => {
   return (
     <div className="flex flex-col px-2 py-4 animate-pulse">

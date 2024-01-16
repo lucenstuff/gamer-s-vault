@@ -1,49 +1,22 @@
-import { useState, useEffect } from "react";
-import { IoMdClose } from "react-icons/io";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
-const LoginModal = ({ isOpen, onClose }) => {
+const RegisterModal = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
-
-  if (!isOpen) {
-    return null;
-  }
-
-  if (!isOpen) {
-    return null;
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Login with:", username, password);
-    onClose();
   };
 
   return (
     <div>
-      <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 backdrop-blur-md flex ">
+      <div className="fixed inset-0 z-50 overflow-auto bg-neutral-200 flex ">
         <div className="relative py-8 px-12 bg-neutral-300 max-w-md m-auto flex-col flex rounded-2xl shadow-neutral-700 shadow-lg ">
           <h2 className="text-2xl font-semibold text-center mb-10 mt-8 pb-6">
             Iniciar Sesión
           </h2>
-          <span
-            className="absolute top-0 right-0 p-4 cursor-pointer"
-            onClick={onClose}
-          >
-            <button className="p-2">
-              <IoMdClose size={24} />
-            </button>
-          </span>
           <form onSubmit={handleSubmit} className="w-full">
             <div className="mb-5 ">
               <label htmlFor="email" className="">
@@ -93,9 +66,10 @@ const LoginModal = ({ isOpen, onClose }) => {
     </div>
   );
 };
-LoginModal.propTypes = {
+
+RegisterModal.propTypes = {
   isOpen: PropTypes.node.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.node.isRequired,
 };
 
-export default LoginModal;
+export default RegisterModal;
