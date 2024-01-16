@@ -54,7 +54,7 @@ const sequelize = new Sequelize({
   port: process.env.DB_PORT,
   dialectOptions: {
     ssl: {
-      rejectUnauthorized: true,
+      rejectUnauthorized: false,
     },
   },
   logging: false,

@@ -19,7 +19,10 @@ const Navbar = () => {
               href="/"
               className="flex-shrink-0 ml-2 md:ml-0 flex items-center w-24 md:w-36 text-white font-bold"
             >
-              <img src="gv_logo.png" alt="logo" />
+              <img
+                src="https://res.cloudinary.com/dcbmvyyes/image/upload/v1705371120/icons/gv_logo_b2gipb.png"
+                alt="logo"
+              />
             </a>
           </div>
           <div className="hidden sm:flex sm:items-center justify-center text-lg">

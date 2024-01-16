@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import ImageSlider from "./components/ImageSlider";
 import TrendingGames from "./components/TrendingGames";
 import Sales from "./components/Sales";
+import Footer from "./components/Footer";
 
 const slides = [
   "https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317283/banner/h7rkxef3ub2skfqrpiud.jpg",
@@ -27,10 +28,11 @@ export default class App extends Component {
             ))}
           </ImageSlider>
         </section>
-        <div className="pb-10">
+        <div>
           <TrendingGames />
           <Sales />
         </div>
+        <Footer />
       </div>
     );
   }

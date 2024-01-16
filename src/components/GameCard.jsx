@@ -1,21 +1,28 @@
 import React, { Component } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
+import PropTypes from "prop-types";
 
 export default class GameCard extends Component {
   render() {
+    const { gameImg, gameUrl, gameName, gamePrice } = this.props;
     return (
-      <div className="flex flex-col px-2">
-        <img
-          className="relative w-full object-cover"
-          src="https://via.placeholder.com/1000"
-          alt="Game Card"
-        />
-        <h3>Game Title</h3>
+      <div className="game-card flex flex-col px-2 py-4 text-neutral-800">
+        <div className="group relative overflow-hidden ease-in-out duration-200 rounded-md">
+          <a href={gameUrl} className="block"></a>
+          <img
+            className="rounded-md transform group-hover:scale-110 duration-200"
+            src={gameImg}
+            alt={gameName}
+          />
+          {/* The description panel will appear on hover */}
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 duration-200  cursor-pointer"></div>
+        </div>
+        <h3 className="text-lg font-semibold py-2 truncate">{gameName}</h3>
         <div className="flex justify-between items-center">
-          <h3>Game Price</h3>
+          <h3 className="text-md font-semibold">{gamePrice}</h3>
           <button
             type="button"
-            className="text-neutral-800 px-2 py-1 rounded-md text-2xl font-medium"
+            className="px-2 py-1 rounded-md text-2xl font-medium"
           >
             <MdAddShoppingCart />
           </button>
@@ -24,3 +31,10 @@ export default class GameCard extends Component {
     );
   }
 }
+
+GameCard.propTypes = {
+  gameImg: PropTypes.string.isRequired,
+  gameUrl: PropTypes.string.isRequired,
+  gameName: PropTypes.string.isRequired,
+  gamePrice: PropTypes.string.isRequired,
+};
