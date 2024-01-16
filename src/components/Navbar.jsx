@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-neutral-400 z-20">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 drop-shadow-2xl">
         <div className="flex justify-between h-24 ">
           <div className="flex">
             <a
@@ -33,13 +33,13 @@ const Navbar = () => {
               INICIO
             </a>
             <a
-              href="/about"
+              href="/#"
               className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
-              TIENDA
+              JUEGOS
             </a>
             <a
-              href="/services"
+              href="#sales"
               className="text-neutral-800 hover:underline px-3 py-2 rounded-md  font-semibold"
             >
               OFERTAS
@@ -84,7 +84,7 @@ const Navbar = () => {
               href="/"
               className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-md font-semibold"
             >
-              TIENDA
+              JUEGOS
             </a>
             <a
               href="/"

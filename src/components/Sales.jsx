@@ -15,7 +15,6 @@ export default class Sales extends Component {
   componentDidMount() {
     getProducts()
       .then((products) => {
-        console.log("Products:", products);
         this.setState({
           products: products,
           isLoading: false,
@@ -32,7 +31,7 @@ export default class Sales extends Component {
   render() {
     const { products, isLoading } = this.state;
     return (
-      <section>
+      <section id="sales">
         <h2 className="text-xl font-bold text-center py-6">OFERTAS</h2>
         <div className="w-full grid grid-cols-2 md:grid-cols-4 px-2 lg:px-20">
           {isLoading ? (

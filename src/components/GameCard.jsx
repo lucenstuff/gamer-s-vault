@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+
 import { MdAddShoppingCart } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 export default class GameCard extends Component {
@@ -20,12 +22,20 @@ export default class GameCard extends Component {
         <h3 className="text-lg font-semibold py-2 truncate">{gameName}</h3>
         <div className="flex justify-between items-center">
           <h3 className="text-md font-semibold">{gamePrice}</h3>
-          <button
-            type="button"
-            className="px-2 py-1 rounded-md text-2xl font-medium"
-          >
-            <MdAddShoppingCart />
-          </button>
+          <div>
+            <button
+              type="button"
+              className="px-2 py-1 rounded-md text-2xl font-medium"
+            >
+              <FaRegHeart size={24} />
+            </button>
+            <button
+              type="button"
+              className="px-2 py-1 rounded-md text-2xl font-medium"
+            >
+              <MdAddShoppingCart size={24} />
+            </button>
+          </div>
         </div>
       </div>
     );

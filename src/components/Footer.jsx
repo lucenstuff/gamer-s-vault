@@ -1,8 +1,8 @@
 function Footer() {
   return (
-    <div className="bg-neutral-400  text-black py-5 text-center bottom-0">
-      <div className="flex flex-col items-center py-4">
-        <ul className="space-y-4 md:space-y-0 md:space-x-4 md:flex items-center justify-center">
+    <div className="bg-neutral-400  text-black py-5 text-center bottom-0 ">
+      <div className="flex flex-col items-center py-10">
+        <ul className="space-x-4 flex items-center justify-center">
           <li>
             <a
               href="store.html"
