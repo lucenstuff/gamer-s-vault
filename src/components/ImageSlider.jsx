@@ -60,7 +60,7 @@ export default function ImageSlider({
     startAutoSlide();
   };
   return (
-    <div className="overflow-hidden relative z-0">
+    <div className="overflow-hidden relative z-0 pt-24 shadow-neutral-500 shadow-md">
       <div
         style={{
           transform: `translateX(-${activeIndex * 100}%)`,

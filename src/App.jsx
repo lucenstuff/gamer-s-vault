@@ -17,7 +17,7 @@ export default class App extends Component {
     return (
       <div className="bg-neutral-300">
         <Navbar />
-        <LoginModal isOpen={false} onClose={() => {}} />
+        <LoginModal isOpen={true} onClose={() => {}} />
         <section>
           <ImageSlider>
             {slides.map((slide) => (

@@ -11,8 +11,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-neutral-400 z-20">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 drop-shadow-2xl">
+    <nav className="bg-neutral-400 z-50 absolute w-full shadow-neutral-900 drop-shadow-md">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
         <div className="flex justify-between h-24 ">
           <div className="flex">
             <a
@@ -76,25 +76,25 @@ const Navbar = () => {
           <div className="flex flex-col px-4 pt-2 pb-3 space-y-1">
             <a
               href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-md font-semibold"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-lg font-semibold"
             >
               INICIO
             </a>
             <a
               href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-md font-semibold"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-lg font-semibold"
             >
               JUEGOS
             </a>
             <a
               href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-md font-semibold"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-lg font-semibold"
             >
               OFERTAS
             </a>
             <a
               href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-md font-semibold"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-lg font-semibold"
             >
               CONTACTO
             </a>

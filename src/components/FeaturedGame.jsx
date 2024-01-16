@@ -11,7 +11,7 @@ export default class FeaturedGame extends Component {
 
     return (
       <div className="p-2">
-        <div className="group relative overflow-hidden ease-in-out duration-200 rounded-md">
+        <div className="group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
           <a href={gameUrl} className="block"></a>
           <img
             className="rounded-md transform group-hover:scale-110 duration-200"
