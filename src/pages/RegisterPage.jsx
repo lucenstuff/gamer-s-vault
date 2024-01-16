@@ -1,4 +1,4 @@
-import RegisterModal from "../components/RegiterModal";
+import RegisterModal from "../components/RegisterModal";
 
 const RegisterPage = () => {
   return (
