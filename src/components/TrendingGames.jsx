@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import FeaturedGame from "./FeaturedGame";
 
 export default class TrendingGames extends Component {
   render() {
@@ -9,33 +10,13 @@ export default class TrendingGames extends Component {
         </h2>
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/2">
-            <img
-              className="p-2"
-              src="https://via.placeholder.com/1000"
-              alt=""
-            />
+            <FeaturedGame gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317280/games_db_images_compressed/lsvcvdnlibygmgrycmol.jpg" />
           </div>
           <div className="w-full md:w-1/2 grid grid-cols-2">
-            <img
-              className="p-2"
-              src="https://via.placeholder.com/1000"
-              alt=""
-            />
-            <img
-              className="p-2"
-              src="https://via.placeholder.com/1000"
-              alt=""
-            />
-            <img
-              className="p-2"
-              src="https://via.placeholder.com/1000"
-              alt=""
-            />
-            <img
-              className="p-2"
-              src="https://via.placeholder.com/1000"
-              alt=""
-            />
+            <FeaturedGame gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317280/games_db_images_compressed/t3ofshvjkbiimbekayfu.jpg" />
+            <FeaturedGame gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317278/gallery/grwp9e6sgt3goezbk4fn.jpg" />
+            <FeaturedGame gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317281/games_db_images_compressed/fl0nmrtz9nonew8wjw0q.jpg" />
+            <FeaturedGame gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317280/games_db_images_compressed/uz2xik34di6cjjkbosgv.jpg" />
           </div>
         </div>
       </section>
