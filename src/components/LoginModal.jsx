@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { IoMdClose } from "react-icons/io";
+import { ButtonContext } from "../context/ButtonContext";
 import PropTypes from "prop-types";
 
 const LoginModal = ({ isOpen, onClose }) => {
+  const { setIsLoginModalOpen } = useContext(ButtonContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -38,7 +40,7 @@ const LoginModal = ({ isOpen, onClose }) => {
           </h2>
           <span
             className="absolute top-0 right-0 p-4 cursor-pointer"
-            onClick={onClose}
+            onClick={() => setIsLoginModalOpen(false)}
           >
             <button className="p-2">
               <IoMdClose size={24} />
