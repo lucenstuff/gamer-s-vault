@@ -57,6 +57,16 @@ export default class Sales extends Component {
             ))
           )}
         </div>
+        {/* <div className="w-full grid grid-cols-2 md:grid-cols-4 px-2 lg:px-20">
+          <GameCardSkeleton />
+          <GameCardSkeleton />
+          <GameCardSkeleton />
+          <GameCardSkeleton />
+          <GameCardSkeleton />
+          <GameCardSkeleton />
+          <GameCardSkeleton />
+          <GameCardSkeleton />
+        </div> */}
       </section>
     );
   }
