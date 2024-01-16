@@ -16,7 +16,6 @@ export default class GameCard extends Component {
             src={gameImg}
             alt={gameName}
           />
-          {/* The description panel will appear on hover */}
           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 duration-200  cursor-pointer"></div>
         </div>
         <h3 className="text-lg font-semibold py-2 truncate">{gameName}</h3>
@@ -25,15 +24,15 @@ export default class GameCard extends Component {
           <div>
             <button
               type="button"
-              className="px-2 py-1 rounded-md text-2xl font-medium"
+              className="px-2 py-1 rounded-md text-xl font-medium"
             >
-              <FaRegHeart size={24} />
+              <FaRegHeart />
             </button>
             <button
               type="button"
-              className="px-2 py-1 rounded-md text-2xl font-medium"
+              className="px-2 py-1 rounded-md text-xl font-medium"
             >
-              <MdAddShoppingCart size={24} />
+              <MdAddShoppingCart />
             </button>
           </div>
         </div>

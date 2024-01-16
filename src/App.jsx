@@ -4,6 +4,7 @@ import ImageSlider from "./components/ImageSlider";
 import TrendingGames from "./components/TrendingGames";
 import Sales from "./components/Sales";
 import Footer from "./components/Footer";
+import LoginModal from "./components/LoginModal";
 
 const slides = [
   "https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317283/banner/h7rkxef3ub2skfqrpiud.jpg",
@@ -16,6 +17,7 @@ export default class App extends Component {
     return (
       <div className="bg-neutral-300">
         <Navbar />
+        <LoginModal isOpen={false} onClose={() => {}} />
         <section>
           <ImageSlider>
             {slides.map((slide) => (
