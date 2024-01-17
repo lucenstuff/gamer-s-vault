@@ -25,11 +25,11 @@ const Navbar = () => {
   return (
     <nav className="bg-neutral-400 z-20 absolute w-full shadow-neutral-600 shadow-sm">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
-        <div className="flex justify-between h-24 ">
+        <div className="flex justify-between h-16 ">
           <div className="flex">
             <a
               href="/"
-              className="flex-shrink-0 ml-2 md:ml-0 flex items-center w-24 md:w-36 text-white font-bold"
+              className="flex-shrink-0 ml-2 md:ml-0 flex items-center w-24 md:w-32 text-white font-bold"
             >
               <img
                 src="https://res.cloudinary.com/dcbmvyyes/image/upload/v1705371120/icons/gv_logo_b2gipb.png"
@@ -80,7 +80,7 @@ const Navbar = () => {
             </button>
             <div className="flex items-center sm:hidden">
               <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setIsOpen(isOpen)}
                 type="button"
                 className="text-neutral-800 px-2 py-1 rounded-md text-3xl font-medium"
               >

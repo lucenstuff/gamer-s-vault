@@ -11,7 +11,7 @@ const MainLayout = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const handleCartToggle = () => {
-    setIsCartOpen((prev) => !prev);
+    setIsCartOpen(!isCartOpen);
   };
 
   const handleCloseLoginModal = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import express from "express";
 import cors from "cors";
 import bcrypt from "bcrypt";
@@ -69,7 +70,6 @@ const User = sequelize.define(
       autoIncrement: true,
     },
     Username: { type: DataTypes.STRING, allowNull: false },
-    //Quizás debería hacer al usuario unique
     Password: { type: DataTypes.STRING, allowNull: false },
     Email: { type: DataTypes.STRING, unique: true, allowNull: false },
     FirstName: { type: DataTypes.STRING, allowNull: false },
@@ -92,9 +92,7 @@ const Product = sequelize.define(
     ProductName: { type: DataTypes.STRING, allowNull: false },
     Description: { type: DataTypes.TEXT },
     Price: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
-    Category: { type: DataTypes.STRING, allowNull: false },
     ImageURL: { type: DataTypes.STRING },
-    LicensesAvailable: { type: DataTypes.INTEGER, allowNull: false },
   },
   {
     tableName: "Products",
@@ -261,6 +259,29 @@ app.get("/api/products/:id", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/api/search", async (req, res) => {
+  try {
+    const searchTerm = req.query.term;
+
+    const products = await sequelize.query(
+      "SELECT * FROM Products WHERE MATCH(ProductName, Description) AGAINST (:searchTerm IN BOOLEAN MODE)",
+      {
+        replacements: { searchTerm: searchTerm + "*" },
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
+
+    if (products.length === 0) {
+      return res.status(404).json({ error: "No products found" });
+    }
+
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
   }
 });
 
