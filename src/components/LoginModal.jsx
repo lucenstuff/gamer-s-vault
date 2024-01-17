@@ -83,6 +83,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             </h3>
             <button
               type="submit"
+              onClick={(window.location.href = "/register")}
               className="w-full bg-neutral-100 text-neutral-800 font-semibold rounded-2xl p-2 mb-10"
             >
               Registrarse
