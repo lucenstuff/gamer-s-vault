@@ -1,18 +1,25 @@
-import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+import HomePage from "./pages/HomePage";
+import RegisterPage from "./pages/RegisterPage";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Hello, React App!</h1>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          }
+        />
+        <Route exact path="/register" element={<RegisterPage />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
