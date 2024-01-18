@@ -3,7 +3,7 @@ import GamePage from "./pages/GamePage";
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
-import SalesPage from "./pages/SalesPage";
+import StorePage from "./pages/StorePage";
 
 const App = () => {
   return (
@@ -30,10 +30,10 @@ const App = () => {
         />
         <Route
           exact
-          path="/sales"
+          path="/store"
           element={
             <MainLayout>
-              <SalesPage />
+              <StorePage />
             </MainLayout>
           }
         />

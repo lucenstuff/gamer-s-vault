@@ -17,9 +17,9 @@ export default class GameCard extends Component {
             alt={gameName}
           />
         </div>
-        <h3 className="text-lg font-semibold py-2 truncate ">{gameName}</h3>
+        <h3 className="text-lg font-medium py-2 truncate ">{gameName}</h3>
         <div className="flex justify-between items-center">
-          <h3 className="text-md font-semibold ">{gamePrice}</h3>
+          <h3 className="text-md font-medium ">{gamePrice}</h3>
           <div>
             <button
               type="button"

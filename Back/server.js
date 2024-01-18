@@ -237,7 +237,7 @@ app.post("/api/authenticate", cors(), async (req, res) => {
 app.get("/api/products", async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1; // Current page, default is 1
-    const limit = parseInt(req.query.limit) || 10; // Results per page, default is 10
+    const limit = parseInt(req.query.limit) || 8; // Results per page, default is 10
     const offset = (page - 1) * limit; // Calculation of the offset
 
     const products = await Product.findAll({ limit, offset });
