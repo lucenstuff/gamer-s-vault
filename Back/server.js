@@ -29,11 +29,7 @@ for (const envVar of requiredEnvVars) {
 
 app.use(
   cors({
-    origin: [
-      `http://localhost:${port}`,
-      "https://127.0.0.1:5500",
-      "https://gamersvault.onrender.com",
-    ],
+    origin: "*",
   })
 );
 
@@ -62,19 +58,33 @@ const sequelize = new Sequelize({
 });
 
 const User = sequelize.define(
-  "Users",
+  "User",
   {
     UserID: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.CHAR(36),
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
-    Username: { type: DataTypes.STRING, allowNull: false },
-    Password: { type: DataTypes.STRING, allowNull: false },
-    Email: { type: DataTypes.STRING, unique: true, allowNull: false },
-    FirstName: { type: DataTypes.STRING, allowNull: false },
-    LastName: { type: DataTypes.STRING, allowNull: false },
+    Username: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    Password: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    Email: {
+      type: DataTypes.STRING(255),
+      unique: true,
+    },
+    FirstName: {
+      type: DataTypes.STRING(255),
+    },
+    LastName: {
+      type: DataTypes.STRING(255),
+    },
   },
+
   {
     tableName: "Users",
     timestamps: false,
@@ -213,13 +223,19 @@ app.post("/api/authenticate", cors(), async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { Email: email } });
 
-    if (!user || !(await bcrypt.compare(password, user.Password))) {
+    if (!user) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.Password);
+
+    if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
     const token = jwt.sign(
       {
-        userId: user.id,
+        userId: user.UserID,
         email: user.Email,
       },
       process.env.JWT_SECRET,
@@ -227,7 +243,8 @@ app.post("/api/authenticate", cors(), async (req, res) => {
         expiresIn: "1h",
       }
     );
-    res.json({ token });
+
+    res.json({ token, userId: user.UserID, expiresIn: 3600 });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

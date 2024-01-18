@@ -71,7 +71,7 @@ async function userRegister(
 
 async function authenticateUser(email, password) {
   try {
-    const response = await fetch("${apiUrl}/authenticate", {
+    const response = await fetch(`${apiUrl}/authenticate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +94,6 @@ async function authenticateUser(email, password) {
     }
   } catch (error) {
     console.error(error);
-
     alert("Authentication failed. Please try again.");
   }
 }

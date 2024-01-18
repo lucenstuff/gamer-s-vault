@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import { ButtonContext } from "../context/ButtonContext";
 import PropTypes from "prop-types";
+import { authenticateUser } from "../services/apiConnection";
 
 // Debería usar link en lugar de use navigate
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen }) => {
   const navigate = useNavigate();
   const { setIsLoginModalOpen } = useContext(ButtonContext);
   const [email, setEmail] = useState("");
@@ -29,10 +30,17 @@ const LoginModal = ({ isOpen, onClose }) => {
     return null;
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Login with:", email, password);
-    onClose();
+    try {
+      const data = await authenticateUser(email, password);
+      console.log("Login successful:", data);
+      localStorage.setItem("token", data.token);
+      setIsLoginModalOpen(false);
+      window.location.reload();
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   const handleRegisterRedirect = () => {
