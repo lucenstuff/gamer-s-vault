@@ -1,7 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const RegisterModal = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -11,7 +13,11 @@ const RegisterModal = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Login with:", username, password);
+    console.log("Register with:", username, password, name, lastname, email);
+  };
+
+  const handleRegisterRedirect = () => {
+    navigate("/", { state: { openLoginModal: true } });
   };
 
   return (
@@ -112,18 +118,20 @@ const RegisterModal = () => {
             <div className="flex flex-col justify-center items-center">
               <button
                 type="submit"
+                onClick={handleSubmit}
                 className="w-1/2 bg-neutral-100 text-neutral-800 font-semibold rounded-2xl p-2 mt-10"
               >
-                Registrate
+                Registrarse
               </button>
               <h3 className="text-center text-sm mt-10 mb-2">
-                ¿Ya tienes cuenta?
+                ¿Ya tienes una cuenta?
               </h3>
               <button
                 type="submit"
+                onClick={handleRegisterRedirect}
                 className="w-1/2 bg-neutral-100 text-neutral-800 font-semibold rounded-2xl p-2 mb-10"
               >
-                Iniciar Secion
+                Iniciar Sesión
               </button>
             </div>
           </form>

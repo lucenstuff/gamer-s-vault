@@ -45,10 +45,10 @@ const Navbar = () => {
               INICIO
             </a>
             <a
-              href="/#"
+              href="/store"
               className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
-              JUEGOS
+              TIENDA
             </a>
             <a
               href="#sales"

@@ -1,9 +1,13 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import { ButtonContext } from "../context/ButtonContext";
 import PropTypes from "prop-types";
 
+// Debería usar link en lugar de use navigate
+
 const LoginModal = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
   const { setIsLoginModalOpen } = useContext(ButtonContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,6 +35,9 @@ const LoginModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const handleRegisterRedirect = () => {
+    navigate("/register");
+  };
   return (
     <div>
       <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 backdrop-blur-md flex ">
@@ -82,8 +89,8 @@ const LoginModal = ({ isOpen, onClose }) => {
               ¿No tienes una cuenta?
             </h3>
             <button
-              type="submit"
-              onClick={(window.location.href = "/register")}
+              type="button"
+              onClick={handleRegisterRedirect}
               className="w-full bg-neutral-100 text-neutral-800 font-semibold rounded-2xl p-2 mb-10"
             >
               Registrarse
