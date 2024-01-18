@@ -5,8 +5,6 @@ import { ButtonContext } from "../context/ButtonContext";
 import PropTypes from "prop-types";
 import { authenticateUser } from "../services/apiConnection";
 
-// Debería usar link en lugar de use navigate
-
 const LoginModal = ({ isOpen }) => {
   const navigate = useNavigate();
   const { setIsLoginModalOpen } = useContext(ButtonContext);
