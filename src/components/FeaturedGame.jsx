@@ -1,19 +1,22 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 export default class FeaturedGame extends Component {
   render() {
-    const { gameImg, gameUrl = "#", gameName = "" } = this.props;
+    const { gameImg, gameId, gameName } = this.props;
 
     return (
       <div className="p-2">
         <div className="group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
-          <a href={gameUrl} className="block"></a>
           <img
             className="rounded-md transform group-hover:scale-105 duration-200"
             src={gameImg}
             alt={gameName}
           />
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 duration-200  cursor-pointer"></div>
+
+          <Link to={`/games/${gameId}`}>
+            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 duration-200  cursor-pointer"></div>
+          </Link>
         </div>
       </div>
     );
@@ -22,6 +25,6 @@ export default class FeaturedGame extends Component {
 
 FeaturedGame.propTypes = {
   gameImg: PropTypes.string.isRequired,
-  gameUrl: PropTypes.string,
-  gameName: PropTypes.string,
+  gameId: PropTypes.string.isRequired,
+  gameName: PropTypes.string.isRequired,
 };

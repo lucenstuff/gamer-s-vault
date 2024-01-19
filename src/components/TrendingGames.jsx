@@ -1,5 +1,5 @@
-import React, { Component } from "react";
 import FeaturedGame from "./FeaturedGame";
+import { Component } from "react";
 
 export default class TrendingGames extends Component {
   render() {
@@ -12,34 +12,30 @@ export default class TrendingGames extends Component {
           <div className="w-full md:w-1/2">
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317279/games_db_images_compressed/ddakgrie2xsdoebwe7wa.jpg"
-              gameUrl="https://example.com/game"
-              gameName="Game Title"
-              gameDescription="This is a brief description of the game."
+              gameId="facb5988-b5a2-11ee-98dd-daaf184304ce"
+              gameName="Baldur's Gate 3"
             />
           </div>
           <div className="w-full md:w-1/2 grid grid-cols-2">
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317280/games_db_images_compressed/t3ofshvjkbiimbekayfu.jpg"
-              gameName="Game Title"
-              gameDescription="This is a brief description of the game."
+              gameId="facb5988-b5a2-11ee-98dd-daaf184304ce"
+              gameName="Disco Elysum"
             />
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317278/gallery/grwp9e6sgt3goezbk4fn.jpg"
-              gameUrl="https://example.com/game"
-              gameName="Game Title"
-              gameDescription="This is a brief description of the game."
+              gameId="facb5988-b5a2-11ee-98dd-daaf184304ce"
+              gameName="Resident Evil 4 Remake"
             />
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317281/games_db_images_compressed/fl0nmrtz9nonew8wjw0q.jpg"
-              gameUrl="https://example.com/game"
-              gameName="Game Title"
-              gameDescription="This is a brief description of the game."
+              gameId="facb5988-b5a2-11ee-98dd-daaf184304ce"
+              gameName="Gris"
             />
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317280/games_db_images_compressed/uz2xik34di6cjjkbosgv.jpg"
-              gameUrl="https://example.com/game"
-              gameName="Game Title"
-              gameDescription="This is a brief description of the game."
+              gameId="facb5988-b5a2-11ee-98dd-daaf184304ce"
+              gameName="Doom Eternal"
             />
           </div>
         </div>

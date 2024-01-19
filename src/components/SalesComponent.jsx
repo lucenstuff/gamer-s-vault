@@ -30,6 +30,8 @@ export default class Sales extends Component {
 
   render() {
     const { products, isLoading } = this.state;
+    const displayProducts = products.slice(0, 8);
+
     return (
       <section id="sales">
         <h2 className="text-xl font-bold text-center py-6">OFERTAS</h2>
@@ -40,13 +42,9 @@ export default class Sales extends Component {
               <GameCardSkeleton />
               <GameCardSkeleton />
               <GameCardSkeleton />
-              <GameCardSkeleton />
-              <GameCardSkeleton />
-              <GameCardSkeleton />
-              <GameCardSkeleton />
             </>
           ) : (
-            products.map((product) => (
+            displayProducts.map((product) => (
               <GameCard
                 key={product.ProductID}
                 img={product.ImageURL}

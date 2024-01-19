@@ -33,6 +33,16 @@ const StorePage = () => {
             <GameCardSkeleton />
             <GameCardSkeleton />
             <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
           </>
         ) : (
           products.map((product) => (
