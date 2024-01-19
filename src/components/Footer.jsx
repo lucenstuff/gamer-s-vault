@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <div className="bg-neutral-400  text-black py-5 text-center bottom-0 shadow-neutral-600 shadow-sm ">
+    <div className="bg-neutral-400 text-black py-5 text-center bottom-0 shadow-neutral-600 shadow-sm ">
       <div className="flex flex-col items-center py-4">
         <ul className="space-x-2 flex items-center justify-center font-semibold text-sm md:text-md">
           <li>
