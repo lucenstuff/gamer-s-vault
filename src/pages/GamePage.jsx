@@ -108,7 +108,7 @@ const GamePage = () => {
             </div>
           </div>
           <div className="md:mb-8 font-bold pb-6 md:pb-0">
-            <p className="md:text-lg">Precio: ${game.price}</p>
+            <p className="md:text-lg">Precio: ${game.Price}</p>
           </div>
           <div className="flex flex-col space-y-6 sm:flex-row sm:space-y-0 sm:space-x-4 pb-10">
             <button className="flex justify-center items-center w-full bg-neutral-100 text-neutral-800 font-semibold shadow-md rounded-2xl p-2 transition-transform hover:scale-105 hover:bg-neutral-50">

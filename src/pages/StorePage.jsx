@@ -38,10 +38,10 @@ const StorePage = () => {
           products.map((product) => (
             <GameCard
               key={product.ProductID}
-              gameImg={product.ImageURL}
-              gameUrl={`/products/${product.ProductID}`}
-              gameName={product.ProductName}
-              gamePrice={`$${product.Price}`}
+              img={product.ImageURL}
+              id={product.ProductID}
+              name={product.ProductName}
+              price={`$${product.Price}`}
             />
           ))
         )}
