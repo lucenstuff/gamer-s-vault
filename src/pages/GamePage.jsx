@@ -1,7 +1,41 @@
 /* eslint-disable no-irregular-whitespace */
 import { MdShoppingCart } from "react-icons/md";
 import { IoMdHeart } from "react-icons/io";
+import { getSingleProducts } from "../services/apiConnection.js";
+import { useEffect } from "react";
+import { data } from "autoprefixer";
+
 const GamePage = () => {
+  const [game, setGame] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { gameId } = useParams();
+
+  useEffect(() => {
+    setIsLoading(true);
+    getSingleProducts(gameId)
+      .then((game) => {
+        setGame(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setIsLoading(false);
+      });
+  }, [gameId]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  if (!game) {
+    return <div>Game not found</div>;
+  }
+
   return (
     <div className="mx-auto flex pt-28 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -13,7 +47,7 @@ const GamePage = () => {
               className="w-full  object-cover"
             />
           </div>
-          <div className="flex justify-center pb-8 lg:pb-0">
+          <div className="flex justify-center pb-8 lg:pb-0 screenshots">
             <div className="w-1/3 p-2">
               <img
                 src="https://res.cloudinary.com/dcbmvyyes/image/upload/v1705521967/Game%20Screenshots/Cyberpunk%202077/ss_8640d9db74f7cad714f6ecfb0e1aceaa3f887e58_rtfnuu.jpg"
@@ -28,7 +62,7 @@ const GamePage = () => {
                 className="object-cover"
               />
             </div>
-            <div className="w-1/3 p-1">
+            <div className="w-1/3 p-2">
               <img
                 src="https://res.cloudinary.com/dcbmvyyes/image/upload/v1705521966/Game%20Screenshots/Cyberpunk%202077/ss_36dd158f7fb3d6a0ac30ad67dae3ce6cddfe1ac9_a7pgr3.jpg"
                 alt=""
@@ -38,9 +72,7 @@ const GamePage = () => {
           </div>
         </div>
         <div className="px-2">
-          <h2 className="text-lg md:text-2xl font-bold mb-4">
-            Cyberpunk 2077 & Phantom Liberty
-          </h2>
+          <h2 className="text-lg md:text-2xl font-bold mb-4"></h2>
           <div className="lg:w-full">
             <p className="text-sm sm:text-base h-36">
               Cyberpunk 2077 es un juego de rol de acción y aventuras de mundo
