@@ -19,22 +19,22 @@ export default class TrendingGames extends Component {
           <div className="w-full md:w-1/2 grid grid-cols-2">
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317280/games_db_images_compressed/t3ofshvjkbiimbekayfu.jpg"
-              gameId="facb5988-b5a2-11ee-98dd-daaf184304ce"
+              gameId="facb610b-b5a2-11ee-98dd-daaf184304ce"
               gameName="Disco Elysum"
             />
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317278/gallery/grwp9e6sgt3goezbk4fn.jpg"
-              gameId="facb5988-b5a2-11ee-98dd-daaf184304ce"
+              gameId="facb7533-b5a2-11ee-98dd-daaf184304ce"
               gameName="Resident Evil 4 Remake"
             />
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317281/games_db_images_compressed/fl0nmrtz9nonew8wjw0q.jpg"
-              gameId="facb5988-b5a2-11ee-98dd-daaf184304ce"
+              gameId="facb6ab3-b5a2-11ee-98dd-daaf184304ce"
               gameName="Gris"
             />
             <FeaturedGame
               gameImg="https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317280/games_db_images_compressed/uz2xik34di6cjjkbosgv.jpg"
-              gameId="facb5988-b5a2-11ee-98dd-daaf184304ce"
+              gameId="facb61d5-b5a2-11ee-98dd-daaf184304ce"
               gameName="Doom Eternal"
             />
           </div>

@@ -44,29 +44,33 @@ const GamePage = () => {
     <div className="mx-auto flex pt-28 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="">
-          <div className="flex justify-center m-2 items-center">
-            <img src={game.ImageURL} alt="" className="w-full  object-cover" />
+          <div className="flex justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
+            <img
+              className="rounded-md transform group-hover:scale-105 duration-200"
+              src={game.ImageURL}
+              alt={game.ProductName}
+            />
           </div>
           <div className="flex justify-center pb-8 lg:pb-0 screenshots">
-            <div className="w-1/3 p-2">
+            <div className="w-1/3 p-2 ">
               <img
                 src={game.screenshot1}
                 alt="screenshot"
-                className="object-cover"
+                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-r-md"
               />
             </div>
             <div className="w-1/3 p-2">
               <img
                 src={game.screenshot2}
                 alt="screenshot"
-                className="object-cover"
+                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-r-md"
               />
             </div>
             <div className="w-1/3 p-2">
               <img
                 src={game.screenshot3}
                 alt="screenshot"
-                className="object-cover"
+                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-r-md"
               />
             </div>
           </div>
