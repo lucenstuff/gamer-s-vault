@@ -22,7 +22,7 @@ const App = () => {
         <Route exact path="/register" element={<RegisterPage />} />
         <Route
           exact
-          ath="/games/:gameId"
+          path="/games/:gameId"
           element={
             <MainLayout>
               <GamePage />
