@@ -127,9 +127,9 @@ const CartItem = sequelize.define(
   "CartItems",
   {
     CartItemID: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     CartID: { type: DataTypes.INTEGER, allowNull: false },
     ProductID: { type: DataTypes.INTEGER, allowNull: false },
@@ -265,40 +265,49 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
-app.get("/api/products/:id", async (req, res) => {
+app.post("/api/addtocart/:id", cors(), async (req, res) => {
   try {
     const productId = req.params.id;
-    const product = await Product.findByPk(productId);
+    const { quantity, userId } = req.body;
+
+    const product = await Product.findOne({
+      where: { ProductUUID: productId },
+    });
+
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }
-    res.json(product);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
 
-app.get("/api/search", async (req, res) => {
-  try {
-    const searchTerm = req.query.term;
+    const activeCart = await ShoppingCart.findOne({
+      where: {
+        UserID: userId,
+        CartStatus: "active",
+      },
+    });
 
-    const products = await sequelize.query(
-      "SELECT * FROM Products WHERE MATCH(ProductName, Description) AGAINST (:searchTerm IN BOOLEAN MODE)",
-      {
-        replacements: { searchTerm: searchTerm + "*" },
-        type: sequelize.QueryTypes.SELECT,
-      }
-    );
+    if (activeCart) {
+      await CartItem.create({
+        CartID: activeCart.CartID,
+        ProductID: product.ProductUUID,
+        Quantity: quantity || 1,
+      });
+    } else {
+      const newCart = await ShoppingCart.create({
+        UserID: userId,
+        CartStatus: "active",
+      });
 
-    if (products.length === 0) {
-      return res.status(404).json({ error: "No products found" });
+      await CartItem.create({
+        CartID: newCart.CartID,
+        ProductID: product.ProductUUID,
+        Quantity: quantity || 1,
+      });
     }
 
-    res.json(products);
+    res.status(201).json({ success: true });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal server error");
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
