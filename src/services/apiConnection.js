@@ -29,6 +29,24 @@ async function getSingleProducts(id) {
   }
 }
 
+async function searchProducts(searchTerm) {
+  try {
+    const response = await fetch(
+      `${apiUrl}/search?term=${encodeURIComponent(searchTerm)}`
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else if (response.status === 404) {
+      return [];
+    } else {
+      throw new Error("Error: " + response.status);
+    }
+  } catch (error) {
+    console.error("Search failed:", error);
+  }
+}
+
 async function userRegister(
   username,
   email,
@@ -71,7 +89,7 @@ async function userRegister(
 
 async function authenticateUser(email, password) {
   try {
-    const response = await fetch("${apiUrl}/authenticate", {
+    const response = await fetch(`${apiUrl}/authenticate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,9 +112,14 @@ async function authenticateUser(email, password) {
     }
   } catch (error) {
     console.error(error);
-
     alert("Authentication failed. Please try again.");
   }
 }
 
-export { getProducts, getSingleProducts, userRegister, authenticateUser };
+export {
+  getProducts,
+  getSingleProducts,
+  userRegister,
+  authenticateUser,
+  searchProducts,
+};

@@ -1,18 +1,13 @@
 import { useState, useContext } from "react";
 import { ButtonContext } from "../context/ButtonContext";
-
-import {
-  MdMenu,
-  MdPerson,
-  MdShoppingCart,
-  MdOutlineSearch,
-} from "react-icons/md";
+import { MdMenu, MdPerson, MdSearch, MdShoppingCart } from "react-icons/md";
+import Searchbar from "./SearchBar";
+import { searchProducts } from "../services/apiConnection";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { setIsLoginModalOpen } = useContext(ButtonContext);
-  const { setIsCartOpen } = useContext(ButtonContext);
+  const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
 
   const handleLoginModalToggle = () => {
     setIsLoginModalOpen((prev) => !prev);
@@ -22,6 +17,14 @@ const Navbar = () => {
     setIsCartOpen((prev) => !prev);
   };
 
+  const handleSearch = async (searchTerm) => {
+    try {
+      const results = await searchProducts(searchTerm);
+      console.log(results);
+    } catch (error) {
+      console.error("Search failed:", error);
+    }
+  };
   return (
     <nav className="bg-neutral-400 z-20 absolute w-full shadow-neutral-600 shadow-sm">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
@@ -52,15 +55,20 @@ const Navbar = () => {
             </a>
             <a
               href="#sales"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md  font-semibold"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
               OFERTAS
             </a>
           </div>
           <div className="flex items-center gap-1 text-neutral-800 text-3xl ">
-            <button className="hover:text-neutral-950" aria-hidden="true">
-              <MdOutlineSearch />
-              <span className="hidden">Buscar</span>
+            <div></div>
+            <button
+              className="hover:text-neutral-950"
+              aria-hidden="true"
+              onClick={handleLoginModalToggle}
+            >
+              <MdSearch />
+              <span className="hidden">Iniciar Sesión</span>
             </button>
             <button
               className="hover:text-neutral-950"
@@ -80,7 +88,7 @@ const Navbar = () => {
             </button>
             <div className="flex items-center sm:hidden">
               <button
-                onClick={() => setIsOpen(isOpen)}
+                onClick={() => setIsOpen(!isOpen)}
                 type="button"
                 className="text-neutral-800 px-2 py-1 rounded-md text-3xl font-medium"
               >

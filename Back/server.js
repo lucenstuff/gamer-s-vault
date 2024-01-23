@@ -29,11 +29,7 @@ for (const envVar of requiredEnvVars) {
 
 app.use(
   cors({
-    origin: [
-      `http://localhost:${port}`,
-      "https://127.0.0.1:5500",
-      "https://gamersvault.onrender.com",
-    ],
+    origin: "*",
   })
 );
 
@@ -62,19 +58,33 @@ const sequelize = new Sequelize({
 });
 
 const User = sequelize.define(
-  "Users",
+  "User",
   {
     UserID: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.CHAR(36),
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
-    Username: { type: DataTypes.STRING, allowNull: false },
-    Password: { type: DataTypes.STRING, allowNull: false },
-    Email: { type: DataTypes.STRING, unique: true, allowNull: false },
-    FirstName: { type: DataTypes.STRING, allowNull: false },
-    LastName: { type: DataTypes.STRING, allowNull: false },
+    Username: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    Password: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    Email: {
+      type: DataTypes.STRING(255),
+      unique: true,
+    },
+    FirstName: {
+      type: DataTypes.STRING(255),
+    },
+    LastName: {
+      type: DataTypes.STRING(255),
+    },
   },
+
   {
     tableName: "Users",
     timestamps: false,
@@ -117,9 +127,9 @@ const CartItem = sequelize.define(
   "CartItems",
   {
     CartItemID: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     CartID: { type: DataTypes.INTEGER, allowNull: false },
     ProductID: { type: DataTypes.INTEGER, allowNull: false },
@@ -213,13 +223,19 @@ app.post("/api/authenticate", cors(), async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { Email: email } });
 
-    if (!user || !(await bcrypt.compare(password, user.Password))) {
+    if (!user) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.Password);
+
+    if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
     const token = jwt.sign(
       {
-        userId: user.id,
+        userId: user.UserID,
         email: user.Email,
       },
       process.env.JWT_SECRET,
@@ -227,7 +243,8 @@ app.post("/api/authenticate", cors(), async (req, res) => {
         expiresIn: "1h",
       }
     );
-    res.json({ token });
+
+    res.json({ token, userId: user.UserID, expiresIn: 3600 });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -237,7 +254,7 @@ app.post("/api/authenticate", cors(), async (req, res) => {
 app.get("/api/products", async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1; // Current page, default is 1
-    const limit = parseInt(req.query.limit) || 8; // Results per page, default is 10
+    const limit = parseInt(req.query.limit) || 40; // Results per page, default is 10
     const offset = (page - 1) * limit; // Calculation of the offset
 
     const products = await Product.findAll({ limit, offset });
@@ -248,40 +265,49 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
-app.get("/api/products/:id", async (req, res) => {
+app.post("/api/addtocart/:id", cors(), async (req, res) => {
   try {
     const productId = req.params.id;
-    const product = await Product.findByPk(productId);
+    const { quantity, userId } = req.body;
+
+    const product = await Product.findOne({
+      where: { ProductUUID: productId },
+    });
+
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }
-    res.json(product);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
 
-app.get("/api/search", async (req, res) => {
-  try {
-    const searchTerm = req.query.term;
+    const activeCart = await ShoppingCart.findOne({
+      where: {
+        UserID: userId,
+        CartStatus: "active",
+      },
+    });
 
-    const products = await sequelize.query(
-      "SELECT * FROM Products WHERE MATCH(ProductName, Description) AGAINST (:searchTerm IN BOOLEAN MODE)",
-      {
-        replacements: { searchTerm: searchTerm + "*" },
-        type: sequelize.QueryTypes.SELECT,
-      }
-    );
+    if (activeCart) {
+      await CartItem.create({
+        CartID: activeCart.CartID,
+        ProductID: product.ProductUUID,
+        Quantity: quantity || 1,
+      });
+    } else {
+      const newCart = await ShoppingCart.create({
+        UserID: userId,
+        CartStatus: "active",
+      });
 
-    if (products.length === 0) {
-      return res.status(404).json({ error: "No products found" });
+      await CartItem.create({
+        CartID: newCart.CartID,
+        ProductID: product.ProductUUID,
+        Quantity: quantity || 1,
+      });
     }
 
-    res.json(products);
+    res.status(201).json({ success: true });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal server error");
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
