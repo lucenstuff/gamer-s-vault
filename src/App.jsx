@@ -4,6 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import StorePage from "./pages/StorePage";
+import SalesPage from "./pages/SalesPage";
 
 const App = () => {
   return (
@@ -34,6 +35,15 @@ const App = () => {
           element={
             <MainLayout>
               <StorePage />
+            </MainLayout>
+          }
+        />
+        <Route
+          exact
+          path="/sale"
+          element={
+            <MainLayout>
+              <SalesPage />
             </MainLayout>
           }
         />
