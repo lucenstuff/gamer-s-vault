@@ -267,7 +267,7 @@ app.get("/api/products", async (req, res) => {
 
 app.get("/api/products/:productId", async (req, res) => {
   try {
-    const productId = req.params.productId; 
+    const productId = req.params.productId;
     const product = await Product.findByPk(productId);
 
     if (product) {
@@ -280,7 +280,6 @@ app.get("/api/products/:productId", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 app.post("/api/addtocart/:id", cors(), async (req, res) => {
   try {
@@ -353,6 +352,22 @@ app.get("/api/getcart/:userId", cors(), async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/api/userData", cors(), async (req, res) => {
+  try {
+    // const token = req.headers.authorization.split(" ")[1];
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…1NDh9.z3Lfmm5docvqTPhH9-cCh00xLz-T1awRNhLBvS1EpCI";
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.userId;
+    const userData = await User.findByPk(userId);
+    res.json(userData);
+    console.log(userData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "error trying to get user data" });
   }
 });
 
