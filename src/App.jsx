@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import StorePage from "./pages/StorePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import UserDasboard from "./pages/UserDashboard";
 
 const App = () => {
   return (
@@ -26,6 +27,15 @@ const App = () => {
           element={
             <MainLayout>
               <GamePage />
+            </MainLayout>
+          }
+        />
+        <Route
+          exact
+          path="/User"
+          element={
+            <MainLayout>
+              <UserDasboard />
             </MainLayout>
           }
         />
