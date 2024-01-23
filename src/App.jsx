@@ -4,11 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import StorePage from "./pages/StorePage";
-<<<<<<< HEAD
-import SalesPage from "./pages/SalesPage";
-=======
 import NotFoundPage from "./pages/NotFoundPage";
->>>>>>> 5a811046ac1fd08da737589236516e763925d8ae
 
 const App = () => {
   return (
@@ -42,9 +38,9 @@ const App = () => {
             </MainLayout>
           }
         />
-=======
+        =======
         <Route path="*" element={<NotFoundPage />} />
- 5a811046ac1fd08da737589236516e763925d8ae
+        5a811046ac1fd08da737589236516e763925d8ae
       </Routes>
     </Router>
   );
