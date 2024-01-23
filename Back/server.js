@@ -265,51 +265,22 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
-app.post("/api/addtocart/:id", cors(), async (req, res) => {
+app.get("/api/products/:productId", async (req, res) => {
   try {
-    const productId = req.params.id;
-    const { quantity, userId } = req.body;
+    const productId = req.params.productId; 
+    const product = await Product.findByPk(productId);
 
-    const product = await Product.findOne({
-      where: { ProductUUID: productId },
-    });
-
-    if (!product) {
-      return res.status(404).json({ error: "Product not found" });
-    }
-
-    const activeCart = await ShoppingCart.findOne({
-      where: {
-        UserID: userId,
-        CartStatus: "active",
-      },
-    });
-
-    if (activeCart) {
-      await CartItem.create({
-        CartID: activeCart.CartID,
-        ProductID: product.ProductUUID,
-        Quantity: quantity || 1,
-      });
+    if (product) {
+      res.json(product);
     } else {
-      const newCart = await ShoppingCart.create({
-        UserID: userId,
-        CartStatus: "active",
-      });
-
-      await CartItem.create({
-        CartID: newCart.CartID,
-        ProductID: product.ProductUUID,
-        Quantity: quantity || 1,
-      });
+      res.status(404).json({ error: "Product not found" });
     }
-
-    res.status(201).json({ success: true });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 app.post("/api/addtocart/:id", cors(), async (req, res) => {
   try {
