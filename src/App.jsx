@@ -48,9 +48,8 @@ const App = () => {
             </MainLayout>
           }
         />
-        =======
+
         <Route path="*" element={<NotFoundPage />} />
-        5a811046ac1fd08da737589236516e763925d8ae
       </Routes>
     </Router>
   );
