@@ -4,7 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import StorePage from "./pages/StorePage";
-import NotFoundPage from "./pages/NotFoundPage";
+import SalesPage from "./pages/SalesPage";
 
 const App = () => {
   return (
@@ -38,7 +38,15 @@ const App = () => {
             </MainLayout>
           }
         />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route
+          exact
+          path="/sale"
+          element={
+            <MainLayout>
+              <SalesPage />
+            </MainLayout>
+          }
+        />
       </Routes>
     </Router>
   );
