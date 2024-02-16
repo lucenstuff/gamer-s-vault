@@ -1,18 +1,63 @@
-const SalesPage = () => {
+import { useState, useEffect } from "react";
+import GameCardSkeleton from "../components/GameCardSkeleton";
+import GameCard from "../components/GameCard";
+import { getProducts } from "../services/apiConnection";
+
+const StorePage = () => {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getProducts()
+      .then((products) => {
+        setProducts(products);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch products:", error);
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-5xl font-bold mb-4 text-gray-800">404</h1>
-      <p className="text-xl mb-8 text-gray-600">
-        Lo sentimos, la página que estás buscando no ha sido encontrada.
-      </p>
-      <button
-        href=""
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        Volver al inicio
-      </button>
-    </div>
+    <section id="sales">
+      <h2 className="text-xl font-bold text-center py-6">OFERTAS</h2>
+      <div className="w-full grid grid-cols-2 md:grid-cols-6 px-2 lg:px-20">
+        {isLoading ? (
+          <>
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+          </>
+        ) : (
+          products.map((product) => (
+            <GameCard
+              key={product.ProductID}
+              img={product.ImageURL}
+              id={product.ProductID}
+              name={product.ProductName}
+              price={`$${product.Price}`}
+            />
+          ))
+        )}
+      </div>
+    </section>
   );
 };
 
-export default SalesPage;
+export default StorePage;
