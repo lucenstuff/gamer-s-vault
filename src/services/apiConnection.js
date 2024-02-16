@@ -47,6 +47,20 @@ async function searchProducts(searchTerm) {
   }
 }
 
+async function getProductScreenshots(ProductId) {
+  try {
+    const response = await fetch(`${apiUrl}/products/${ProductId}/screenshots`);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error("Error: " + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function userRegister(
   username,
   email,
@@ -117,6 +131,7 @@ async function authenticateUser(email, password) {
 }
 
 export {
+  getProductScreenshots,
   getProducts,
   getSingleProducts,
   userRegister,
