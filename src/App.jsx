@@ -33,11 +33,7 @@ const App = () => {
         <Route
           exact
           path="/User"
-          element={
-            <MainLayout>
-              <UserDashboard />
-            </MainLayout>
-          }
+          element={<MainLayout>{/* <UserDashboard /> */}</MainLayout>}
         />
         <Route
           exact
