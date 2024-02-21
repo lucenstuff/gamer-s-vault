@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import StorePage from "./pages/StorePage";
 import SalesPage from "./pages/SalesPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const App = () => {
   return (
@@ -22,10 +23,19 @@ const App = () => {
         <Route exact path="/register" element={<RegisterPage />} />
         <Route
           exact
-          path="/game"
+          path="/games/:gameId"
           element={
             <MainLayout>
               <GamePage />
+            </MainLayout>
+          }
+        />
+        <Route
+          exact
+          path="/User"
+          element={
+            <MainLayout>
+              <UserDashboard />
             </MainLayout>
           }
         />
@@ -40,13 +50,14 @@ const App = () => {
         />
         <Route
           exact
-          path="/sale"
+          path="/sales"
           element={
             <MainLayout>
               <SalesPage />
             </MainLayout>
           }
         />
+        <Route exact path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

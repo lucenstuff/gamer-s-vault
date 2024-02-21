@@ -21,10 +21,20 @@ const StorePage = () => {
 
   return (
     <section id="sales">
-      <h2 className="text-xl font-bold text-center py-6">OFERTAS</h2>
+      <h2 className="text-xl font-bold text-center py-6">JUEGOS</h2>
       <div className="w-full grid grid-cols-2 md:grid-cols-6 px-2 lg:px-20">
         {isLoading ? (
           <>
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
+            <GameCardSkeleton />
             <GameCardSkeleton />
             <GameCardSkeleton />
             <GameCardSkeleton />
@@ -38,10 +48,10 @@ const StorePage = () => {
           products.map((product) => (
             <GameCard
               key={product.ProductID}
-              gameImg={product.ImageURL}
-              gameUrl={`/products/${product.ProductID}`}
-              gameName={product.ProductName}
-              gamePrice={`$${product.Price}`}
+              img={product.ImageURL}
+              id={product.ProductID}
+              name={product.ProductName}
+              price={`$${product.Price}`}
             />
           ))
         )}

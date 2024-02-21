@@ -29,6 +29,38 @@ async function getSingleProducts(id) {
   }
 }
 
+async function searchProducts(searchTerm) {
+  try {
+    const response = await fetch(
+      `${apiUrl}/search?term=${encodeURIComponent(searchTerm)}`
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else if (response.status === 404) {
+      return [];
+    } else {
+      throw new Error("Error: " + response.status);
+    }
+  } catch (error) {
+    console.error("Search failed:", error);
+  }
+}
+
+async function getProductScreenshots(ProductId) {
+  try {
+    const response = await fetch(`${apiUrl}/products/${ProductId}/screenshots`);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error("Error: " + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function userRegister(
   username,
   email,
@@ -98,4 +130,11 @@ async function authenticateUser(email, password) {
   }
 }
 
-export { getProducts, getSingleProducts, userRegister, authenticateUser };
+export {
+  getProductScreenshots,
+  getProducts,
+  getSingleProducts,
+  userRegister,
+  authenticateUser,
+  searchProducts,
+};

@@ -127,9 +127,9 @@ const CartItem = sequelize.define(
   "CartItems",
   {
     CartItemID: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     CartID: { type: DataTypes.INTEGER, allowNull: false },
     ProductID: { type: DataTypes.INTEGER, allowNull: false },
@@ -176,6 +176,35 @@ const Promotion = sequelize.define(
     timestamps: false,
   }
 );
+
+const ProductScreenshot = sequelize.define(
+  "ProductScreenshot",
+  {
+    ImageID: {
+      type: Sequelize.CHAR(36),
+      primaryKey: true,
+      allowNull: false,
+    },
+    ProductsID: {
+      type: Sequelize.CHAR(36),
+      allowNull: false,
+      references: {
+        model: "Products",
+        key: "ProductID",
+      },
+    },
+    ImageURL: {
+      type: Sequelize.STRING(500),
+      allowNull: false,
+    },
+  },
+  {
+    tableName: "ProductScreenshots",
+    timestamps: false,
+  }
+);
+
+ProductScreenshot.belongsTo(Product, { foreignKey: "ProductsID" });
 
 User.hasMany(ShoppingCart, { foreignKey: "UserID" });
 ShoppingCart.belongsTo(User, { foreignKey: "UserID" });
@@ -253,9 +282,9 @@ app.post("/api/authenticate", cors(), async (req, res) => {
 
 app.get("/api/products", async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1; // Current page, default is 1
-    const limit = parseInt(req.query.limit) || 8; // Results per page, default is 10
-    const offset = (page - 1) * limit; // Calculation of the offset
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 40;
+    const offset = (page - 1) * limit;
 
     const products = await Product.findAll({ limit, offset });
     res.json(products);
@@ -265,40 +294,19 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
-app.get("/api/products/:id", async (req, res) => {
+app.get("/api/products/:productId", async (req, res) => {
   try {
-    const productId = req.params.id;
+    const productId = req.params.productId;
     const product = await Product.findByPk(productId);
-    if (!product) {
-      return res.status(404).json({ error: "Product not found" });
+
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).json({ error: "Product not found" });
     }
-    res.json(product);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-app.get("/api/search", async (req, res) => {
-  try {
-    const searchTerm = req.query.term;
-
-    const products = await sequelize.query(
-      "SELECT * FROM Products WHERE MATCH(ProductName, Description) AGAINST (:searchTerm IN BOOLEAN MODE)",
-      {
-        replacements: { searchTerm: searchTerm + "*" },
-        type: sequelize.QueryTypes.SELECT,
-      }
-    );
-
-    if (products.length === 0) {
-      return res.status(404).json({ error: "No products found" });
-    }
-
-    res.json(products);
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal server error");
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -372,6 +380,19 @@ app.get("/api/getcart/:userId", cors(), async (req, res) => {
     res.status(200).json({ cartItems });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/api/products/:productId/screenshots", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const productScreenshots = await ProductScreenshot.findAll({
+      where: { ProductsID: productId },
+    });
+    res.json(productScreenshots);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
