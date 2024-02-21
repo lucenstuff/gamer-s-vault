@@ -1,7 +1,9 @@
-/* eslint-disable no-irregular-whitespace */
 import { MdShoppingCart } from "react-icons/md";
-import { IoMdHeart } from "react-icons/io";
-import { getSingleProducts } from "../services/apiConnection.js";
+import { IoMdClose, IoMdHeart } from "react-icons/io";
+import {
+  getSingleProducts,
+  getProductScreenshots,
+} from "../services/apiConnection.js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -17,9 +19,7 @@ const GamePage = () => {
     screenshot3: "",
   });
 
-  game.screenshot1 = "https://placehold.co/1280x720";
-  game.screenshot2 = "https://placehold.co/1280x720";
-  game.screenshot3 = "https://placehold.co/1280x720";
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const loadGame = async () => {
@@ -35,10 +35,29 @@ const GamePage = () => {
       }
     };
 
-    loadGame();
-  }, [gameId]);
+    const loadScreenshots = async () => {
+      try {
+        const data = await getProductScreenshots(gameId);
+        if (data && data.length >= 3) {
+          setGame((prevGame) => ({
+            ...prevGame,
+            screenshot1: data[0].ImageURL,
+            screenshot2: data[1].ImageURL,
+            screenshot3: data[2].ImageURL,
+          }));
+        } else {
+          console.error(
+            "Insufficient screenshot data found for the provided ID."
+          );
+        }
+      } catch (error) {
+        console.error("Failed to fetch screenshot data:", error);
+      }
+    };
 
-  console.log(game);
+    loadGame();
+    loadScreenshots();
+  }, [gameId]);
 
   return (
     <div className="mx-auto flex pt-28 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
@@ -56,21 +75,24 @@ const GamePage = () => {
               <img
                 src={game.screenshot1}
                 alt="screenshot"
-                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-r-md"
+                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md "
+                onClick={() => setSelectedImage(game.screenshot1)}
               />
             </div>
             <div className="w-1/3 p-2">
               <img
                 src={game.screenshot2}
                 alt="screenshot"
-                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-r-md"
+                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md "
+                onClick={() => setSelectedImage(game.screenshot2)}
               />
             </div>
             <div className="w-1/3 p-2">
               <img
                 src={game.screenshot3}
                 alt="screenshot"
-                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-r-md"
+                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md "
+                onClick={() => setSelectedImage(game.screenshot3)}
               />
             </div>
           </div>
@@ -126,6 +148,25 @@ const GamePage = () => {
           </div>
         </div>
       </div>
+      {selectedImage && (
+        <div className="fixed top-0 z-50 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-55 backdrop-blur-lg">
+          <div className="relative w-3/4 h-3/4 flex justify-center items-start md:items-center">
+            <div className="rounded-md overflow-hidden">
+              <img
+                src={selectedImage}
+                alt="selected screenshot"
+                className="max-w-full max-h-full"
+              />
+            </div>
+            <button
+              className="absolute top-1 right-0 m-4 -mt-10 text-white bg-black bg-opacity-50 p-2 rounded-full"
+              onClick={() => setSelectedImage(null)}
+            >
+              <IoMdClose size={24} />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

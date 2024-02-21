@@ -21,7 +21,7 @@ const StorePage = () => {
 
   return (
     <section id="sales">
-      <h2 className="text-xl font-bold text-center py-6">JUEGOS</h2>
+      <h2 className="text-xl font-bold text-center py-6">OFERTAS</h2>
       <div className="w-full grid grid-cols-2 md:grid-cols-6 px-2 lg:px-20">
         {isLoading ? (
           <>

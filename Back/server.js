@@ -177,6 +177,35 @@ const Promotion = sequelize.define(
   }
 );
 
+const ProductScreenshot = sequelize.define(
+  "ProductScreenshot",
+  {
+    ImageID: {
+      type: Sequelize.CHAR(36),
+      primaryKey: true,
+      allowNull: false,
+    },
+    ProductsID: {
+      type: Sequelize.CHAR(36),
+      allowNull: false,
+      references: {
+        model: "Products",
+        key: "ProductID",
+      },
+    },
+    ImageURL: {
+      type: Sequelize.STRING(500),
+      allowNull: false,
+    },
+  },
+  {
+    tableName: "ProductScreenshots",
+    timestamps: false,
+  }
+);
+
+ProductScreenshot.belongsTo(Product, { foreignKey: "ProductsID" });
+
 User.hasMany(ShoppingCart, { foreignKey: "UserID" });
 ShoppingCart.belongsTo(User, { foreignKey: "UserID" });
 
@@ -253,9 +282,9 @@ app.post("/api/authenticate", cors(), async (req, res) => {
 
 app.get("/api/products", async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1; // Current page, default is 1
-    const limit = parseInt(req.query.limit) || 40; // Results per page, default is 10
-    const offset = (page - 1) * limit; // Calculation of the offset
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 40;
+    const offset = (page - 1) * limit;
 
     const products = await Product.findAll({ limit, offset });
     res.json(products);
@@ -355,19 +384,16 @@ app.get("/api/getcart/:userId", cors(), async (req, res) => {
   }
 });
 
-app.get("/api/userData", cors(), async (req, res) => {
+app.get("/api/products/:productId/screenshots", async (req, res) => {
   try {
-    // const token = req.headers.authorization.split(" ")[1];
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…1NDh9.z3Lfmm5docvqTPhH9-cCh00xLz-T1awRNhLBvS1EpCI";
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decodedToken.userId;
-    const userData = await User.findByPk(userId);
-    res.json(userData);
-    console.log(userData);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "error trying to get user data" });
+    const productId = req.params.productId;
+    const productScreenshots = await ProductScreenshot.findAll({
+      where: { ProductsID: productId },
+    });
+    res.json(productScreenshots);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

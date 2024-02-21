@@ -4,8 +4,8 @@ import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import StorePage from "./pages/StorePage";
+import SalesPage from "./pages/SalesPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import UserDasboard from "./pages/UserDashboard";
 
 const App = () => {
   return (
@@ -35,7 +35,7 @@ const App = () => {
           path="/User"
           element={
             <MainLayout>
-              <UserDasboard />
+              <UserDashboard />
             </MainLayout>
           }
         />
@@ -48,8 +48,16 @@ const App = () => {
             </MainLayout>
           }
         />
-
-        <Route path="*" element={<NotFoundPage />} />
+        <Route
+          exact
+          path="/sales"
+          element={
+            <MainLayout>
+              <SalesPage />
+            </MainLayout>
+          }
+        />
+        <Route exact path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
