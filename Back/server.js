@@ -313,12 +313,6 @@ app.get("/api/products/:productId", async (req, res) => {
 // app.get("/api/getcart/:userId", cors(), async (req, res) => {
 //   try {
 //     const userId = req.params.userId;
-//     const activeCart = await ShoppingCart.findOne({
-//       where: {
-//         UserID: userId,
-//         CartStatus: "active",
-//       },
-//     });)
 
 app.post("/api/addtocart/:id", cors(), async (req, res) => {
   try {
