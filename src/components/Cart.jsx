@@ -1,15 +1,30 @@
 import { IoMdClose } from "react-icons/io";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ButtonContext } from "../context/ButtonContext";
 import PropTypes from "prop-types";
 import GameListComponent from "./GameListComponent";
+import { getSingleProducts } from "../services/apiConnection";
 
 const Cart = () => {
   const { setIsCartOpen } = useContext(ButtonContext);
-
+  const [products, setProducts] = useState([]);
+  const id = "ad52756d-d10d-11ee-8ecc-7a791906ac08";
   const handleCloseCart = () => {
     setIsCartOpen(false);
   };
+
+  useEffect(() => {
+    getSingleProducts(id)
+      .then((products) => {
+        setProducts(products);
+        products.map((product) => {
+          console.log(product);
+        });
+      })
+      .catch((error) => {
+        console.error("Failed to fetch products", error);
+      });
+  }, []); // El segundo argumento del useEffect es un array de dependencias vacío para ejecutar el efecto solo una vez
 
   return (
     <div className="fixed bottom-0 right-0 h-screen w-3/4 md:w-1/2 lg:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg">
