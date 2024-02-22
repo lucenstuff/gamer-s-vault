@@ -310,6 +310,10 @@ app.get("/api/products/:productId", async (req, res) => {
   }
 });
 
+// app.get("/api/getcart/:userId", cors(), async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+
 app.post("/api/addtocart/:id", cors(), async (req, res) => {
   try {
     const productId = req.params.id;
