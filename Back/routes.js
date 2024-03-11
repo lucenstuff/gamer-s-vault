@@ -3,6 +3,7 @@ import AuthController from "./controllers/authController.js";
 import apiMessageController from "./controllers/apiMessageController.js";
 import ProductController from "./controllers/productController.js";
 import ShoppingCartController from "./controllers/shoppingCartController.js";
+import ScreenshotController from "./controllers/screenshotController.js";
 
 const router = express.Router();
 
@@ -20,5 +21,13 @@ router.get("/api/products/:productId", ProductController.getProductById);
 // Shopping cart routes
 router.post("/api/addtocart/:id", ShoppingCartController.addToCart);
 router.get("/api/getcart/:userId", ShoppingCartController.getUserCart);
+
+// Game Screenshots
+router.get(
+  "/api/products/:ProductsID/screenshots",
+  ScreenshotController.getProductScreenshotsByProductId
+);
+
+// router.get("/api");
 
 export default router;

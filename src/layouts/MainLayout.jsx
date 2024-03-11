@@ -19,7 +19,7 @@ const MainLayout = ({ children }) => {
   };
 
   return (
-    <div className="bg-neutral-200">
+    <div className="flex flex-col min-h-screen bg-neutral-200">
       <ButtonContext.Provider
         value={{
           isLoginModalOpen,
@@ -34,7 +34,7 @@ const MainLayout = ({ children }) => {
         )}
         {isCartOpen && <Cart isOpen={true} onClose={handleCartToggle} />}
       </ButtonContext.Provider>
-      <main>{children}</main>
+      <main className="flex-grow">{children}</main>
       <Footer />
     </div>
   );

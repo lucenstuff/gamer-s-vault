@@ -32,8 +32,7 @@ const LoginModal = ({ isOpen }) => {
     event.preventDefault();
     try {
       const data = await authenticateUser(email, password);
-      console.log("Login successful:", data);
-      localStorage.setItem("token", data.token);
+      sessionStorage.setItem("token", data.token);
       setIsLoginModalOpen(false);
       window.location.reload();
     } catch (error) {
