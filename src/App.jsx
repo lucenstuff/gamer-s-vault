@@ -32,15 +32,6 @@ const App = () => {
         />
         <Route
           exact
-          path="/User"
-          element={
-            <MainLayout>
-              <UserDashboard />
-            </MainLayout>
-          }
-        />
-        <Route
-          exact
           path="/store"
           element={
             <MainLayout>

@@ -101,9 +101,51 @@ async function userRegister(
   }
 }
 
+async function addToCart(productId, quantity, userId) {
+  try {
+    const response = await fetch(`${apiUrl}/addtocart/${productId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        quantity,
+        userId,
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error("Error: " + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function getUserCart(userId) {
+  try {
+    const response = await fetch(`${apiUrl}/getcart/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error("Error: " + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function authenticateUser(email, password) {
   try {
-    const response = await fetch(`${apiUrl}/authenticate`, {
+    const response = await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -131,6 +173,8 @@ async function authenticateUser(email, password) {
 }
 
 export {
+  getUserCart,
+  addToCart,
   getProductScreenshots,
   getProducts,
   getSingleProducts,
