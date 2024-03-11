@@ -1,5 +1,5 @@
 import express from "express";
-import cors from "cors";
+import middlewares from "./middlewares.js";
 
 import AuthController from "./controllers/authController.js";
 import apiMessageController from "./controllers/apiMessageController.js";
@@ -9,22 +9,10 @@ import ShoppingCartController from "./controllers/shoppingCartController.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
-//Middleware
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+// Using middlewares
+app.use(middlewares);
 
-app.use(express.json());
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-
-//Routes
-
+// Routes
 app.get("/api/", apiMessageController.getMessage);
 app.post("/api/signup", AuthController.signup);
 app.post("/api/login", AuthController.login);
