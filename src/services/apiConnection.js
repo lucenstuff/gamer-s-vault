@@ -145,7 +145,7 @@ async function getUserCart(userId) {
 
 async function authenticateUser(email, password) {
   try {
-    const response = await fetch(`${apiUrl}/authenticate`, {
+    const response = await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
