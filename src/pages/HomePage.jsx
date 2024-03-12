@@ -1,6 +1,6 @@
 import ImageSlider from "../components/ImageSlider";
 import TrendingGames from "../components/TrendingGames";
-import Sales from "../components/Sales";
+import SalesComponent from "../components/SalesComponent";
 
 const slides = [
   "https://res.cloudinary.com/dcbmvyyes/image/upload/v1697317283/banner/h7rkxef3ub2skfqrpiud.jpg",
@@ -25,7 +25,7 @@ const HomePage = () => {
       </section>
       <div>
         <TrendingGames />
-        <Sales />
+        <SalesComponent />
       </div>
     </div>
   );

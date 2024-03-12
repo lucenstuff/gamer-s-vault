@@ -1,17 +1,67 @@
 import { IoMdClose } from "react-icons/io";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ButtonContext } from "../context/ButtonContext";
+import GameListComponent from "./GameListComponent";
+import { getSingleProducts } from "../services/apiConnection";
 import PropTypes from "prop-types";
 
-const Cart = () => {
+const Cart = ({ isOpen, onClose }) => {
   const { setIsCartOpen } = useContext(ButtonContext);
+  const [products, setProducts] = useState([]);
 
   const handleCloseCart = () => {
     setIsCartOpen(false);
+    onClose();
   };
 
+  useEffect(() => {
+    const loadGameIdsFromLocalStorage = () => {
+      return JSON.parse(localStorage.getItem("cartGameIds")) || [];
+    };
+
+    const updateProducts = async () => {
+      const cartProductIds = loadGameIdsFromLocalStorage();
+
+      try {
+        const productsList = await Promise.all(
+          cartProductIds.map((id) => getSingleProducts(id))
+        );
+
+        const simplifiedProducts = productsList.map((product) => ({
+          id: product.ProductID,
+          name: product.ProductName,
+          img: product.ImageURL,
+          price: product.Price,
+        }));
+
+        setProducts(simplifiedProducts);
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+      }
+    };
+
+    updateProducts();
+
+    const handleLocalStorageUpdate = () => {
+      updateProducts();
+    };
+
+    window.addEventListener("localStoragesUpdate", handleLocalStorageUpdate);
+
+    return () => {
+      window.removeEventListener(
+        "localStoragesUpdate",
+        handleLocalStorageUpdate
+      );
+    };
+  }, []);
+
   return (
-    <div className="fixed bottom-0 right-0 h-screen w-3/4 md:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg">
+    <div
+      className={`fixed bottom-0 right-0 h-screen w-3/4 md:w-1/2 lg:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg ${
+        isOpen ? "block" : "hidden"
+      }`}
+    >
       <div className="flex justify-between items-center px-10">
         <h2 className="text-2xl font-semibold text-center mb-10 mt-8 pb-6">
           Carrito
@@ -21,6 +71,17 @@ const Cart = () => {
             <IoMdClose size={24} />
           </button>
         </span>
+      </div>
+      <div className="overflow-y-auto max-h-[calc(100vh-250px)] pb-16">
+        {products.map((product) => (
+          <GameListComponent
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            price={product.price}
+            img={product.img}
+          />
+        ))}
       </div>
       <div className="absolute bottom-0 left-0 w-full">
         <div className="flex justify-center bg-neutral-400 w-full p-10 shadow-black shadow-md">
