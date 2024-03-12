@@ -63,7 +63,7 @@ const GamePage = () => {
     <div className="mx-auto flex pt-24 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="max-w-lg">
-          <div className="flex justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
+          <div className="hidden md:flex justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
             <img
               className="rounded-md transform group-hover:scale-105 duration-200"
               src={game.ImageURL}
