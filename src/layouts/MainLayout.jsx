@@ -1,9 +1,10 @@
-import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LoginModal from "../components/LoginModal";
 import PropTypes from "prop-types";
 import { ButtonContext } from "../context/ButtonContext";
+import { useState } from "react";
+import Cart from "../components/Cart";
 
 const MainLayout = ({ children }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -18,7 +19,7 @@ const MainLayout = ({ children }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-200">
+    <div className="bg-neutral-200">
       <ButtonContext.Provider
         value={{
           isLoginModalOpen,
@@ -33,7 +34,7 @@ const MainLayout = ({ children }) => {
         )}
         {isCartOpen && <Cart isOpen={true} onClose={handleCartToggle} />}
       </ButtonContext.Provider>
-      <main className="flex-grow">{children}</main>
+      <main>{children}</main>
       <Footer />
     </div>
   );
