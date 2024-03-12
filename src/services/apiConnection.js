@@ -4,26 +4,24 @@ const apiUrl = "http://localhost:3000/api";
 async function getProducts() {
   try {
     const response = await fetch(`${apiUrl}/products`);
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      throw new Error("Error: " + response.status);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
     }
+    return response.json();
   } catch (error) {
-    console.error(error);
+    console.error("Failed to fetch products:", error);
+    return [];
   }
 }
 
 async function getSingleProducts(id) {
   try {
     const response = await fetch(`${apiUrl}/products/${id}`);
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
+    if (!response.ok) {
       throw new Error("Error: " + response.status);
     }
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
   }
@@ -34,14 +32,11 @@ async function searchProducts(searchTerm) {
     const response = await fetch(
       `${apiUrl}/search?term=${encodeURIComponent(searchTerm)}`
     );
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else if (response.status === 404) {
-      return [];
-    } else {
+    if (!response.ok) {
       throw new Error("Error: " + response.status);
     }
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error("Search failed:", error);
   }
@@ -50,12 +45,11 @@ async function searchProducts(searchTerm) {
 async function getProductScreenshots(ProductId) {
   try {
     const response = await fetch(`${apiUrl}/products/${ProductId}/screenshots`);
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
+    if (!response.ok) {
       throw new Error("Error: " + response.status);
     }
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
   }
@@ -84,15 +78,14 @@ async function userRegister(
       }),
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      if (callback) {
-        callback(null, data);
-      }
-      return data;
-    } else {
+    if (!response.ok) {
       throw new Error("Error: " + response.status);
     }
+    const data = await response.json();
+    if (callback) {
+      callback(null, data);
+    }
+    return data;
   } catch (error) {
     console.error("Register failed:", error);
     if (callback) {
@@ -113,12 +106,11 @@ async function addToCart(productId, quantity, userId) {
         userId,
       }),
     });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
+    if (!response.ok) {
       throw new Error("Error: " + response.status);
     }
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
   }
@@ -132,12 +124,11 @@ async function getUserCart(userId) {
         "Content-Type": "application/json",
       },
     });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
+    if (!response.ok) {
       throw new Error("Error: " + response.status);
     }
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
   }
@@ -156,16 +147,15 @@ async function authenticateUser(email, password) {
       }),
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
+    if (!response.ok) {
       if (response.status === 401) {
         throw new Error("Invalid email or password");
       } else {
         throw new Error("Error: " + response.status);
       }
     }
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
     alert("Authentication failed. Please try again.");

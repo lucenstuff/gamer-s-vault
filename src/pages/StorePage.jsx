@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import GameCardSkeleton from "../components/GameCardSkeleton";
+import SkeletonRenderer from "../utils/SkeletonRenderer";
 import GameCard from "../components/GameCard";
 import { getProducts } from "../services/apiConnection";
 
@@ -23,27 +24,8 @@ const StorePage = () => {
     <section id="sales">
       <h2 className="text-xl font-bold text-center py-6">JUEGOS</h2>
       <div className="w-full grid grid-cols-2 md:grid-cols-6 px-2 lg:px-20">
-        {isLoading ? (
-          <>
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-            <GameCardSkeleton />
-          </>
+        {isLoading || products.length === 0 ? (
+          <SkeletonRenderer count={30} SkeletonComponent={GameCardSkeleton} />
         ) : (
           products.map((product) => (
             <GameCard
@@ -55,6 +37,15 @@ const StorePage = () => {
             />
           ))
         )}
+        {/* {products.map((product) => (
+          <GameCard
+            key={product.ProductID}
+            img={product.ImageURL}
+            id={product.ProductID}
+            name={product.ProductName}
+            price={`$${product.Price}`}
+          />
+        ))} */}
       </div>
     </section>
   );

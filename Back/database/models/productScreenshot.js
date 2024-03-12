@@ -1,15 +1,16 @@
+import { DataTypes } from "sequelize";
 import sequelize from "./database/sequelize.js";
 
-const ProductScreenshot = sequelize.define(
-  "ProductScreenshot",
+const productScreenshots = sequelize.define(
+  "ProductScreenshots",
   {
     ImageID: {
-      type: sequelize.CHAR(36),
+      type: DataTypes.CHAR(36),
       primaryKey: true,
       allowNull: false,
     },
     ProductsID: {
-      type: Sequelize.CHAR(36),
+      type: DataTypes.CHAR(36),
       allowNull: false,
       references: {
         model: "Products",
@@ -17,14 +18,13 @@ const ProductScreenshot = sequelize.define(
       },
     },
     ImageURL: {
-      type: Sequelize.STRING(500),
+      type: DataTypes.STRING(500),
       allowNull: false,
     },
   },
   {
-    tableName: "ProductScreenshots",
     timestamps: false,
   }
 );
 
-export default ProductScreenshot;
+export default productScreenshots;

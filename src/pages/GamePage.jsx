@@ -60,9 +60,9 @@ const GamePage = () => {
   }, [gameId]);
 
   return (
-    <div className="mx-auto flex pt-28 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
+    <div className="mx-auto flex pt-24 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="">
+        <div className="max-w-lg">
           <div className="flex justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
             <img
               className="rounded-md transform group-hover:scale-105 duration-200"
@@ -70,7 +70,7 @@ const GamePage = () => {
               alt={game.ProductName}
             />
           </div>
-          <div className="flex justify-center pb-8 lg:pb-0 screenshots">
+          <div className=" justify-center pb-8 lg:pb-0 screenshots hidden md:flex">
             <div className="w-1/3 p-2 ">
               <img
                 src={game.screenshot1}
@@ -87,6 +87,7 @@ const GamePage = () => {
                 onClick={() => setSelectedImage(game.screenshot2)}
               />
             </div>
+
             <div className="w-1/3 p-2">
               <img
                 src={game.screenshot3}
@@ -97,17 +98,26 @@ const GamePage = () => {
             </div>
           </div>
         </div>
+        <div className="flex md:hidden justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
+          <img
+            className="rounded-md transform group-hover:scale-105 duration-200"
+            src={game.ImageURL}
+            alt={game.ProductName}
+          />
+        </div>
         <div className="px-2">
-          <h2 className="text-lg md:text-2xl font-bold mb-4">
+          <h2 className="text-xl md:text-2xl font-bold mb-4">
             {game.ProductName}
           </h2>
           <div className="lg:w-full">
-            <p className="text-sm sm:text-base h-36">{game.Description}</p>
+            <p className="text-md md-text-sm sm:text-base h-36 max-w-xl">
+              {game.Description}
+            </p>
           </div>
-          <h2 className="py-5 md:text-xl font-semibold">Requisitos:</h2>
-          <div className="flex flex-col space-y-6 md:space-y-0 md:space-x-6 md:flex-row pb-10">
-            <div className="md:w-1/2 lg:w-3/4">
-              <h3 className="text-lg font-semibold">MÍNIMO:</h3>
+          <h2 className="py-5 md:text-md font-bold">REQUISITOS:</h2>
+          <div className="text-sm flex flex-col space-y-6 md:space-y-0 md:space-x-6 md:flex-row pb-0">
+            <div className="text-sm md:w-1/2 lg:w-3/4">
+              <h3 className="text-md font-semibold">MÍNIMO:</h3>
               <p>
                 Requiere un procesador y un sistema operativo de 64 bits,
                 <br /> SO: 64-bit Windows 10,
@@ -119,8 +129,8 @@ const GamePage = () => {
                 <br /> Almacenamiento: 70 GB de espacio disponible
               </p>
             </div>
-            <div className="md:w-1/2 lg:w-3/4">
-              <h3 className="text-lg font-semibold">RECOMENDADO:</h3>
+            <div className="md:w-1/2 lg:w-3/4 pb-2">
+              <h3 className="text-md font-semibold">RECOMENDADO:</h3>
               <p>
                 Requiere un procesador y un sistema operativo de 64 bits,
                 <br /> SO: 64-bit Windows 10,
@@ -133,10 +143,10 @@ const GamePage = () => {
               </p>
             </div>
           </div>
-          <div className="md:mb-8 font-bold pb-6 md:pb-0">
-            <p className="md:text-lg">Precio: ${game.Price}</p>
+          <div className="md:mb-4 font-bold pb-0 md:pb-0">
+            <p className="md:text-md pt-2">Precio: ${game.Price}</p>
           </div>
-          <div className="flex flex-col space-y-6 sm:flex-row sm:space-y-0 sm:space-x-4 pb-10">
+          <div className="flex flex-col space-y-6 sm:flex-row sm:space-y-0 sm:space-x-4 pb-10 md:pb-0 pt-10 md:pt-3">
             <button className="flex justify-center items-center w-full bg-neutral-100 text-neutral-800 font-semibold shadow-md rounded-2xl p-2 transition-transform hover:scale-105 hover:bg-neutral-50">
               Añadir al carrito
               <MdShoppingCart size={24} className="ml-2" />

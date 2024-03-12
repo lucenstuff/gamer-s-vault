@@ -1,37 +1,15 @@
 import express from "express";
-import cors from "cors";
-
-import AuthController from "./controllers/authController.js";
-import apiMessageController from "./controllers/apiMessageController.js";
-import ProductController from "./controllers/productController.js";
-import ShoppingCartController from "./controllers/shoppingCartController.js";
+import middlewares from "./middlewares.js";
+import router from "./routes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-//Middleware
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+// Middlewares
+app.use(middlewares);
 
-app.use(express.json());
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-
-//Routes
-
-app.get("/api/", apiMessageController.getMessage);
-app.post("/api/signup", AuthController.signup);
-app.post("/api/login", AuthController.login);
-app.get("/api/products", ProductController.getAllProducts);
-app.get("/api/products/:productId", ProductController.getProductById);
-app.post("/api/addtocart/:id", ShoppingCartController.addToCart);
-app.get("/api/getcart/:userId", ShoppingCartController.getUserCart);
+// Routes
+app.use(router);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
