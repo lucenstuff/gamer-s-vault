@@ -6,6 +6,8 @@ import {
 } from "../services/apiConnection.js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import GameCardSkeleton from "../components/GameCardSkeleton.jsx";
+import FeaturedGameSkeleton from "../components/FeaturedGameSkeleton.jsx";
 
 const GamePage = () => {
   const { gameId } = useParams();
@@ -60,42 +62,46 @@ const GamePage = () => {
   }, [gameId]);
 
   return (
-    <div className="mx-auto flex pt-24 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
+    <div className="mx-auto flex pt-14 md:pt-24 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="max-w-lg">
           <div className="hidden md:flex justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
-            <img
-              className="rounded-md transform group-hover:scale-105 duration-200"
-              src={game.ImageURL}
-              alt={game.ProductName}
-            />
+            {game.ImageURL ? (
+              <img
+                className="aspect-square rounded-md transform group-hover:scale-105 duration-200"
+                src={game.ImageURL}
+                alt={game.ProductName}
+              />
+            ) : (
+              <div className="bg-neutral-400 animate-pulse w-full aspect-square"></div>
+            )}
           </div>
           <div className="justify-center pb-8 lg:pb-0 screenshots hidden md:flex">
             <div className="w-1/3 p-2">
-              <div className="aspect-w-4 aspect-h-3">
+              <div className="aspect-w-4 aspect-h-3 aspect-video">
                 {game.screenshot1 ? (
                   <img
                     src={game.screenshot1}
                     alt="screenshot"
-                    className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    className=" aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
                     onClick={() => setSelectedImage(game.screenshot1)}
                   />
                 ) : (
-                  <div className="bg-gray-200 animate-pulse"></div>
+                  <div className="bg-neutral-400 animate-pulse w-full aspect-video rounded-md shadow-lg"></div>
                 )}
               </div>
             </div>
             <div className="w-1/3 p-2">
-              <div className="aspect-w-4 aspect-h-3">
+              <div className="aspect-w-4 aspect-h-3 aspect-video">
                 {game.screenshot2 ? (
                   <img
                     src={game.screenshot2}
                     alt="screenshot"
-                    className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    className="aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
                     onClick={() => setSelectedImage(game.screenshot2)}
                   />
                 ) : (
-                  <div className="bg-gray-200 animate-pulse"></div>
+                  <div className="bg-neutral-400 animate-pulse w-full aspect-video rounded-md shadow-lg"></div>
                 )}
               </div>
             </div>
@@ -105,22 +111,26 @@ const GamePage = () => {
                   <img
                     src={game.screenshot3}
                     alt="screenshot"
-                    className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    className="aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
                     onClick={() => setSelectedImage(game.screenshot3)}
                   />
                 ) : (
-                  <div className="bg-gray-200 animate-pulse"></div>
+                  <div className="aspect-video bg-neutral-400 animate-pulse w-full  rounded-md shadow-lg"></div>
                 )}
               </div>
             </div>
           </div>
         </div>
         <div className="flex md:hidden justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
-          <img
-            className="rounded-md transform group-hover:scale-105 duration-200"
-            src={game.ImageURL}
-            alt={game.ProductName}
-          />
+          {game.ImageURL ? (
+            <img
+              className="aspect-square rounded-md transform group-hover:scale-105 duration-200"
+              src={game.ImageURL}
+              alt={game.ProductName}
+            />
+          ) : (
+            <div className="bg-neutral-400 animate-pulse w-full aspect-square"></div>
+          )}
         </div>
         <div className="px-2">
           <h2 className="text-xl md:text-2xl font-bold mb-4">
@@ -182,11 +192,11 @@ const GamePage = () => {
               <img
                 src={selectedImage}
                 alt="selected screenshot"
-                className="max-w-full max-h-full"
+                className="max-w-full max-h-full aspect-video"
               />
             </div>
             <button
-              className="absolute top-1 right-0 m-4 -mt-10 text-white bg-black bg-opacity-50 p-2 rounded-full"
+              className="absolute top-1 right-0 m-4  -mt-12 text-white bg-black bg-opacity-50 p-2 rounded-full"
               onClick={() => setSelectedImage(null)}
             >
               <IoMdClose size={24} />
