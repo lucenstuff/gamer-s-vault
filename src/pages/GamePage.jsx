@@ -6,6 +6,7 @@ import {
 } from "../services/apiConnection.js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import GameCardSkeleton from "../components/GameCardSkeleton.jsx";
 
 const GamePage = () => {
   const { gameId } = useParams();
@@ -60,7 +61,7 @@ const GamePage = () => {
   }, [gameId]);
 
   return (
-    <div className="mx-auto flex pt-24 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
+    <div className="mx-auto flex pt-14 md:pt-24 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="max-w-lg">
           <div className="hidden md:flex justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
@@ -81,7 +82,7 @@ const GamePage = () => {
                     onClick={() => setSelectedImage(game.screenshot1)}
                   />
                 ) : (
-                  <div className="bg-gray-200 animate-pulse"></div>
+                  <GameCardSkeleton />
                 )}
               </div>
             </div>
