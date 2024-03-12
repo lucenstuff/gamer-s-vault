@@ -70,31 +70,48 @@ const GamePage = () => {
               alt={game.ProductName}
             />
           </div>
-          <div className=" justify-center pb-8 lg:pb-0 screenshots hidden md:flex">
-            <div className="w-1/3 p-2 ">
-              <img
-                src={game.screenshot1}
-                alt="screenshot"
-                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md "
-                onClick={() => setSelectedImage(game.screenshot1)}
-              />
+          <div className="justify-center pb-8 lg:pb-0 screenshots hidden md:flex">
+            <div className="w-1/3 p-2">
+              <div className="aspect-w-4 aspect-h-3">
+                {game.screenshot1 ? (
+                  <img
+                    src={game.screenshot1}
+                    alt="screenshot"
+                    className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    onClick={() => setSelectedImage(game.screenshot1)}
+                  />
+                ) : (
+                  <div className="bg-gray-200 animate-pulse"></div>
+                )}
+              </div>
             </div>
             <div className="w-1/3 p-2">
-              <img
-                src={game.screenshot2}
-                alt="screenshot"
-                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md "
-                onClick={() => setSelectedImage(game.screenshot2)}
-              />
+              <div className="aspect-w-4 aspect-h-3">
+                {game.screenshot2 ? (
+                  <img
+                    src={game.screenshot2}
+                    alt="screenshot"
+                    className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    onClick={() => setSelectedImage(game.screenshot2)}
+                  />
+                ) : (
+                  <div className="bg-gray-200 animate-pulse"></div>
+                )}
+              </div>
             </div>
-
             <div className="w-1/3 p-2">
-              <img
-                src={game.screenshot3}
-                alt="screenshot"
-                className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md "
-                onClick={() => setSelectedImage(game.screenshot3)}
-              />
+              <div className="aspect-w-4 aspect-h-3">
+                {game.screenshot3 ? (
+                  <img
+                    src={game.screenshot3}
+                    alt="screenshot"
+                    className="object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    onClick={() => setSelectedImage(game.screenshot3)}
+                  />
+                ) : (
+                  <div className="bg-gray-200 animate-pulse"></div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -110,7 +127,7 @@ const GamePage = () => {
             {game.ProductName}
           </h2>
           <div className="lg:w-full">
-            <p className="text-md md-text-sm sm:text-base h-36 max-w-xl">
+            <p className="text-md md-text-sm sm:text-base  md:h-36 max-w-xl">
               {game.Description}
             </p>
           </div>
