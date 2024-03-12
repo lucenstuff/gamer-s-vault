@@ -47,12 +47,14 @@ const GameCard = ({ id, name, price, img }) => {
 
   return (
     <div className="game-card flex flex-col px-2 py-4 text-neutral-800">
-      <div className="group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md ">
+      <div className="group aspect-square relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
         <Link to={`/games/${id}`}>
           <img
-            className="rounded-md hover:cursor-pointer transform group-hover:scale-105 ease-in-out duration-200"
+            className=" rounded-md hover:cursor-pointer transform group-hover:scale-105 ease-in-out duration-200 absolute top-0 left-0 w-full h-full object-cover"
             src={img}
             alt={`Cover of the game ${name}`}
+            loading="lazy"
+            style={{ position: "absolute" }}
           />
         </Link>
       </div>

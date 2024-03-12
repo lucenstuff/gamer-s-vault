@@ -70,7 +70,7 @@ const GamePage = () => {
               alt={game.ProductName}
             />
           </div>
-          <div className="flex justify-center pb-8 lg:pb-0 screenshots">
+          <div className=" justify-center pb-8 lg:pb-0 screenshots hidden md:flex">
             <div className="w-1/3 p-2 ">
               <img
                 src={game.screenshot1}
@@ -87,6 +87,7 @@ const GamePage = () => {
                 onClick={() => setSelectedImage(game.screenshot2)}
               />
             </div>
+
             <div className="w-1/3 p-2">
               <img
                 src={game.screenshot3}
@@ -97,12 +98,19 @@ const GamePage = () => {
             </div>
           </div>
         </div>
+        <div className="flex md:hidden justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
+          <img
+            className="rounded-md transform group-hover:scale-105 duration-200"
+            src={game.ImageURL}
+            alt={game.ProductName}
+          />
+        </div>
         <div className="px-2">
           <h2 className="text-xl md:text-2xl font-bold mb-4">
             {game.ProductName}
           </h2>
           <div className="lg:w-full">
-            <p className="text-md md-text-sm sm:text-base h-36">
+            <p className="text-md md-text-sm sm:text-base h-36 max-w-xl">
               {game.Description}
             </p>
           </div>

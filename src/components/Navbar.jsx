@@ -103,27 +103,21 @@ const Navbar = () => {
           <div className="flex flex-col px-4 pt-2 pb-3 space-y-1">
             <a
               href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-lg font-semibold"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
               INICIO
             </a>
             <a
-              href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-lg font-semibold"
+              href="/store"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
-              JUEGOS
+              TIENDA
             </a>
             <a
-              href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-lg font-semibold"
+              href="#sales"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
               OFERTAS
-            </a>
-            <a
-              href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md text-lg font-semibold"
-            >
-              CONTACTO
             </a>
           </div>
         </div>
