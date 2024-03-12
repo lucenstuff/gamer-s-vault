@@ -16,6 +16,7 @@ router.post("/api/login", AuthController.login);
 
 // Product routes
 router.get("/api/products", ProductController.getAllProducts);
+router.get("/api/products/trending", ProductController.getTrendingProducts);
 router.get("/api/products/:productId", ProductController.getProductById);
 
 // Shopping cart routes

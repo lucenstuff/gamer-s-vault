@@ -13,6 +13,7 @@ const Product = sequelize.define(
     Description: { type: DataTypes.TEXT },
     Price: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
     ImageURL: { type: DataTypes.STRING },
+    isTrending: { type: DataTypes.BOOLEAN, defaultValue: false },
   },
   {
     tableName: "Products",
