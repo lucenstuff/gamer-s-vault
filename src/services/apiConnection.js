@@ -26,6 +26,19 @@ async function getSingleProducts(id) {
   }
 }
 
+async function getTrendingProducts() {
+  try {
+    const response = await fetch(`${apiUrl}/products/trending`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
+  }
+}
+
 async function searchProducts(searchTerm) {
   try {
     const response = await fetch(
@@ -170,4 +183,5 @@ export {
   userRegister,
   authenticateUser,
   searchProducts,
+  getTrendingProducts,
 };

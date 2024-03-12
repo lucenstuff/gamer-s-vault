@@ -30,6 +30,25 @@ class ProductController {
       res.status(500).json({ error: "Internal server error" });
     }
   }
+
+  static async getTrendingProducts(req, res) {
+    try {
+      const products = await Product.findAll({
+        where: {
+          isTrending: true,
+        },
+      });
+
+      if (products.length === 0) {
+        return res.status(404).json({ message: "No trending products found" });
+      }
+
+      res.json(products);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
 }
 
 export default ProductController;
