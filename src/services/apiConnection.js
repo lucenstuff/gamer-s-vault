@@ -54,16 +54,21 @@ async function searchProducts(searchTerm) {
   }
 }
 
-async function getProductScreenshots(ProductId) {
+async function getProductScreenshots(productId) {
   try {
-    const response = await fetch(`${apiUrl}/products/${ProductId}/screenshots`);
+    const response = await fetch(`${apiUrl}/products/${productId}/screenshots`);
     if (!response.ok) {
-      throw new Error("Error: " + response.status);
+      if (response.status === 404) {
+        throw new Error("Product not found");
+      } else {
+        throw new Error("Failed to fetch screenshots: " + response.status);
+      }
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching screenshots:", error);
+    throw error;
   }
 }
 
