@@ -58,7 +58,7 @@ const Cart = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed bottom-0 right-0 h-screen w-3/4 md:w-1/2 lg:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg ${
+      className={`fixed bottom-0 right-0 md:absolute h-full w-3/4 md:w-1/2 lg:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg ${
         isOpen ? "block" : "hidden"
       }`}
     >
