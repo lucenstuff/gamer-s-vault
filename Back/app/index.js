@@ -3,7 +3,7 @@ import middlewares from "./middlewares.js";
 import router from "./routes.js";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // Middlewares
 app.use(middlewares);
@@ -11,7 +11,7 @@ app.use(middlewares);
 // Routes
 app.use(router);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
@@ -28,3 +28,5 @@ process.on("SIGINT", () => {
     process.exit(0);
   });
 });
+
+export default app;
