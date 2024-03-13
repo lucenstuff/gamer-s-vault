@@ -11,9 +11,5 @@
       "src": "/(.*)",
       "dest": "/index.js"
     }
-  ],
-  "scripts": {
-    "dev": "vercel dev --listen 3001",
-    "start": "node index.js"
-  }
+  ]
 }
