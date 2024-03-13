@@ -10,7 +10,6 @@ app.use(middlewares);
 
 // Routes
 app.use(router);
-
 const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
