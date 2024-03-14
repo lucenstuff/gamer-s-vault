@@ -3,9 +3,13 @@ import { ButtonContext } from "../context/ButtonContext";
 import { MdMenu, MdPerson, MdSearch, MdShoppingCart } from "react-icons/md";
 import Searchbar from "./SearchBar";
 import { searchProducts } from "../services/apiConnection";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { useUser } from "../context/UserContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { user } = useUser();
 
   const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
 
@@ -28,7 +32,7 @@ const Navbar = () => {
   return (
     <nav className="bg-neutral-400 z-20 absolute w-full shadow-neutral-600 shadow-sm">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
-        <div className="flex justify-between h-16 ">
+        <div className="flex justify-between h-16 pl-28">
           <div className="flex">
             <a
               href="/"
@@ -70,21 +74,36 @@ const Navbar = () => {
               <MdSearch />
               <span className="hidden">Iniciar Sesión</span>
             </button>
-            <button
-              className="hover:text-neutral-950"
-              aria-hidden="true"
-              onClick={handleLoginModalToggle}
-            >
-              <MdPerson />
-              <span className="hidden">Iniciar Sesión</span>
-            </button>
+
             <button
               className="hover:text-neutral-950"
               aria-hidden="true"
               onClick={handleCartToggle}
             >
               <MdShoppingCart />
+
               <span className="hidden">Carrito</span>
+            </button>
+            <button
+              className="hover:text-neutral-950 flex justify-center items-center"
+              aria-hidden="true"
+              onClick={
+                user ? console.log("already logged in") : handleLoginModalToggle
+              }
+            >
+              {user ? null : <MdPerson />}
+              <span
+                className="text-[1.2rem] ml-2"
+                style={{
+                  maxWidth: "150px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {user ? `${user.firstName} ${user.lastName}` : "Iniciar Sesión"}
+              </span>
+              {user && <IoMdArrowDropdown size={24} />}
+              <span className="hidden">Iniciar Sesión</span>
             </button>
             <div className="flex items-center sm:hidden">
               <button

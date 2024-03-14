@@ -1,4 +1,5 @@
 const apiUrl = import.meta.env.VITE_API_URL;
+import { jwtDecode } from "jwt-decode";
 
 async function getProducts() {
   try {
@@ -95,14 +96,15 @@ async function userRegister(
       }),
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+      const data = await response.json();
+      if (callback) {
+        callback(null, data);
+      }
+      return data;
+    } else {
       throw new Error("Error: " + response.status);
     }
-    const data = await response.json();
-    if (callback) {
-      callback(null, data);
-    }
-    return data;
   } catch (error) {
     console.error("Register failed:", error);
     if (callback) {
@@ -164,15 +166,18 @@ async function authenticateUser(email, password) {
       }),
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+      console.log("Login successful");
+      const data = await response.json();
+      sessionStorage.setItem("token", data.token);
+      return data;
+    } else {
       if (response.status === 401) {
         throw new Error("Invalid email or password");
       } else {
         throw new Error("Error: " + response.status);
       }
     }
-    const data = await response.json();
-    return data;
   } catch (error) {
     console.error(error);
     alert("Authentication failed. Please try again.");

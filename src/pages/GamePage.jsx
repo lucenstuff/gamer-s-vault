@@ -6,8 +6,6 @@ import {
 } from "../services/apiConnection.js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import GameCardSkeleton from "../components/GameCardSkeleton.jsx";
-import FeaturedGameSkeleton from "../components/FeaturedGameSkeleton.jsx";
 
 const GamePage = () => {
   const { gameId } = useParams();

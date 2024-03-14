@@ -12,10 +12,6 @@ const SalesPage = () => {
           Volver al inicio
         </button>
       </Link>
-      <img
-        src="https://cloudinary-marketing-res.cloudinary.com/image/upload/w_1000/q_auto/f_auto/landmannalaugar_iceland.jpg"
-        alt=""
-      />
     </div>
   );
 };

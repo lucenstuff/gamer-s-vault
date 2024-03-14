@@ -39,8 +39,9 @@ class AuthController {
         {
           userId: user.UserID,
           email: user.Email,
+          firstName: user.FirstName,
+          lastName: user.LastName,
         },
-        // eslint-disable-next-line no-undef
         process.env.JWT_SECRET,
         {
           expiresIn: "1h",

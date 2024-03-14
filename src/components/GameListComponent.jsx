@@ -6,11 +6,12 @@ const GameListComponent = ({ id, name, price, img }) => {
     <div className="w-full text-neutral-800">
       <div className="flex justify-start px-4 py-2">
         <div className="w-1/2 rounded-md">
-          <img
+          {/* <img
             className="rounded-md shadow-md"
             src={img}
             alt={`Cover of the game ${name}`}
-          />
+          /> */}
+          <img src="https://placehold.co/500x500" alt={name} />
         </div>
         <div className="px-4 space-y-4">
           <div className="flex items-start">
