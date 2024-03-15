@@ -176,10 +176,10 @@ const GamePage = () => {
               Añadir al carrito
               <MdShoppingCart size={24} className="ml-2" />
             </button>
-            <button className="flex justify-center items-center w-full bg-neutral-100 text-neutral-800 font-semibold shadow-md rounded-2xl p-2 transition-transform hover:scale-105 hover:bg-neutral-50">
+            {/* <button className="flex justify-center items-center w-full bg-neutral-100 text-neutral-800 font-semibold shadow-md rounded-2xl p-2 transition-transform hover:scale-105 hover:bg-neutral-50">
               Añadir a favoritos
               <IoMdHeart size={24} className="ml-2" />
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

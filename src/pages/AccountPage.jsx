@@ -33,23 +33,6 @@ const Account = () => {
               <GameListComponent />
             </div>
           </div>
-          <div className=" flex flex-col w-full max-w-xs">
-            <hr className="border-t md:hidden border-neutral-400 my-4 mx-4" />
-            <div className="md:mt-0 lg:mt-10 ">
-              <h1 className="flex justify-center text-2xl font-bold">
-                Favoritos
-              </h1>
-            </div>
-            <hr className="border-t border-neutral-400 my-4 mx-4" />
-            <div className="overflow-y-auto max-h-96 pb-16">
-              <GameListComponent />
-              <GameListComponent />
-              <GameListComponent />
-              <GameListComponent />
-              <GameListComponent />
-              <GameListComponent />
-            </div>
-          </div>
         </div>
       </div>
     </div>

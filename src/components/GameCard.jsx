@@ -62,13 +62,13 @@ const GameCard = ({ id, name, price, img }) => {
       <div className="flex justify-between items-center">
         <h3 className="text-md font-medium ">{price}</h3>{" "}
         <div>
-          <button
+          {/* <button
             type="button"
             className="px-2 py-1 rounded-md text-xl font-medium "
             onClick={() => {}}
           >
             <FaRegHeart />
-          </button>
+          </button> */}
           {inCart ? (
             <button
               type="button"
