@@ -15,8 +15,14 @@ export const UserProvider = ({ children }) => {
     return null;
   }
 
+  function logout() {
+    setUser(null);
+    sessionStorage.removeItem("token");
+    window.location.reload();
+  }
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, logout }}>
       {children}
     </UserContext.Provider>
   );

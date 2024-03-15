@@ -3,6 +3,7 @@ import { ButtonContext } from "../context/ButtonContext";
 import { MdMenu, MdPerson, MdSearch, MdShoppingCart } from "react-icons/md";
 import { IoLogOut } from "react-icons/io5";
 import Searchbar from "./SearchBar";
+import { IoMdArrowDropdown } from "react-icons/io";
 import { searchProducts } from "../services/apiConnection";
 import { useUser } from "../context/UserContext";
 import { Link } from "react-router-dom";
@@ -98,7 +99,7 @@ const Navbar = () => {
                 <MdMenu />
               </button>
             </div>
-            <div className="hidden md:block relative bg-[#dfdfdf] px-2 py-1 min-w-24 rounded-md shadow-lg ">
+            <div className="hidden md:block relative min-w-24  ">
               <button
                 className="hover:text-neutral-950 flex gap-1 justify-center items-center "
                 aria-hidden="true"
@@ -106,13 +107,14 @@ const Navbar = () => {
                   user ? handleUserDropdownToggle : handleLoginModalToggle
                 }
               >
-                <MdPerson size={24} />
+                {user ? null : <MdPerson />}
 
                 <span className="font-medium text-lg">
                   {user
                     ? user.firstName + " " + user.lastName
                     : "Inciar Sesión"}
                 </span>
+                {user ? <IoMdArrowDropdown /> : null}
               </button>
               <UserDropdownMenu
                 isUserDropdownOpen={isOpen}
