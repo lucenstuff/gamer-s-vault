@@ -6,7 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import StorePage from "./pages/StorePage";
 import SalesPage from "./pages/SalesPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import UserDahboardPage from "./pages/UserDashboard";
+import Account from "./pages/AccountPage";
 import { UserProvider } from "./context/UserContext";
 
 const App = () => {
@@ -53,10 +53,10 @@ const App = () => {
           />
           <Route
             exact
-            path="/user-dashboard"
+            path="/account"
             element={
               <MainLayout>
-                <UserDahboardPage />
+                <Account />
               </MainLayout>
             }
           />
