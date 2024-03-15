@@ -22,7 +22,7 @@ function UserDropdownMenu({ isUserDropdownOpen }) {
                 <span>Mi cuenta</span>
               </Link>
               <Link
-                onClick={() => logout()}
+                onClick={() => logout() && isUserDropdownOpen(false)}
                 className="flex gap-3 hover:bg-neutral-300 ease-out duration-300 rounded-md p-1"
               >
                 <IoLogOut size={24} />

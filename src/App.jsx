@@ -7,50 +7,61 @@ import StorePage from "./pages/StorePage";
 import SalesPage from "./pages/SalesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Account from "./pages/AccountPage";
-import { UserProvider } from "./context/UserContext";
+import { useUser } from "./context/UserContext";
 
 const App = () => {
+  const { user } = useUser();
+
   return (
-    <UserProvider>
-      <Router>
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <MainLayout>
-                <HomePage />
-              </MainLayout>
-            }
-          />
-          <Route exact path="/register" element={<RegisterPage />} />
-          <Route
-            exact
-            path="/games/:gameId"
-            element={
-              <MainLayout>
-                <GamePage />
-              </MainLayout>
-            }
-          />
-          <Route
-            exact
-            path="/store"
-            element={
-              <MainLayout>
-                <StorePage />
-              </MainLayout>
-            }
-          />
-          <Route
-            exact
-            path="/sales"
-            element={
-              <MainLayout>
-                <SalesPage />
-              </MainLayout>
-            }
-          />
+    <Router>
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          }
+        />
+        <Route exact path="/register" element={<RegisterPage />} />
+        <Route
+          exact
+          path="/games/:gameId"
+          element={
+            <MainLayout>
+              <GamePage />
+            </MainLayout>
+          }
+        />
+        <Route
+          exact
+          path="/store"
+          element={
+            <MainLayout>
+              <StorePage />
+            </MainLayout>
+          }
+        />
+        <Route
+          exact
+          path="/sales"
+          element={
+            <MainLayout>
+              <SalesPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          exact
+          path="/sales"
+          element={
+            <MainLayout>
+              <SalesPage />
+            </MainLayout>
+          }
+        />
+        {user ? (
           <Route
             exact
             path="/account"
@@ -60,10 +71,20 @@ const App = () => {
               </MainLayout>
             }
           />
-          <Route exact path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Router>
-    </UserProvider>
+        ) : (
+          <Route
+            exact
+            path="/"
+            element={
+              <MainLayout>
+                <HomePage />
+              </MainLayout>
+            }
+          />
+        )}
+        <Route exact path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
   );
 };
 

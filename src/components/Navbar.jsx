@@ -11,6 +11,7 @@ import UserDropdownMenu from "./UserDropdownMenu";
 
 const Navbar = () => {
   const { user } = useUser();
+  const { logout } = useUser();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -145,20 +146,34 @@ const Navbar = () => {
             >
               OFERTAS
             </a>
-          </div>
-          {user && (
-            <div className="flex flex-col px-4  pb-3">
-              <div className="">
-                <Link
-                  to={"/account"}
-                  className="text-neutral-800 gap-1 flex justify-center items-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
-                >
-                  <IoLogOut size={24} />
-                  CERRAR SESIÓN
-                </Link>
+            {user ? (
+              <div className="flex flex-col px-4  pb-3">
+                <div>
+                  <Link
+                    to={"/account"}
+                    className="text-neutral-800 gap-1 flex justify-center items-center hover:underline px-3 py-2 rounded-md text-lg font-bold"
+                  >
+                    <MdPerson size={20} />
+                    MI CUENTA
+                  </Link>
+                  <Link
+                    onClick={logout}
+                    className="text-neutral-800 gap-1 flex justify-center items-center hover:underline px-3 py-2 rounded-md text-lg font-bold"
+                  >
+                    <IoLogOut size={20} />
+                    CERRAR SESIÓN
+                  </Link>
+                </div>
               </div>
-            </div>
-          )}
+            ) : (
+              <button
+                onClick={handleLoginModalToggle}
+                className="text-neutral-80 font-bold gap-1 flex justify-center items-center"
+              >
+                <MdPerson size={20} /> INICIAR SESION
+              </button>
+            )}
+          </div>
         </div>
       )}
     </nav>

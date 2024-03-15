@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
   function logout() {
     setUser(null);
     sessionStorage.removeItem("token");
-    window.location.reload();
+    window.location.href = "/";
   }
 
   return (
