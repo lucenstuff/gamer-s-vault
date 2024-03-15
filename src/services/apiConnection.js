@@ -73,46 +73,6 @@ async function getProductScreenshots(productId) {
   }
 }
 
-async function userRegister(
-  username,
-  email,
-  password,
-  firstName,
-  lastName,
-  callback
-) {
-  try {
-    const response = await fetch(`${apiUrl}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-        firstName,
-        lastName,
-      }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      if (callback) {
-        callback(null, data);
-      }
-      return data;
-    } else {
-      throw new Error("Error: " + response.status);
-    }
-  } catch (error) {
-    console.error("Register failed:", error);
-    if (callback) {
-      callback(error, null);
-    }
-  }
-}
-
 async function addToCart(productId, quantity, userId) {
   try {
     const response = await fetch(`${apiUrl}/addtocart/${productId}`, {
@@ -180,7 +140,56 @@ async function authenticateUser(email, password) {
     }
   } catch (error) {
     console.error(error);
-    alert("Authentication failed. Please try again.");
+    alert("Credenciales incorrectas, por favor intenta de nuevo");
+  }
+}
+
+async function userRegister(
+  username,
+  email,
+  password,
+  firstName,
+  lastName,
+  callback
+) {
+  try {
+    const response = await fetch(`${apiUrl}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+        firstName,
+        lastName,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (callback) {
+        callback(null, data);
+      }
+      return data;
+    } else {
+      if (response.status === 409) {
+        const error = new Error("User with this email is already registered");
+        if (callback) {
+          callback(error, null);
+        }
+        alert("Usuario ya registrado con este correo, por favor inicia sesion");
+        return error;
+      } else {
+        throw new Error("Error: " + response.status);
+      }
+    }
+  } catch (error) {
+    console.error("Register failed:", error);
+    if (callback) {
+      callback(error, null);
+    }
   }
 }
 

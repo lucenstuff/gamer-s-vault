@@ -58,7 +58,7 @@ const Cart = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed bottom-0 right-0 md:absolute h-full w-3/4 md:w-1/2 lg:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg ${
+      className={`fixed bottom-0 right-0 md:fixed md:h-screen h-full w-3/4 md:w-1/2 lg:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg ${
         isOpen ? "block" : "hidden"
       }`}
     >
@@ -84,7 +84,10 @@ const Cart = ({ isOpen, onClose }) => {
         ))}
       </div>
       <div className="absolute bottom-0 left-0 w-full">
-        <div className="flex justify-center bg-neutral-400 w-full p-10 shadow-black shadow-md">
+        <div className="flex justify-start bg-neutral-400 w-full px-10 py-4">
+          <span className="font-bold">Total: $100</span>
+        </div>
+        <div className="flex justify-center bg-neutral-400 w-full px-10 py-8 ">
           <button className="bg-neutral-100 w-full hover:bg-neutral-50 hover:shadow-lg text-neutral-800 font-bold py-2 px-4 rounded-full">
             Iniciar Pago
           </button>
