@@ -1,6 +1,7 @@
 import { MdSearch } from "react-icons/md";
 import { useState } from "react";
 import { searchProducts } from "../services/apiConnection";
+import { Link } from "react-router-dom";
 
 const Searchbar = () => {
   const [input, setInput] = useState("");
@@ -39,7 +40,15 @@ const Searchbar = () => {
               <div className="font-bold">Resultados de búsqueda:</div>
               <ul>
                 {results.map((result) => (
-                  <li key={result.id}>{result.ProductName}</li>
+                  <Link
+                    to={`/games/${result.ProductID}`}
+                    key={result.ProductID}
+                    onClick={() => setInput("")}
+                  >
+                    <li className="hover:bg-neutral-200 rounded-lg py-1">
+                      {result.ProductName}
+                    </li>
+                  </Link>
                 ))}
               </ul>
             </div>

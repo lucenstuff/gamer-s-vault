@@ -140,6 +140,7 @@ async function searchProducts(query) {
           product.ProductName.toLowerCase().includes(query.toLowerCase())
         );
       });
+      console.log(result);
       return result;
     } else {
       throw new Error("Error: " + response.status);
