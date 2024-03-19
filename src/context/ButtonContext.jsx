@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const ButtonContext = createContext({
@@ -9,12 +9,21 @@ const ButtonContext = createContext({
   cartItems: [],
   addToCart: () => {},
   removeFromCart: () => {},
+  isInCart: false,
 });
 
 const ButtonProvider = ({ children }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [isInCart, setIsInCart] = useState(false);
+
+  useEffect(() => {
+    const isInCartFromStorage = localStorage.getItem("isInCart");
+    if (isInCartFromStorage) {
+      setIsInCart(JSON.parse(isInCartFromStorage));
+    }
+  }, []);
 
   const addToCart = (id, quantity) => {
     const updatedCart = [...cartItems];
@@ -27,25 +36,30 @@ const ButtonProvider = ({ children }) => {
     }
 
     setCartItems(updatedCart);
+    setIsInCart(true);
+    localStorage.setItem("isInCart", JSON.stringify(true));
   };
 
   const removeFromCart = (id) => {
     const updatedCart = cartItems.filter((item) => item.id !== id);
     setCartItems(updatedCart);
+    setIsInCart(false);
+    localStorage.setItem("isInCart", JSON.stringify(false));
+  };
+
+  const contextValue = {
+    isLoginModalOpen,
+    setIsLoginModalOpen,
+    isCartOpen,
+    setIsCartOpen,
+    cartItems,
+    addToCart,
+    removeFromCart,
+    isInCart,
   };
 
   return (
-    <ButtonContext.Provider
-      value={{
-        isLoginModalOpen,
-        setIsLoginModalOpen,
-        isCartOpen,
-        setIsCartOpen,
-        cartItems,
-        addToCart,
-        removeFromCart,
-      }}
-    >
+    <ButtonContext.Provider value={contextValue}>
       {children}
     </ButtonContext.Provider>
   );

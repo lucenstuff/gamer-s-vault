@@ -1,4 +1,5 @@
 const apiUrl = import.meta.env.VITE_API_URL;
+import { jwtDecode } from "jwt-decode";
 
 async function getProducts() {
   try {
@@ -72,45 +73,6 @@ async function getProductScreenshots(productId) {
   }
 }
 
-async function userRegister(
-  username,
-  email,
-  password,
-  firstName,
-  lastName,
-  callback
-) {
-  try {
-    const response = await fetch(`${apiUrl}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-        firstName,
-        lastName,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Error: " + response.status);
-    }
-    const data = await response.json();
-    if (callback) {
-      callback(null, data);
-    }
-    return data;
-  } catch (error) {
-    console.error("Register failed:", error);
-    if (callback) {
-      callback(error, null);
-    }
-  }
-}
-
 async function addToCart(productId, quantity, userId) {
   try {
     const response = await fetch(`${apiUrl}/addtocart/${productId}`, {
@@ -164,18 +126,70 @@ async function authenticateUser(email, password) {
       }),
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+      console.log("Login successful");
+      const data = await response.json();
+      sessionStorage.setItem("token", data.token);
+      return data;
+    } else {
       if (response.status === 401) {
         throw new Error("Invalid email or password");
       } else {
         throw new Error("Error: " + response.status);
       }
     }
-    const data = await response.json();
-    return data;
   } catch (error) {
     console.error(error);
-    alert("Authentication failed. Please try again.");
+    alert("Credenciales incorrectas, por favor intenta de nuevo");
+  }
+}
+
+async function userRegister(
+  username,
+  email,
+  password,
+  firstName,
+  lastName,
+  callback
+) {
+  try {
+    const response = await fetch(`${apiUrl}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+        firstName,
+        lastName,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (callback) {
+        callback(null, data);
+      }
+      return data;
+    } else {
+      if (response.status === 409) {
+        const error = new Error("User with this email is already registered");
+        if (callback) {
+          callback(error, null);
+        }
+        alert("Usuario ya registrado con este correo, por favor inicia sesion");
+        return error;
+      } else {
+        throw new Error("Error: " + response.status);
+      }
+    }
+  } catch (error) {
+    console.error("Register failed:", error);
+    if (callback) {
+      callback(error, null);
+    }
   }
 }
 

@@ -1,10 +1,18 @@
 import { useState, useContext } from "react";
 import { ButtonContext } from "../context/ButtonContext";
 import { MdMenu, MdPerson, MdSearch, MdShoppingCart } from "react-icons/md";
+import { IoLogOut } from "react-icons/io5";
 import Searchbar from "./SearchBar";
+import { IoMdArrowDropdown } from "react-icons/io";
 import { searchProducts } from "../services/apiConnection";
+import { useUser } from "../context/UserContext";
+import { Link } from "react-router-dom";
+import UserDropdownMenu from "./UserDropdownMenu";
 
 const Navbar = () => {
+  const { user } = useUser();
+  const { logout } = useUser();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
@@ -17,6 +25,10 @@ const Navbar = () => {
     setIsCartOpen((prev) => !prev);
   };
 
+  const handleUserDropdownToggle = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   const handleSearch = async (searchTerm) => {
     try {
       const results = await searchProducts(searchTerm);
@@ -27,8 +39,8 @@ const Navbar = () => {
   };
   return (
     <nav className="bg-neutral-400 z-20 absolute w-full shadow-neutral-600 shadow-sm">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
-        <div className="flex justify-between h-16 ">
+      <div className="max-w-8xl mx-auto px-2 sm:px-6 lg:px-8 ">
+        <div className="flex justify-between h-16">
           <div className="flex">
             <a
               href="/"
@@ -40,7 +52,7 @@ const Navbar = () => {
               />
             </a>
           </div>
-          <div className="hidden sm:flex sm:items-center justify-center text-lg">
+          <div className="md:ml-12 lg:ml-40 hidden sm:flex sm:items-center text-lg">
             <a
               href="/"
               className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
@@ -60,8 +72,7 @@ const Navbar = () => {
               OFERTAS
             </a>
           </div>
-          <div className="flex items-center gap-1 text-neutral-800 text-3xl ">
-            <div></div>
+          <div className="flex items-center gap-4 text-neutral-800 text-3xl ">
             <button
               className="hover:text-neutral-950"
               aria-hidden="true"
@@ -70,14 +81,7 @@ const Navbar = () => {
               <MdSearch />
               <span className="hidden">Iniciar Sesión</span>
             </button>
-            <button
-              className="hover:text-neutral-950"
-              aria-hidden="true"
-              onClick={handleLoginModalToggle}
-            >
-              <MdPerson />
-              <span className="hidden">Iniciar Sesión</span>
-            </button>
+
             <button
               className="hover:text-neutral-950"
               aria-hidden="true"
@@ -86,6 +90,7 @@ const Navbar = () => {
               <MdShoppingCart />
               <span className="hidden">Carrito</span>
             </button>
+
             <div className="flex items-center sm:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -95,30 +100,79 @@ const Navbar = () => {
                 <MdMenu />
               </button>
             </div>
+            <div className="hidden md:block relative min-w-24  ">
+              <button
+                className="hover:text-neutral-950 flex gap-1 justify-center items-center "
+                aria-hidden="true"
+                onClick={
+                  user ? handleUserDropdownToggle : handleLoginModalToggle
+                }
+              >
+                {user ? null : <MdPerson />}
+
+                <span className="font-medium text-lg">
+                  {user
+                    ? user.firstName + " " + user.lastName
+                    : "Inciar Sesión"}
+                </span>
+                {user ? <IoMdArrowDropdown /> : null}
+              </button>
+              <UserDropdownMenu
+                isUserDropdownOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+              />
+            </div>
           </div>
         </div>
       </div>
       {isOpen && (
         <div className="sm:hidden">
-          <div className="flex flex-col px-4 pt-2 pb-3 space-y-1">
+          <div className="flex flex-col px-4 pt-2 pb-3 space-y-2">
             <a
               href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+              className="text-neutral-800 flex justify-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
             >
               INICIO
             </a>
             <a
-              href="/store"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+              href="/"
+              className="text-neutral-800 flex justify-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
             >
               TIENDA
             </a>
             <a
-              href="#sales"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+              href="/"
+              className="text-neutral-800 flex justify-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
             >
               OFERTAS
             </a>
+            {user ? (
+              <div className="flex flex-col px-4  pb-3">
+                <div>
+                  <Link
+                    to={"/account"}
+                    className="text-neutral-800 gap-1 flex justify-center items-center hover:underline px-3 py-2 rounded-md text-lg font-bold"
+                  >
+                    <MdPerson size={20} />
+                    MI CUENTA
+                  </Link>
+                  <Link
+                    onClick={logout}
+                    className="text-neutral-800 gap-1 flex justify-center items-center hover:underline px-3 py-2 rounded-md text-lg font-bold"
+                  >
+                    <IoLogOut size={20} />
+                    CERRAR SESIÓN
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={handleLoginModalToggle}
+                className="text-neutral-80 font-bold gap-1 flex justify-center items-center"
+              >
+                <MdPerson size={20} /> INICIAR SESION
+              </button>
+            )}
           </div>
         </div>
       )}

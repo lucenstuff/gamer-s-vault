@@ -7,6 +7,12 @@ dotenv.config();
 class AuthController {
   static async signup(req, res) {
     const { username, email, password, firstName, lastName } = req.body;
+
+    const existingUser = await User.findOne({ where: { Email: email } });
+    if (existingUser) {
+      return res.status(409).json({ error: "User already exists" });
+    }
+
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -39,8 +45,9 @@ class AuthController {
         {
           userId: user.UserID,
           email: user.Email,
+          firstName: user.FirstName,
+          lastName: user.LastName,
         },
-        // eslint-disable-next-line no-undef
         process.env.JWT_SECRET,
         {
           expiresIn: "1h",

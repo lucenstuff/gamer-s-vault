@@ -1,43 +1,28 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(getUserFromToken());
 
-  const login = (userData) => {
-    setUser(userData);
-  };
+  function getUserFromToken() {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      return decoded;
+    }
+    return null;
+  }
 
-  const logout = () => {
+  function logout() {
     setUser(null);
-  };
+    sessionStorage.removeItem("token");
+    window.location.href = "/";
+  }
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/user`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        if (response.ok) {
-          const userData = await response.json();
-          console.log(userData);
-          setUser(userData);
-        } else {
-          throw new Error("Failed to fetch user data");
-        }
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      }
-    };
-
-    fetchUserData();
-  }, [accessToken]);
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, setUser, logout }}>
       {children}
     </UserContext.Provider>
   );

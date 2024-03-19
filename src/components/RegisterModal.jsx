@@ -21,7 +21,6 @@ const RegisterModal = () => {
         firstName,
         lastName
       );
-      console.log("Registration successful:", data);
     } catch (error) {
       console.error("Registration failed:", error);
     }

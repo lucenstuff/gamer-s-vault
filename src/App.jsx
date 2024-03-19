@@ -6,8 +6,12 @@ import RegisterPage from "./pages/RegisterPage";
 import StorePage from "./pages/StorePage";
 import SalesPage from "./pages/SalesPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import Account from "./pages/AccountPage";
+import { useUser } from "./context/UserContext";
 
 const App = () => {
+  const { user } = useUser();
+
   return (
     <Router>
       <Routes>
@@ -48,6 +52,36 @@ const App = () => {
             </MainLayout>
           }
         />
+        <Route
+          exact
+          path="/sales"
+          element={
+            <MainLayout>
+              <SalesPage />
+            </MainLayout>
+          }
+        />
+        {user ? (
+          <Route
+            exact
+            path="/account"
+            element={
+              <MainLayout>
+                <Account />
+              </MainLayout>
+            }
+          />
+        ) : (
+          <Route
+            exact
+            path="/"
+            element={
+              <MainLayout>
+                <HomePage />
+              </MainLayout>
+            }
+          />
+        )}
         <Route exact path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
