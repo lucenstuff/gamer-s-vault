@@ -1,3 +1,5 @@
+import { json } from "react-router-dom";
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 async function getProducts() {
@@ -36,21 +38,6 @@ async function getTrendingProducts() {
   } catch (error) {
     console.error("Failed to fetch products:", error);
     return [];
-  }
-}
-
-async function searchProducts(searchTerm) {
-  try {
-    const response = await fetch(
-      `${apiUrl}/search?term=${encodeURIComponent(searchTerm)}`
-    );
-    if (!response.ok) {
-      throw new Error("Error: " + response.status);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Search failed:", error);
   }
 }
 
@@ -142,6 +129,27 @@ async function authenticateUser(email, password) {
   }
 }
 
+async function searchProducts(query) {
+  try {
+    const response = await fetch(`${apiUrl}/search/products?q=${query}`);
+    if (response.ok) {
+      const data = await response.json();
+      const result = data.filter((product) => {
+        return (
+          query &&
+          product.ProductName.toLowerCase().includes(query.toLowerCase())
+        );
+      });
+      return result;
+    } else {
+      throw new Error("Error: " + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 async function userRegister(
   username,
   email,
@@ -192,6 +200,7 @@ async function userRegister(
 }
 
 export {
+  searchProducts,
   getUserCart,
   addToCart,
   getProductScreenshots,
@@ -199,6 +208,5 @@ export {
   getSingleProducts,
   userRegister,
   authenticateUser,
-  searchProducts,
   getTrendingProducts,
 };

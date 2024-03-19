@@ -1,42 +1,56 @@
-import { useState } from "react";
-import propType from "prop-types";
 import { MdSearch } from "react-icons/md";
+import { useState } from "react";
+import { searchProducts } from "../services/apiConnection";
 
-const Searchbar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+const Searchbar = () => {
+  const [input, setInput] = useState("");
+  const [results, setResults] = useState([]);
 
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSearch(searchTerm);
+  const handleChange = async (value) => {
+    setInput(value);
+    try {
+      const searchResults = await searchProducts(value);
+      setResults(searchResults.slice(0, 10));
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+      setResults([]);
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex justify-center mt-32 w-full md:w-80 bg-neutral-400 py-4 md:py-0 md:mt-0 "
-    >
-      <div className="bg-neutral-100 px-2 py-2 rounded-lg flex justify-center  items-center">
+    <div>
+      <div className="relative">
         <input
           type="text"
-          value={searchTerm}
-          onChange={handleInputChange}
-          placeholder="Buscar Productos..."
-          className="focus:outline-none w-80 md:w-96 bg-neutral-100"
+          placeholder="Buscar Juegos..."
+          value={input}
+          onChange={(e) => handleChange(e.target.value)}
+          className="focus:outline-none w-80 md:w-96 bg-neutral-100 p-2 rounded-lg pl-10"
         />
-        <button>
-          <MdSearch size={24} />
-        </button>
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <MdSearch size={20} />
+        </div>
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3"></div>
       </div>
-    </form>
+      {input.length > 0 && (
+        <div className="absolute bg-neutral-100 p-2 h-96 w-80 md:w-96 mt-2 rounded-lg">
+          {results.length > 0 && (
+            <div>
+              <div className="font-bold">Resultados de búsqueda:</div>
+              <ul>
+                {results.map((result) => (
+                  <li key={result.id}>{result.ProductName}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {results.length === 0 && input.length > 0 && (
+            <div>No se encontraron resultados.</div>
+          )}
+        </div>
+      )}
+    </div>
   );
-};
-
-Searchbar.propTypes = {
-  onSearch: propType.func.isRequired,
 };
 
 export default Searchbar;

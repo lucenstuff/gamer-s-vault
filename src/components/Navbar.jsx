@@ -29,15 +29,6 @@ const Navbar = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleSearch = async (searchTerm) => {
-    try {
-      const results = await searchProducts(searchTerm);
-      console.log(results);
-    } catch (error) {
-      console.error("Search failed:", error);
-    }
-  };
-
   return (
     <nav className="bg-neutral-400 z-20 absolute w-full shadow-neutral-600 shadow-sm">
       <div className="max-w-8xl mx-auto px-2 sm:px-6 lg:px-8 ">
@@ -75,7 +66,7 @@ const Navbar = () => {
             </a>
           </div>
           <div className="flex justify-center items-center absolute inset-0">
-            <Searchbar onSearch={handleSearch} />
+            <Searchbar />
           </div>
           <div className="flex items-center gap-4 text-neutral-800 text-3xl ">
             <button
