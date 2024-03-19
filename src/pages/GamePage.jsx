@@ -172,14 +172,11 @@ const GamePage = () => {
             <p className="md:text-md pt-2">Precio: ${game.Price}</p>
           </div>
           <div className="flex flex-col space-y-6 sm:flex-row sm:space-y-0 sm:space-x-4 pb-10 md:pb-0 pt-10 md:pt-3">
+            {/* FOR THIS BUTTON */}
             <button className="flex justify-center items-center w-full bg-neutral-100 text-neutral-800 font-semibold shadow-md rounded-2xl p-2 transition-transform hover:scale-105 hover:bg-neutral-50">
               Añadir al carrito
               <MdShoppingCart size={24} className="ml-2" />
             </button>
-            {/* <button className="flex justify-center items-center w-full bg-neutral-100 text-neutral-800 font-semibold shadow-md rounded-2xl p-2 transition-transform hover:scale-105 hover:bg-neutral-50">
-              Añadir a favoritos
-              <IoMdHeart size={24} className="ml-2" />
-            </button> */}
           </div>
         </div>
       </div>

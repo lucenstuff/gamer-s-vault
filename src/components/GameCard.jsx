@@ -1,56 +1,35 @@
 import { Link } from "react-router-dom";
 import { MdAddShoppingCart, MdOutlineRemoveShoppingCart } from "react-icons/md";
 import PropTypes from "prop-types";
-import { ButtonContext } from "../context/ButtonContext";
+import { CartContext } from "../context/CartContext";
 import { useContext, useState, useEffect } from "react";
 
 const GameCard = ({ id, name, price, img }) => {
-  const { addToCart, removeFromCart } = useContext(ButtonContext);
+  const { handleAddToCart, handleRemoveFromCart } = useContext(CartContext);
   const [inCart, setInCart] = useState(() => {
     return localStorage.getItem(`cartGameIds-${id}`) === id;
   });
 
-  const dispatchLocalStorageUpdate = () => {
-    const event = new Event("localStoragesUpdate");
-    window.dispatchEvent(event);
-  };
-
-  const saveGameIdToLocalStorage = (gameId) => {
-    const existingGameIds =
-      JSON.parse(localStorage.getItem("cartGameIds")) || [];
-
-    if (!existingGameIds.includes(gameId)) {
-      existingGameIds.push(gameId);
-      localStorage.setItem("cartGameIds", JSON.stringify(existingGameIds));
-      localStorage.setItem(`cartGameIds-${gameId}`, gameId);
-      dispatchLocalStorageUpdate();
-    }
-  };
-
-  const removeGameIdFromLocalStorage = (gameId) => {
-    let existingGameIds = JSON.parse(localStorage.getItem("cartGameIds")) || [];
-
-    existingGameIds = existingGameIds.filter((id) => id !== gameId);
-    localStorage.setItem("cartGameIds", JSON.stringify(existingGameIds));
-    localStorage.removeItem(`cartGameIds-${gameId}`);
-    dispatchLocalStorageUpdate();
-  };
-
-  const handleAddToCart = () => {
-    addToCart(id);
-    saveGameIdToLocalStorage(id);
-    setInCart(true);
-  };
-
-  const handleRemoveFromCart = () => {
-    removeFromCart(id);
-    removeGameIdFromLocalStorage(id);
-    setInCart(false);
-  };
-
   useEffect(() => {
-    setInCart(localStorage.getItem(`cartGameIds-${id}`) === id);
+    const updateInCartStatus = () => {
+      setInCart(localStorage.getItem(`cartGameIds-${id}`) === id);
+    };
+
+    window.addEventListener("localStoragesUpdate", updateInCartStatus);
+    updateInCartStatus();
+
+    return () => {
+      window.removeEventListener("localStoragesUpdate", updateInCartStatus);
+    };
   }, [id]);
+
+  const handleClickAddToCart = () => {
+    handleAddToCart(id);
+  };
+
+  const handleClickRemoveFromCart = () => {
+    handleRemoveFromCart(id);
+  };
 
   return (
     <div className="game-card flex flex-col px-2 py-4 text-neutral-800">
@@ -72,7 +51,7 @@ const GameCard = ({ id, name, price, img }) => {
           <button
             type="button"
             className="px-2 py-1 rounded-md text-xl font-medium "
-            onClick={handleRemoveFromCart}
+            onClick={handleClickRemoveFromCart}
           >
             <MdOutlineRemoveShoppingCart />
           </button>
@@ -80,7 +59,7 @@ const GameCard = ({ id, name, price, img }) => {
           <button
             type="button"
             className="px-2 py-1 rounded-md text-xl font-medium "
-            onClick={handleAddToCart}
+            onClick={handleClickAddToCart}
           >
             <MdAddShoppingCart />
           </button>
