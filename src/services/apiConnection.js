@@ -1,5 +1,4 @@
 const apiUrl = import.meta.env.VITE_API_URL;
-import { jwtDecode } from "jwt-decode";
 
 async function getProducts() {
   try {
@@ -127,7 +126,6 @@ async function authenticateUser(email, password) {
     });
 
     if (response.ok) {
-      console.log("Login successful");
       const data = await response.json();
       sessionStorage.setItem("token", data.token);
       return data;

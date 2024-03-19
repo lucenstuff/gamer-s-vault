@@ -1,5 +1,6 @@
 import { useState } from "react";
 import propType from "prop-types";
+import { MdSearch } from "react-icons/md";
 
 const Searchbar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,20 +15,19 @@ const Searchbar = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center space-x-2">
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleInputChange}
-        className="flex-grow p-2  w-full border border-gray-300 rounded-md focus:ring focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out sm:max-w-xs lg:max-w-sm"
-        placeholder="Search..."
-      />
-      <button
-        type="submit"
-        className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
-      >
-        Search
-      </button>
+    <form onSubmit={handleSubmit} className="flex justify-center">
+      <div className="bg-neutral-100 px-2 py-2 rounded-lg flex justify-center  items-center">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleInputChange}
+          placeholder="Buscar Productos..."
+          className="focus:outline-none w-80 bg-neutral-100"
+        />
+        <button>
+          <MdSearch size={24} />
+        </button>
+      </div>
     </form>
   );
 };

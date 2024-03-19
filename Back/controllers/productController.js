@@ -3,7 +3,7 @@ class ProductController {
   static async getAllProducts(req, res) {
     try {
       const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 40;
+      const limit = parseInt(req.query.limit) || 42;
       const offset = (page - 1) * limit;
 
       const products = await Product.findAll({ limit, offset });
