@@ -1,14 +1,18 @@
+import React, { useEffect, useState } from "react";
 import { MdShoppingCart } from "react-icons/md";
-import { IoMdClose, IoMdHeart } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 import {
   getSingleProducts,
   getProductScreenshots,
 } from "../services/apiConnection.js";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+import { useContext } from "react";
 
 const GamePage = () => {
   const { gameId } = useParams();
+  const { handleRemoveFromCart, handleAddToCart, inCart } =
+    useContext(CartContext);
   const [game, setGame] = useState({
     ProductName: "",
     Description: "",
@@ -18,7 +22,6 @@ const GamePage = () => {
     screenshot2: "",
     screenshot3: "",
   });
-
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -58,6 +61,14 @@ const GamePage = () => {
     loadGame();
     loadScreenshots();
   }, [gameId]);
+
+  const handleClickRemoveFromCart = () => {
+    handleRemoveFromCart(gameId);
+  };
+
+  const handleClickAddToCart = () => {
+    handleAddToCart(gameId);
+  };
 
   return (
     <div className="mx-auto flex pt-14 md:pt-24 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
@@ -172,10 +183,23 @@ const GamePage = () => {
             <p className="md:text-md pt-2">Precio: ${game.Price}</p>
           </div>
           <div className="flex flex-col space-y-6 sm:flex-row sm:space-y-0 sm:space-x-4 pb-10 md:pb-0 pt-10 md:pt-3">
-            {/* FOR THIS BUTTON */}
-            <button className="flex justify-center items-center w-full bg-neutral-100 text-neutral-800 font-semibold shadow-md rounded-2xl p-2 transition-transform hover:scale-105 hover:bg-neutral-50">
-              Añadir al carrito
-              <MdShoppingCart size={24} className="ml-2" />
+            <button
+              onClick={
+                inCart ? handleClickRemoveFromCart : handleClickAddToCart
+              }
+              className="flex justify-center items-center w-full bg-neutral-100 text-neutral-800 font-semibold shadow-md rounded-2xl p-2 transition-transform hover:scale-105 hover:bg-neutral-50"
+            >
+              {inCart ? (
+                <>
+                  Remover del carrito
+                  <IoMdClose size={20} className="ml-1" />
+                </>
+              ) : (
+                <>
+                  Añadir al carrito
+                  <MdShoppingCart size={20} className="ml-1" />
+                </>
+              )}
             </button>
           </div>
         </div>

@@ -1,7 +1,14 @@
 import { IoMdTrash } from "react-icons/io";
 import PropTypes from "prop-types";
+import { CartContext } from "../context/CartContext";
+import { useContext } from "react";
 
 const GameListComponent = ({ id, name, price, img }) => {
+  const { handleRemoveFromCart } = useContext(CartContext);
+  const handleClickRemoveFromCart = () => {
+    handleRemoveFromCart(id);
+  };
+
   return (
     <div className="w-full text-neutral-800 relative">
       <div className="flex flex-row justify-start px-4">
@@ -14,7 +21,7 @@ const GameListComponent = ({ id, name, price, img }) => {
         </div>
         <div className="absolute right-4">
           <button className="">
-            <IoMdTrash size={24} />
+            <IoMdTrash size={24} onClick={handleClickRemoveFromCart} />
           </button>
         </div>
       </div>
