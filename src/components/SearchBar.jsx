@@ -11,7 +11,7 @@ const Searchbar = () => {
     setInput(value);
     try {
       const searchResults = await searchProducts(value);
-      setResults(searchResults.slice(0, 10));
+      setResults(searchResults.slice(0, 8));
     } catch (error) {
       console.error("Error fetching search results:", error);
       setResults([]);
@@ -34,10 +34,10 @@ const Searchbar = () => {
         <div className="absolute inset-y-0 right-0 flex items-center pr-3"></div>
       </div>
       {input.length > 0 && (
-        <div className="absolute bg-neutral-100 p-2 h-96 w-80 md:w-96 mt-2 rounded-lg">
+        <div className="absolute bg-neutral-100 p-6 h-96 w-80 md:w-96 mt-2 rounded-lg">
           {results.length > 0 && (
             <div>
-              <div className="font-bold">Resultados de búsqueda:</div>
+              <div className="font-bold pb-2">Resultados de búsqueda:</div>
               <ul>
                 {results.map((result) => (
                   <Link
@@ -45,7 +45,7 @@ const Searchbar = () => {
                     key={result.ProductID}
                     onClick={() => setInput("")}
                   >
-                    <li className="hover:bg-neutral-200 rounded-lg py-1">
+                    <li className="hover:bg-neutral-300 rounded-lg py-1">
                       {result.ProductName}
                     </li>
                   </Link>
