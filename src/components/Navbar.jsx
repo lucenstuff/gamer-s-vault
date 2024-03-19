@@ -41,39 +41,41 @@ const Navbar = () => {
     <nav className="bg-neutral-400 z-20 absolute w-full shadow-neutral-600 shadow-sm">
       <div className="max-w-8xl mx-auto px-2 sm:px-6 lg:px-8 ">
         <div className="flex justify-between h-16">
-          <a
-            href="/"
-            className="flex-shrink-0 ml-2 md:ml-0 flex items-center w-24 md:w-32 text-white font-bold"
-          >
-            <img
-              src="https://res.cloudinary.com/dcbmvyyes/image/upload/v1705371120/icons/gv_logo_b2gipb.png"
-              alt="logo"
-            />
-          </a>
-          <div className="flex items-center gap-4"></div>
-          <div className="flex justify-center items-center flex-grow">
-            <div className="md:ml-12 lg:ml-40 hidden sm:flex sm:items-center text-lg">
-              <a
-                href="/"
-                className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
-              >
-                INICIO
-              </a>
-              <a
-                href="/store"
-                className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
-              >
-                TIENDA
-              </a>
-              <a
-                href="#sales"
-                className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
-              >
-                OFERTAS
-              </a>
-            </div>
+          <div className="flex">
+            <a
+              href="/"
+              className="flex-shrink-0 ml-2 md:ml-0 flex items-center w-24 md:w-32 text-white font-bold"
+            >
+              <img
+                src="https://res.cloudinary.com/dcbmvyyes/image/upload/v1705371120/icons/gv_logo_b2gipb.png"
+                alt="logo"
+              />
+            </a>
           </div>
-          <div className="flex items-center gap-4 text-neutral-800 text-3xl">
+          <div className="md:ml-12 lg:ml-40 hidden sm:flex sm:items-center text-lg">
+            <a
+              href="/"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+            >
+              INICIO
+            </a>
+            <a
+              href="/store"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+            >
+              TIENDA
+            </a>
+            <a
+              href="#sales"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+            >
+              OFERTAS
+            </a>
+          </div>
+          <div className="flex justify-center items-center absolute inset-0">
+            <Searchbar onSearch={handleSearch} />
+          </div>
+          <div className="flex items-center gap-4 text-neutral-800 text-3xl ">
             <button
               className="hover:text-neutral-950"
               aria-hidden="true"
@@ -101,7 +103,7 @@ const Navbar = () => {
                 <MdMenu />
               </button>
             </div>
-            <div className="hidden md:block relative">
+            <div className="hidden md:block">
               <button
                 className="hover:text-neutral-950 flex gap-1 justify-center items-center "
                 aria-hidden="true"
@@ -126,6 +128,57 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      {isOpen && (
+        <div className="sm:hidden">
+          <div className="flex flex-col px-4 pt-2 pb-3 space-y-2">
+            <a
+              href="/"
+              className="text-neutral-800 flex justify-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
+            >
+              INICIO
+            </a>
+            <a
+              href="/"
+              className="text-neutral-800 flex justify-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
+            >
+              TIENDA
+            </a>
+            <a
+              href="/"
+              className="text-neutral-800 flex justify-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
+            >
+              OFERTAS
+            </a>
+            {user ? (
+              <div className="flex flex-col px-4  pb-3">
+                <div>
+                  <Link
+                    to={"/account"}
+                    className="text-neutral-800 gap-1 flex justify-center items-center hover:underline px-3 py-2 rounded-md text-lg font-bold"
+                  >
+                    <MdPerson size={20} />
+                    MI CUENTA
+                  </Link>
+                  <Link
+                    onClick={logout}
+                    className="text-neutral-800 gap-1 flex justify-center items-center hover:underline px-3 py-2 rounded-md text-lg font-bold"
+                  >
+                    <IoLogOut size={20} />
+                    CERRAR SESIÓN
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={handleLoginModalToggle}
+                className="text-neutral-80 font-bold gap-1 flex justify-center items-center"
+              >
+                <MdPerson size={20} /> INICIAR SESION
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
