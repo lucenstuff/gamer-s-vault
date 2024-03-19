@@ -4,6 +4,7 @@ import apiMessageController from "./controllers/apiMessageController.js";
 import ProductController from "./controllers/productController.js";
 import ShoppingCartController from "./controllers/shoppingCartController.js";
 import ScreenshotController from "./controllers/screenshotController.js";
+import SearchController from "./controllers/searchController.js";
 
 const router = express.Router();
 
@@ -28,6 +29,10 @@ router.get(
   "/api/products/:ProductsID/screenshots",
   ScreenshotController.getProductScreenshotsByProductId
 );
+
+// Search
+
+router.get("/api/search/products", SearchController.search);
 
 // router.get("/api");
 

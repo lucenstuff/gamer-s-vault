@@ -37,6 +37,7 @@ const Navbar = () => {
       console.error("Search failed:", error);
     }
   };
+
   return (
     <nav className="bg-neutral-400 z-20 absolute w-full shadow-neutral-600 shadow-sm">
       <div className="max-w-8xl mx-auto px-2 sm:px-6 lg:px-8 ">
@@ -52,6 +53,7 @@ const Navbar = () => {
               />
             </a>
           </div>
+
           <div className="md:ml-12 lg:ml-40 hidden sm:flex sm:items-center text-lg">
             <a
               href="/"
