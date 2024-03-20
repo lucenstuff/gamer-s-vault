@@ -27,14 +27,6 @@ function Footer() {
               OFERTAS
             </a>
           </li>
-          <li>
-            <a
-              href="contact.html"
-              className="no-underline text-black hover:underline"
-            >
-              CONTACTO
-            </a>
-          </li>
         </ul>
         <ul className="flex items-center space-x-2.5 pt-4">
           <li>

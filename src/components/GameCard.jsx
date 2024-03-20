@@ -1,48 +1,34 @@
 import { Link } from "react-router-dom";
 import { MdAddShoppingCart, MdOutlineRemoveShoppingCart } from "react-icons/md";
-import { FaRegHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
-import { ButtonContext } from "../context/ButtonContext";
-import { useContext, useState } from "react";
+import { CartContext } from "../context/CartContext";
+import { useContext, useState, useEffect } from "react";
 
 const GameCard = ({ id, name, price, img }) => {
-  const { addToCart, removeFromCart } = useContext(ButtonContext);
-  const [inCart, setInCart] = useState(false);
+  const { handleAddToCart, handleRemoveFromCart } = useContext(CartContext);
+  const [inCart, setInCart] = useState(() => {
+    return localStorage.getItem(`cartGameIds-${id}`) === id;
+  });
 
-  const dispatchLocalStorageUpdate = () => {
-    const event = new Event("localStoragesUpdate");
-    window.dispatchEvent(event);
+  useEffect(() => {
+    const updateInCartStatus = () => {
+      setInCart(localStorage.getItem(`cartGameIds-${id}`) === id);
+    };
+
+    window.addEventListener("localStoragesUpdate", updateInCartStatus);
+    updateInCartStatus();
+
+    return () => {
+      window.removeEventListener("localStoragesUpdate", updateInCartStatus);
+    };
+  }, [id]);
+
+  const handleClickAddToCart = () => {
+    handleAddToCart(id);
   };
 
-  const saveGameIdToLocalStorage = (gameId) => {
-    const existingGameIds =
-      JSON.parse(localStorage.getItem("cartGameIds")) || [];
-
-    if (!existingGameIds.includes(gameId)) {
-      existingGameIds.push(gameId);
-      localStorage.setItem("cartGameIds", JSON.stringify(existingGameIds));
-      dispatchLocalStorageUpdate();
-    }
-  };
-
-  const removeGameIdFromLocalStorage = (gameId) => {
-    let existingGameIds = JSON.parse(localStorage.getItem("cartGameIds")) || [];
-
-    existingGameIds = existingGameIds.filter((id) => id !== gameId);
-    localStorage.setItem("cartGameIds", JSON.stringify(existingGameIds));
-    dispatchLocalStorageUpdate();
-  };
-
-  const handleAddToCart = () => {
-    addToCart(id);
-    saveGameIdToLocalStorage(id);
-    setInCart(true);
-  };
-
-  const handleRemoveFromCart = () => {
-    removeFromCart(id);
-    removeGameIdFromLocalStorage(id);
-    setInCart(false);
+  const handleClickRemoveFromCart = () => {
+    handleRemoveFromCart(id);
   };
 
   return (
@@ -60,33 +46,24 @@ const GameCard = ({ id, name, price, img }) => {
       </div>
       <h3 className="text-lg font-medium py-2 truncate ">{name}</h3>
       <div className="flex justify-between items-center">
-        <h3 className="text-md font-medium ">{price}</h3>{" "}
-        <div>
+        <h3 className="text-md font-medium ">{price}</h3> <div></div>
+        {inCart ? (
           <button
             type="button"
             className="px-2 py-1 rounded-md text-xl font-medium "
-            onClick={() => {}}
+            onClick={handleClickRemoveFromCart}
           >
-            <FaRegHeart />
+            <MdOutlineRemoveShoppingCart />
           </button>
-          {inCart ? (
-            <button
-              type="button"
-              className="px-2 py-1 rounded-md text-xl font-medium "
-              onClick={handleRemoveFromCart}
-            >
-              <MdOutlineRemoveShoppingCart />
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="px-2 py-1 rounded-md text-xl font-medium "
-              onClick={handleAddToCart}
-            >
-              <MdAddShoppingCart />
-            </button>
-          )}
-        </div>
+        ) : (
+          <button
+            type="button"
+            className="px-2 py-1 rounded-md text-xl font-medium "
+            onClick={handleClickAddToCart}
+          >
+            <MdAddShoppingCart />
+          </button>
+        )}
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import { json } from "react-router-dom";
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 async function getProducts() {
@@ -39,21 +41,6 @@ async function getTrendingProducts() {
   }
 }
 
-async function searchProducts(searchTerm) {
-  try {
-    const response = await fetch(
-      `${apiUrl}/search?term=${encodeURIComponent(searchTerm)}`
-    );
-    if (!response.ok) {
-      throw new Error("Error: " + response.status);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Search failed:", error);
-  }
-}
-
 async function getProductScreenshots(productId) {
   try {
     const response = await fetch(`${apiUrl}/products/${productId}/screenshots`);
@@ -69,45 +56,6 @@ async function getProductScreenshots(productId) {
   } catch (error) {
     console.error("Error fetching screenshots:", error);
     throw error;
-  }
-}
-
-async function userRegister(
-  username,
-  email,
-  password,
-  firstName,
-  lastName,
-  callback
-) {
-  try {
-    const response = await fetch(`${apiUrl}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-        firstName,
-        lastName,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Error: " + response.status);
-    }
-    const data = await response.json();
-    if (callback) {
-      callback(null, data);
-    }
-    return data;
-  } catch (error) {
-    console.error("Register failed:", error);
-    if (callback) {
-      callback(error, null);
-    }
   }
 }
 
@@ -164,22 +112,96 @@ async function authenticateUser(email, password) {
       }),
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+      const data = await response.json();
+      sessionStorage.setItem("token", data.token);
+      return data;
+    } else {
       if (response.status === 401) {
         throw new Error("Invalid email or password");
       } else {
         throw new Error("Error: " + response.status);
       }
     }
-    const data = await response.json();
-    return data;
   } catch (error) {
     console.error(error);
-    alert("Authentication failed. Please try again.");
+    alert("Credenciales incorrectas, por favor intenta de nuevo");
+  }
+}
+
+async function searchProducts(query) {
+  try {
+    const response = await fetch(`${apiUrl}/search/products?q=${query}`);
+    if (response.ok) {
+      const data = await response.json();
+      const result = data.filter((product) => {
+        return (
+          query &&
+          product.ProductName.toLowerCase().includes(query.toLowerCase())
+        );
+      });
+      console.log(result);
+      return result;
+    } else {
+      throw new Error("Error: " + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function userRegister(
+  username,
+  email,
+  password,
+  firstName,
+  lastName,
+  callback
+) {
+  try {
+    const response = await fetch(`${apiUrl}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+        firstName,
+        lastName,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (callback) {
+        callback(null, data);
+      }
+      return data;
+    } else {
+      if (response.status === 409) {
+        const error = new Error("User with this email is already registered");
+        if (callback) {
+          callback(error, null);
+        }
+        alert("Usuario ya registrado con este correo, por favor inicia sesion");
+        return error;
+      } else {
+        throw new Error("Error: " + response.status);
+      }
+    }
+  } catch (error) {
+    console.error("Register failed:", error);
+    if (callback) {
+      callback(error, null);
+    }
   }
 }
 
 export {
+  searchProducts,
   getUserCart,
   addToCart,
   getProductScreenshots,
@@ -187,6 +209,5 @@ export {
   getSingleProducts,
   userRegister,
   authenticateUser,
-  searchProducts,
   getTrendingProducts,
 };
