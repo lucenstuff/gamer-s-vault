@@ -3,8 +3,8 @@ import { useUser } from "../context/UserContext";
 const Account = () => {
   const { user } = useUser();
   return (
-    <div className=" bg-neutral-200 p-4 pt-6 md:pt-20">
-      <div className="flex md:flex-col md:justify-center md:pt-0 items-center bg-neutral-200 p-4 pt-20">
+    <div className="bg-neutral-200 p-4 pt-6 md:pt-20">
+      <div className="flex flex-col md:justify-center md:pt-0 items-center bg-neutral-200 p-4 pt-20">
         <div className="flex justify-center items-center w-full max-w-xs">
           <div className="text-center pt-8">
             <h2 className="text-2xl font-bold text-gray-800">Mi Cuenta</h2>
