@@ -1,37 +1,37 @@
 # 🎮 Gamer's Vault 🕹️
 
-Gamer's Vault es un proyecto de e-commerce 🛒 diseñado como parte de un proyecto universitario. Permite a los usuarios explorar un catálogo de juegos, agregarlos al carrito y simular compras, aunque no se realizan transacciones reales.
+Gamer's Vault is an e-commerce 🛒 project designed as part of a university assignment. It allows users to explore a catalog of games, add them to the cart, and simulate purchases, although no real transactions are processed.
 
-## Características 🚀
+## Features 🚀
 
-- **Exploración de juegos:** Los usuarios pueden buscar y explorar una amplia gama de videojuegos disponibles en la plataforma. Cada juego tiene su carátula, descripción, capturas de pantalla y requisitos.
-- **Gestión de cuenta:** Los usuarios pueden registrarse en la plataforma y luego iniciar sesión para acceder a las funciones de compra.
-- **Compra simulada:** Los usuarios pueden agregar juegos al carrito y realizar simulaciones de compra para experimentar el proceso de compra sin realizar transacciones reales.
+- **Game Exploration:** Users can search and explore a wide range of video games available on the platform. Each game has its cover, description, screenshots, and requirements.
+- **Account Management:** Users can register on the platform and then log in to access purchasing features.
+- **Simulated Purchase:** Users can add games to the cart and simulate purchases to experience the buying process without making real transactions.
 
-## Tecnologías Utilizadas 💻
+## Technologies Used 💻
 
 - **Frontend:** React.js, Vite, Tailwind CSS
 - **Backend:** Express.js, Sequelize (ORM)
-- **Base de datos:** MySQL
+- **Database:** MySQL
 
-## Acceso a Gamer's Vault 🔑
+## Access to Gamer's Vault 🔑
 
-Los usuarios pueden registrarse e iniciar sesión en Gamer's Vault a través de su despliegue en Vercel:
+Users can register and log in to Gamer's Vault through its deployment on Vercel:
 
 https://gamer-s-vault.vercel.app
 
-## Nota Importante 📢
+## Important Note 📢
 
-Por favor, ten en cuenta que debido al uso del tier gratuito en Vercel, el backend puede tardar unos segundos en cargar correctamente si ha sido puesto en estado de hibernación.
+Please note that due to the use of the free tier in Vercel, the backend may take a few seconds to load properly if it has been put into a hibernation state.
 
-## Contribución 🤝
+## Contribution 🤝
 
-Actualmente no se aceptan contribuciones externas para este proyecto.
+External contributions to this project are currently not accepted.
 
-## Licencia 📜
+## License 📜
 
-Este proyecto no tiene ninguna licencia asociada.
+This project does not have any associated license.
 
-## Contacto 📧
+## Contact 📧
 
-Si tienes preguntas o comentarios sobre este proyecto, no dudes en ponerte en contacto con el equipo de desarrollo a través de [mi portfolio](https://lucen.is-a.dev).
+If you have any questions or comments about this project, feel free to contact the development team through [my portfolio](https://lucen.is-a.dev).
