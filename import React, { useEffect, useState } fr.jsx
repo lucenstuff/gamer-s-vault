@@ -11,10 +11,6 @@ import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 
 const GamePage = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
-
   const { gameId } = useParams();
   const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
   const { handleRemoveFromCart, handleAddToCart, inCart } =
@@ -98,7 +94,7 @@ const GamePage = () => {
           <div className="justify-center pb-8 lg:pb-0 screenshots hidden md:flex">
             <div className="w-1/3 p-2">
               <div className="aspect-w-4 aspect-h-3 aspect-video">
-                {game.ProductName ? (
+                {game.screenshot1 ? (
                   <img
                     src={game.screenshot1}
                     alt="screenshot"
@@ -112,7 +108,7 @@ const GamePage = () => {
             </div>
             <div className="w-1/3 p-2">
               <div className="aspect-w-4 aspect-h-3 aspect-video">
-                {game.ProductName ? (
+                {game.screenshot2 ? (
                   <img
                     src={game.screenshot2}
                     alt="screenshot"
@@ -126,7 +122,7 @@ const GamePage = () => {
             </div>
             <div className="w-1/3 p-2">
               <div className="aspect-w-4 aspect-h-3">
-                {game.ProductName ? (
+                {game.screenshot3 ? (
                   <img
                     src={game.screenshot3}
                     alt="screenshot"
@@ -214,25 +210,27 @@ const GamePage = () => {
           </div>
         </div>
       </div>
-      {selectedImage && (
-        <div className="fixed top-0 z-50 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-55 backdrop-blur-lg">
-          <div className="relative w-3/4 h-3/4 flex justify-center items-start md:items-center">
-            <div className="rounded-md overflow-hidden">
-              <img
-                src={selectedImage}
-                alt="selected screenshot"
-                className="max-w-full max-h-full aspect-video"
-              />
+      <div className="relative">
+        {selectedImage && (
+          <div className="fixed top-0 z-50 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-55 backdrop-blur-lg">
+            <div className="relative w-3/4 h-3/4 flex justify-center items-start md:items-center">
+              <div className="rounded-md overflow-hidden">
+                <img
+                  src={selectedImage}
+                  alt="selected screenshot"
+                  className="max-w-full max-h-full aspect-video"
+                />
+              </div>
+              <button
+                className="absolute top-1 right-0 m-4  -mt-12 text-white bg-black bg-opacity-50 p-2 rounded-full"
+                onClick={() => setSelectedImage(null)}
+              >
+                <IoMdClose size={24} />
+              </button>
             </div>
-            <button
-              className="absolute top-1 right-0 m-4  -mt-12 text-white bg-black bg-opacity-50 p-2 rounded-full"
-              onClick={() => setSelectedImage(null)}
-            >
-              <IoMdClose size={24} />
-            </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
