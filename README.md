@@ -20,6 +20,10 @@ Los usuarios pueden registrarse e iniciar sesión en Gamer's Vault a través de 
 
 https://gamer-s-vault.vercel.app
 
+## Nota Importante 📢
+
+Por favor, ten en cuenta que debido al uso del tier gratuito en Vercel, el backend puede tardar unos segundos en cargar correctamente si ha sido puesto en estado de hibernación.
+
 ## Contribución 🤝
 
 Actualmente no se aceptan contribuciones externas para este proyecto.
