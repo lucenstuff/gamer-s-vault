@@ -10,7 +10,7 @@ function UserDropdownMenu({ isUserDropdownOpen }) {
   return (
     <div>
       {isUserDropdownOpen && (
-        <div className="absolute w-42 text-sm font-semibold z-20 top-9 right-0 flex shadow-neutral-700 ">
+        <div className="absolute w-44 mt-4 text-sm font-semibold z-20 top-9 right-0 flex shadow-neutral-700 ">
           <div className="relative p-2 bg-neutral-400 max-w-md m-auto flex-col flex shadow-lg rounded-2xl ">
             <div className="flex flex-col gap-4">
               <Link

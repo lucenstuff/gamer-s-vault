@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdShoppingCart } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
+import { ButtonContext, ButtonProvider } from "../context/ButtonContext";
 import {
   getSingleProducts,
   getProductScreenshots,
@@ -11,6 +12,7 @@ import { useContext } from "react";
 
 const GamePage = () => {
   const { gameId } = useParams();
+  const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
   const { handleRemoveFromCart, handleAddToCart, inCart } =
     useContext(CartContext);
   const [game, setGame] = useState({
@@ -23,6 +25,10 @@ const GamePage = () => {
     screenshot3: "",
   });
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleCartToggle = () => {
+    setIsCartOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     const loadGame = async () => {

@@ -17,6 +17,12 @@ const Navbar = () => {
 
   const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
 
+  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
+
+  const toggleSearchBar = () => {
+    setIsSearchBarOpen((prev) => !prev);
+  };
+
   const handleLoginModalToggle = () => {
     setIsLoginModalOpen((prev) => !prev);
   };
@@ -37,46 +43,53 @@ const Navbar = () => {
       console.error("Search failed:", error);
     }
   };
+
   return (
     <nav className="bg-neutral-400 z-20 absolute w-full shadow-neutral-600 shadow-sm">
       <div className="max-w-8xl mx-auto px-2 sm:px-6 lg:px-8 ">
         <div className="flex justify-between h-16">
           <div className="flex">
-            <a
-              href="/"
-              className="flex-shrink-0 ml-2 md:ml-0 flex items-center w-24 md:w-32 text-white font-bold"
-            >
-              <img
-                src="https://res.cloudinary.com/dcbmvyyes/image/upload/v1705371120/icons/gv_logo_b2gipb.png"
-                alt="logo"
-              />
-            </a>
+            <button>
+              <a href="/">
+                <img
+                  className="flex-shrink-0 ml-2 md:ml-0 flex items-center w-24 md:w-32 text-white font-bold"
+                  src="https://res.cloudinary.com/dcbmvyyes/image/upload/v1705371120/icons/gv_logo_b2gipb.png"
+                  alt="logo"
+                />
+              </a>
+            </button>
           </div>
-          <div className="md:ml-12 lg:ml-40 hidden sm:flex sm:items-center text-lg">
-            <a
-              href="/"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
-            >
-              INICIO
-            </a>
-            <a
-              href="/store"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
-            >
-              TIENDA
-            </a>
-            <a
-              href="#sales"
-              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
-            >
-              OFERTAS
-            </a>
-          </div>
+          {isSearchBarOpen ? (
+            <div className="hidden justify-center items-center pl-40 md:flex">
+              <Searchbar onSearch={handleSearch} />
+            </div>
+          ) : (
+            <div className="md:ml-12 lg:ml-40 hidden sm:flex sm:items-center text-lg">
+              <a
+                href="/"
+                className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+              >
+                INICIO
+              </a>
+              <a
+                href="/store"
+                className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+              >
+                TIENDA
+              </a>
+              <a
+                href="#sales"
+                className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+              >
+                OFERTAS
+              </a>
+            </div>
+          )}
           <div className="flex items-center gap-4 text-neutral-800 text-3xl ">
             <button
               className="hover:text-neutral-950"
               aria-hidden="true"
-              onClick={handleLoginModalToggle}
+              onClick={toggleSearchBar}
             >
               <MdSearch />
               <span className="hidden">Iniciar Sesión</span>
@@ -100,7 +113,7 @@ const Navbar = () => {
                 <MdMenu />
               </button>
             </div>
-            <div className="hidden md:block relative min-w-24  ">
+            <div className="hidden md:block">
               <button
                 className="hover:text-neutral-950 flex gap-1 justify-center items-center "
                 aria-hidden="true"
@@ -125,8 +138,14 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
       {isOpen && (
         <div className="sm:hidden">
+          {isSearchBarOpen && (
+            <div className="flex justify-center items-center">
+              <Searchbar onSearch={handleSearch} />
+            </div>
+          )}
           <div className="flex flex-col px-4 pt-2 pb-3 space-y-2">
             <a
               href="/"
