@@ -16,7 +16,9 @@ Gamer's Vault es un proyecto de e-commerce 🛒 diseñado como parte de un proye
 
 ## Acceso a Gamer's Vault 🔑
 
-Los usuarios pueden registrarse e iniciar sesión en Gamer's Vault a través de la misma página web.
+Los usuarios pueden registrarse e iniciar sesión en Gamer's Vault a través de su despliegue en Vercel:
+
+https://gamer-s-vault.vercel.app
 
 ## Contribución 🤝
 
