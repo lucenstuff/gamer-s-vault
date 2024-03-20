@@ -87,7 +87,7 @@ const GamePage = () => {
           <div className="hidden md:flex justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
             {game.ImageURL ? (
               <img
-                className="aspect-square rounded-md transform group-hover:scale-105 duration-200"
+                className="lazy aspect-square rounded-md transform group-hover:scale-105 duration-200"
                 src={game.ImageURL}
                 alt={game.ProductName}
               />
@@ -102,7 +102,7 @@ const GamePage = () => {
                   <img
                     src={game.screenshot1}
                     alt="screenshot"
-                    className=" aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    className="lazy aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
                     onClick={() => setSelectedImage(game.screenshot1)}
                   />
                 ) : (
@@ -116,7 +116,7 @@ const GamePage = () => {
                   <img
                     src={game.screenshot2}
                     alt="screenshot"
-                    className="aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    className="lazy aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
                     onClick={() => setSelectedImage(game.screenshot2)}
                   />
                 ) : (
@@ -130,7 +130,7 @@ const GamePage = () => {
                   <img
                     src={game.screenshot3}
                     alt="screenshot"
-                    className="aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    className="lazy aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
                     onClick={() => setSelectedImage(game.screenshot3)}
                   />
                 ) : (
@@ -152,7 +152,7 @@ const GamePage = () => {
           )}
         </div>
         <div className="px-2">
-          <h2 className="text-xl md:text-2xl font-bold mb-4">
+          <h2 className=" text-xl md:text-2xl font-bold mb-4">
             {game.ProductName}
           </h2>
           <div className="lg:w-full">
@@ -215,21 +215,32 @@ const GamePage = () => {
         </div>
       </div>
       {selectedImage && (
-        <div className="fixed top-0 z-50 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-55 backdrop-blur-lg">
-          <div className="relative w-3/4 h-3/4 flex justify-center items-start md:items-center">
-            <div className="rounded-md overflow-hidden">
-              <img
-                src={selectedImage}
-                alt="selected screenshot"
-                className="max-w-full max-h-full aspect-video"
-              />
+        <div
+          className="fixed top-0 z-50 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-55 backdrop-blur-lg"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="relative w-3/4 h-3/4 flex justify-center items-start md:items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative w-full aspect-video">
+              <div className="absolute top-0 left-0 right-0 bottom-0">
+                <img
+                  src={selectedImage}
+                  alt="selected screenshot"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+                <button
+                  className="absolute top-4 right-4 text-white bg-black bg-opacity-50 p-2 rounded-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImage(null);
+                  }}
+                >
+                  <IoMdClose size={24} />
+                </button>
+              </div>
             </div>
-            <button
-              className="absolute top-1 right-0 m-4  -mt-12 text-white bg-black bg-opacity-50 p-2 rounded-full"
-              onClick={() => setSelectedImage(null)}
-            >
-              <IoMdClose size={24} />
-            </button>
           </div>
         </div>
       )}
