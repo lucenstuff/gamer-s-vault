@@ -156,11 +156,11 @@ const GamePage = () => {
         <div className="px-2">
           <div className="pb-10 flex md:hidden rounded-lg">
             <ImageSlider className="flex md:hidden rounded-lg">
-              {slides.map((slide) => (
+              {slides.map((slide, index) => (
                 <img
                   className="w-full md:aspect-auto aspect-video object-cover "
                   src={slide}
-                  key={slide}
+                  key={index}
                   alt="Image Slider"
                 />
               ))}
