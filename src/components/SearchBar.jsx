@@ -19,14 +19,14 @@ const Searchbar = () => {
   };
 
   return (
-    <div>
+    <div className="relative w-full md:w-96">
       <div className="relative">
         <input
           type="text"
           placeholder="Buscar Juegos..."
           value={input}
           onChange={(e) => handleChange(e.target.value)}
-          className="focus:outline-none w-80 md:w-96 bg-neutral-100 p-2 rounded-lg pl-10"
+          className="focus:outline-none w-full md:w-96 bg-neutral-100 p-2 rounded-lg pl-10"
         />
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <MdSearch size={20} />
@@ -34,7 +34,7 @@ const Searchbar = () => {
         <div className="absolute inset-y-0 right-0 flex items-center pr-3"></div>
       </div>
       {input.length > 0 && (
-        <div className="absolute bg-neutral-100 p-6 h-96 w-80 md:w-96 mt-2 rounded-lg">
+        <div className="absolute bg-neutral-100 p-6 h-96 w-full mt-2 rounded-lg">
           {results.length > 0 && (
             <div>
               <div className="font-bold pb-2">Resultados de búsqueda:</div>
