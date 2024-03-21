@@ -85,7 +85,7 @@ export default function ImageSlider({
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`w-3 h-3 rounded-full border-2 border-neutral-500 mx-1 cursor-pointer ${
+            className={`w-3 h-3 rounded-full border-2 border-neutral-500 mx-1 cursor-pointer hidden md:block ${
               index === activeIndex
                 ? "border-neutral-500 bg-neutral-500"
                 : "bg-transparent"
