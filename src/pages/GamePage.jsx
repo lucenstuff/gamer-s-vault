@@ -9,7 +9,7 @@ import {
 import { useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
-
+import ImageSlider from "../components/ImageSlider";
 const GamePage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -79,6 +79,8 @@ const GamePage = () => {
   const handleClickAddToCart = () => {
     handleAddToCart(gameId);
   };
+
+  const slides = [game.screenshot1, game.screenshot2, game.screenshot3];
 
   return (
     <div className="mx-auto flex pt-14 md:pt-24 px-4 sm:px-6 lg:px-8 max-w-screen-xl ">
@@ -152,6 +154,18 @@ const GamePage = () => {
           )}
         </div>
         <div className="px-2">
+          <div className="pb-10 flex md:hidden rounded-lg">
+            <ImageSlider className="flex md:hidden rounded-lg">
+              {slides.map((slide) => (
+                <img
+                  className="w-full md:aspect-auto aspect-video object-cover "
+                  src={slide}
+                  key={slide}
+                  alt="Image Slider"
+                />
+              ))}
+            </ImageSlider>
+          </div>
           <h2 className=" text-xl md:text-2xl font-bold mb-4">
             {game.ProductName}
           </h2>

@@ -11,7 +11,7 @@ const slides = [
 const HomePage = () => {
   return (
     <div className="bg-neutral-300">
-      <section>
+      <section className="pt-16">
         <ImageSlider>
           {slides.map((slide) => (
             <img
