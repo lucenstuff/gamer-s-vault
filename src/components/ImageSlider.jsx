@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 export default function ImageSlider({
   children: slides,
   autoSlideInterval = 3000,
+  className = "",
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
@@ -59,14 +60,17 @@ export default function ImageSlider({
     setTouchStart(null);
     startAutoSlide();
   };
+
   return (
-    <div className="overflow-hidden relative z-0 pt-16 shadow-neutral-500 shadow-md">
+    <div
+      className={`overflow-hidden relative z-0  shadow-neutral-500 shadow-md ${className}`}
+    >
       <div
         style={{
           transform: `translateX(-${activeIndex * 100}%)`,
           transition: "transform 0.5s ease-out",
         }}
-        className="flex"
+        className="flex "
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={startAutoSlide}
@@ -77,11 +81,11 @@ export default function ImageSlider({
           </div>
         ))}
       </div>
-      <div className="flex justify-center absolute inset-x-0 bottom-0 mb-3">
+      <div className="flex justify-center absolute inset-x-0 bottom-0 mb-3 ">
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`w-3 h-3 rounded-full border-2 border-neutral-500 mx-1 cursor-pointer ${
+            className={`w-3 h-3 rounded-full border-2 border-neutral-500 mx-1 cursor-pointer hidden md:block ${
               index === activeIndex
                 ? "border-neutral-500 bg-neutral-500"
                 : "bg-transparent"

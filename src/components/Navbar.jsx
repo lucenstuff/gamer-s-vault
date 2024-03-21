@@ -15,6 +15,8 @@ const Navbar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+
   const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
 
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
@@ -32,7 +34,7 @@ const Navbar = () => {
   };
 
   const handleUserDropdownToggle = () => {
-    setIsOpen((prev) => !prev);
+    setIsUserDropdownOpen((prev) => !prev);
   };
 
   const handleSearch = async (searchTerm) => {
@@ -64,30 +66,30 @@ const Navbar = () => {
               <Searchbar onSearch={handleSearch} />
             </div>
           ) : (
-            <div className="md:ml-12 lg:ml-40 hidden sm:flex sm:items-center text-lg">
-              <a
-                href="/"
+            <div className="md:ml-12 lg:ml-28 hidden sm:flex sm:items-center text-lg">
+              <Link
+                to="/"
                 className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
               >
                 INICIO
-              </a>
-              <a
-                href="/store"
+              </Link>
+              <Link
+                to="/store"
                 className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
               >
                 TIENDA
-              </a>
-              <a
-                href="#sales"
+              </Link>
+              <Link
+                to="/#sales"
                 className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
               >
                 OFERTAS
-              </a>
+              </Link>
             </div>
           )}
           <div className="flex items-center gap-4 text-neutral-800 text-3xl ">
             <button
-              className="hover:text-neutral-950"
+              className="hidden md:flex hover:text-neutral-950"
               aria-hidden="true"
               onClick={toggleSearchBar}
             >
@@ -131,7 +133,7 @@ const Navbar = () => {
                 {user ? <IoMdArrowDropdown /> : null}
               </button>
               <UserDropdownMenu
-                isUserDropdownOpen={isOpen}
+                isUserDropdownOpen={isUserDropdownOpen}
                 onClose={() => setIsOpen(false)}
               />
             </div>
@@ -141,56 +143,58 @@ const Navbar = () => {
 
       {isOpen && (
         <div className="sm:hidden">
-          {isSearchBarOpen && (
-            <div className="flex justify-center items-center">
-              <Searchbar onSearch={handleSearch} />
-            </div>
-          )}
+          <div className="w-full px-4 pt-4">
+            <Searchbar onSearch={handleSearch} />
+          </div>
           <div className="flex flex-col px-4 pt-2 pb-3 space-y-2">
-            <a
-              href="/"
-              className="text-neutral-800 flex justify-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
               INICIO
-            </a>
-            <a
-              href="/"
-              className="text-neutral-800 flex justify-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
+            </Link>
+            <Link
+              to="/store"
+              onClick={() => setIsOpen(false)}
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
               TIENDA
-            </a>
-            <a
-              href="/"
-              className="text-neutral-800 flex justify-center hover:underline px-3 py-2 rounded-md text-lg font-semibold"
+            </Link>
+            <Link
+              to="/#sales"
+              onClick={() => setIsOpen(false)}
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
               OFERTAS
-            </a>
+            </Link>
             {user ? (
-              <div className="flex flex-col px-4  pb-3">
+              <div className="flex flex-col pb-3">
                 <div>
                   <Link
                     to={"/account"}
-                    className="text-neutral-800 gap-1 flex justify-center items-center hover:underline px-3 py-2 rounded-md text-lg font-bold"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full justify-between text-neutral-800 gap-1 flex items-center hover:underline px-3 py-2 rounded-md font-semibold"
                   >
-                    <MdPerson size={20} />
                     MI CUENTA
                   </Link>
                   <Link
                     onClick={logout}
-                    className="text-neutral-800 gap-1 flex justify-center items-center hover:underline px-3 py-2 rounded-md text-lg font-bold"
+                    className="w-full justify-between text-neutral-800 gap-1 flex items-center hover:underline px-3 py-2 rounded-md font-semibold"
                   >
-                    <IoLogOut size={20} />
                     CERRAR SESIÓN
+                    <IoLogOut size={20} />
                   </Link>
                 </div>
               </div>
             ) : (
-              <button
+              <Link
                 onClick={handleLoginModalToggle}
-                className="text-neutral-80 font-bold gap-1 flex justify-center items-center"
+                className="w-full justify-between text-neutral-800 gap-1 flex items-center hover:underline px-3 py-2 rounded-md font-semibold"
               >
-                <MdPerson size={20} /> INICIAR SESION
-              </button>
+                INICIAR SESION
+                <MdPerson size={20} />
+              </Link>
             )}
           </div>
         </div>
