@@ -18,6 +18,10 @@ const Searchbar = () => {
     }
   };
 
+  const handleResultClick = () => {
+    setIsSearchBarOpen(false);
+  };
+
   return (
     <div className="relative w-full md:w-96">
       <div className="relative">
@@ -45,7 +49,12 @@ const Searchbar = () => {
                     key={result.ProductID}
                     onClick={() => setInput("")}
                   >
-                    <li className="hover:bg-neutral-300 rounded-lg py-1">
+                    <li className="hover:bg-neutral-300 rounded-lg py-1 flex gap-2">
+                      <img
+                        className="w-8 h-8 rounded-sm"
+                        src={result.ImageURL}
+                        alt={result.ProductName}
+                      />
                       {result.ProductName}
                     </li>
                   </Link>

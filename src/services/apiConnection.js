@@ -135,10 +135,7 @@ async function searchProducts(query) {
     if (response.ok) {
       const data = await response.json();
       const result = data.filter((product) => {
-        return (
-          query &&
-          product.ProductName.toLowerCase().includes(query.toLowerCase())
-        );
+        return query;
       });
       console.log(result);
       return result;
