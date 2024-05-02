@@ -1,5 +1,3 @@
-import { json } from "react-router-dom";
-
 const apiUrl = import.meta.env.VITE_API_URL;
 
 async function getProducts() {
@@ -19,12 +17,13 @@ async function getSingleProducts(id) {
   try {
     const response = await fetch(`${apiUrl}/products/${id}`);
     if (!response.ok) {
-      throw new Error("Error: " + response.status);
+      throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
 
@@ -41,6 +40,7 @@ async function getTrendingProducts() {
   }
 }
 
+//Esto funciona re piola
 async function getProductScreenshots(productId) {
   try {
     const response = await fetch(`${apiUrl}/products/${productId}/screenshots`);
@@ -48,7 +48,8 @@ async function getProductScreenshots(productId) {
       if (response.status === 404) {
         throw new Error("Product not found");
       } else {
-        throw new Error("Failed to fetch screenshots: " + response.status);
+        console.log("Failed to fetch screenshots:", response.statusText);
+        throw new Error(`Failed to fetch screenshots: ${response.status}`);
       }
     }
     const data = await response.json();
@@ -72,12 +73,13 @@ async function addToCart(productId, quantity, userId) {
       }),
     });
     if (!response.ok) {
-      throw new Error("Error: " + response.status);
+      throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
 
@@ -90,12 +92,13 @@ async function getUserCart(userId) {
       },
     });
     if (!response.ok) {
-      throw new Error("Error: " + response.status);
+      throw new Error(`Error: ${response.status}`);
     }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
 
@@ -116,16 +119,16 @@ async function authenticateUser(email, password) {
       const data = await response.json();
       sessionStorage.setItem("token", data.token);
       return data;
+    }
+    if (response.status === 401) {
+      throw new Error("Invalid email or password");
     } else {
-      if (response.status === 401) {
-        throw new Error("Invalid email or password");
-      } else {
-        throw new Error("Error: " + response.status);
-      }
+      throw new Error(`Error: ${response.status}`);
     }
   } catch (error) {
-    console.error(error);
+    // eslint-disable-next-line no-alert
     alert("Credenciales incorrectas, por favor intenta de nuevo");
+    throw error;
   }
 }
 
@@ -134,17 +137,11 @@ async function searchProducts(query) {
     const response = await fetch(`${apiUrl}/search/products?q=${query}`);
     if (response.ok) {
       const data = await response.json();
-      const result = data.filter((product) => {
-        return (
-          query &&
-          product.ProductName.toLowerCase().includes(query.toLowerCase())
-        );
-      });
+      const result = data.filter(() => query);
       console.log(result);
       return result;
-    } else {
-      throw new Error("Error: " + response.status);
     }
+    throw new Error(`Error: ${response.status}`);
   } catch (error) {
     console.error(error);
     throw error;
@@ -180,23 +177,22 @@ async function userRegister(
         callback(null, data);
       }
       return data;
-    } else {
-      if (response.status === 409) {
-        const error = new Error("User with this email is already registered");
-        if (callback) {
-          callback(error, null);
-        }
-        alert("Usuario ya registrado con este correo, por favor inicia sesion");
-        return error;
-      } else {
-        throw new Error("Error: " + response.status);
-      }
     }
+    if (response.status === 409) {
+      const error = new Error("User with this email is already registered");
+      if (callback) {
+        callback(error, null);
+      }
+      alert("Usuario ya registrado con este correo, por favor inicia sesion");
+      return error;
+    }
+    throw new Error(`Error: ${response.status}`);
   } catch (error) {
     console.error("Register failed:", error);
     if (callback) {
       callback(error, null);
     }
+    throw error;
   }
 }
 

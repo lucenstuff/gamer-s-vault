@@ -1,17 +1,17 @@
-import { IoMdClose } from "react-icons/io";
 import { useContext, useEffect, useState } from "react";
+import { IoMdClose } from "react-icons/io";
+import PropTypes from "prop-types";
 import { ButtonContext } from "../context/ButtonContext";
 import GameListComponent from "./GameListComponent";
 import { getSingleProducts } from "../services/apiConnection";
-import PropTypes from "prop-types";
+import "../styles/Cart.css";
 
-const Cart = ({ isOpen, onClose }) => {
+const Cart = ({ isOpen }) => {
   const { setIsCartOpen } = useContext(ButtonContext);
   const [products, setProducts] = useState([]);
 
   const handleCloseCart = () => {
     setIsCartOpen(false);
-    onClose();
   };
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const Cart = ({ isOpen, onClose }) => {
   return (
     <div
       className={`fixed bottom-0 right-0 md:fixed md:h-screen h-full w-3/4 md:w-1/2 lg:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg ${
-        isOpen ? "block" : "hidden"
+        isOpen ? "slide-in" : "slide-out"
       }`}
     >
       <div className="flex justify-between items-center px-10">

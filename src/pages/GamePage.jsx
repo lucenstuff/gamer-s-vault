@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { MdShoppingCart } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
-import { ButtonContext, ButtonProvider } from "../context/ButtonContext";
+import { ButtonContext } from "../context/ButtonContext";
+import { CartContext } from "../context/CartContext";
+import { useParams } from "react-router-dom";
 import {
   getSingleProducts,
   getProductScreenshots,
 } from "../services/apiConnection.js";
-import { useParams } from "react-router-dom";
-import { CartContext } from "../context/CartContext";
-import { useContext } from "react";
 import ImageSlider from "../components/ImageSlider";
-const GamePage = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
 
+const GamePage = () => {
   const { gameId } = useParams();
   const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
   const { handleRemoveFromCart, handleAddToCart, inCart } =
@@ -29,47 +25,40 @@ const GamePage = () => {
     screenshot3: "",
   });
   const [selectedImage, setSelectedImage] = useState(null);
+  const [gameLoaded, setGameLoaded] = useState(false);
 
   const handleCartToggle = () => {
     setIsCartOpen((prev) => !prev);
   };
 
   useEffect(() => {
-    const loadGame = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getSingleProducts(gameId);
-        if (data) {
-          setGame(data);
+        const gameData = await getSingleProducts(gameId);
+        const screenshotsData = await getProductScreenshots(gameId);
+
+        if (gameData && screenshotsData.length >= 3) {
+          setGame({
+            ProductName: gameData.ProductName,
+            Description: gameData.Description,
+            ImageURL: gameData.ImageURL,
+            Price: gameData.Price,
+            screenshot1: screenshotsData[0].ImageURL,
+            screenshot2: screenshotsData[1].ImageURL,
+            screenshot3: screenshotsData[2].ImageURL,
+          });
+          setGameLoaded(true);
         } else {
-          console.error("No game data found for the provided ID.");
+          console.error("Insufficient data found for the provided ID.");
         }
       } catch (error) {
-        console.error("Failed to fetch game data:", error);
+        console.error("Failed to fetch data:", error);
       }
     };
 
-    const loadScreenshots = async () => {
-      try {
-        const data = await getProductScreenshots(gameId);
-        if (data && data.length >= 3) {
-          setGame((prevGame) => ({
-            ...prevGame,
-            screenshot1: data[0].ImageURL,
-            screenshot2: data[1].ImageURL,
-            screenshot3: data[2].ImageURL,
-          }));
-        } else {
-          console.error(
-            "Insufficient screenshot data found for the provided ID."
-          );
-        }
-      } catch (error) {
-        console.error("Failed to fetch screenshot data:", error);
-      }
-    };
-
-    loadGame();
-    loadScreenshots();
+    if (gameId) {
+      fetchData();
+    }
   }, [gameId]);
 
   const handleClickRemoveFromCart = () => {
@@ -77,6 +66,7 @@ const GamePage = () => {
   };
 
   const handleClickAddToCart = () => {
+    handleCartToggle();
     handleAddToCart(gameId);
   };
 
@@ -89,7 +79,7 @@ const GamePage = () => {
           <div className="hidden md:flex justify-center m-2 items-center group relative overflow-hidden ease-in-out duration-200 rounded-md shadow-neutral-500 shadow-md">
             {game.ImageURL ? (
               <img
-                className="lazy aspect-square rounded-md transform group-hover:scale-105 duration-200"
+                className="aspect-square rounded-md transform group-hover:scale-105 duration-200"
                 src={game.ImageURL}
                 alt={game.ProductName}
               />
@@ -104,7 +94,7 @@ const GamePage = () => {
                   <img
                     src={game.screenshot1}
                     alt="screenshot"
-                    className="lazy aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    className="aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
                     onClick={() => setSelectedImage(game.screenshot1)}
                   />
                 ) : (
@@ -118,7 +108,7 @@ const GamePage = () => {
                   <img
                     src={game.screenshot2}
                     alt="screenshot"
-                    className="lazy aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
+                    className="aspect-video object-cover shadow-md hover:scale-105 ease-in-out duration-200 cursor-pointer rounded-md"
                     onClick={() => setSelectedImage(game.screenshot2)}
                   />
                 ) : (
@@ -154,7 +144,7 @@ const GamePage = () => {
           )}
         </div>
         <div className="px-2">
-          <div className="pb-10 flex md:hidden rounded-lg">
+          <div className="pb-10 w-full flex md:hidden rounded-lg">
             <ImageSlider className="flex md:hidden rounded-lg">
               {slides.map((slide, index) => (
                 <img
@@ -166,7 +156,7 @@ const GamePage = () => {
               ))}
             </ImageSlider>
           </div>
-          <h2 className=" text-xl md:text-2xl font-bold mb-4">
+          <h2 className="lazy text-xl md:text-2xl font-bold mb-4">
             {game.ProductName}
           </h2>
           <div className="lg:w-full">
