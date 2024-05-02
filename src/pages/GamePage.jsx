@@ -11,9 +11,9 @@ import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 import ImageSlider from "../components/ImageSlider";
 const GamePage = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // });
 
   const { gameId } = useParams();
   const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);

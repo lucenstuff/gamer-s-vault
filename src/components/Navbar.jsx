@@ -23,6 +23,7 @@ const Navbar = () => {
 
   const toggleSearchBar = () => {
     setIsSearchBarOpen((prev) => !prev);
+    setIsOpen(false);
   };
 
   const handleLoginModalToggle = () => {
@@ -35,15 +36,6 @@ const Navbar = () => {
 
   const handleUserDropdownToggle = () => {
     setIsUserDropdownOpen((prev) => !prev);
-  };
-
-  const handleSearch = async (searchTerm) => {
-    try {
-      const results = await searchProducts(searchTerm);
-      console.log(results);
-    } catch (error) {
-      console.error("Search failed:", error);
-    }
   };
 
   return (
@@ -62,8 +54,8 @@ const Navbar = () => {
             </button>
           </div>
           {isSearchBarOpen ? (
-            <div className="hidden justify-center items-center pl-40 md:flex">
-              <Searchbar onSearch={handleSearch} />
+            <div className="hidden justify-center items-center pl-40 md:flex ">
+              <Searchbar />
             </div>
           ) : (
             <div className="md:ml-12 lg:ml-28 hidden sm:flex sm:items-center text-lg">
@@ -89,7 +81,7 @@ const Navbar = () => {
           )}
           <div className="flex items-center gap-4 text-neutral-800 text-3xl ">
             <button
-              className="hidden md:flex hover:text-neutral-950"
+              className=" hover:text-neutral-950"
               aria-hidden="true"
               onClick={toggleSearchBar}
             >
@@ -140,12 +132,13 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
+      {isSearchBarOpen && (
+        <div className="flex md:hidden w-full px-4 pt-2 pb-4">
+          <Searchbar />
+        </div>
+      )}
       {isOpen && (
         <div className="sm:hidden">
-          <div className="w-full px-4 pt-4">
-            <Searchbar onSearch={handleSearch} />
-          </div>
           <div className="flex flex-col px-4 pt-2 pb-3 space-y-2">
             <Link
               to="/"
