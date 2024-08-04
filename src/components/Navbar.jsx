@@ -8,6 +8,7 @@ import { searchProducts } from "../services/apiConnection";
 import { useUser } from "../context/UserContext";
 import { Link } from "react-router-dom";
 import UserDropdownMenu from "./UserDropdownMenu";
+import Cart from "./Cart";
 
 const Navbar = () => {
   const { user } = useUser();
@@ -30,9 +31,9 @@ const Navbar = () => {
     setIsLoginModalOpen((prev) => !prev);
   };
 
-  const handleCartToggle = () => {
-    setIsCartOpen((prev) => !prev);
-  };
+  // const handleCartToggle = () => {
+  //   setIsCartOpen((prev) => !prev);
+  // };
 
   const handleUserDropdownToggle = () => {
     setIsUserDropdownOpen((prev) => !prev);
@@ -80,6 +81,7 @@ const Navbar = () => {
             </div>
           )}
           <div className="flex items-center gap-4 text-neutral-800 text-3xl ">
+            <Cart />
             <button
               className=" hover:text-neutral-950"
               aria-hidden="true"
@@ -89,14 +91,14 @@ const Navbar = () => {
               <span className="hidden">Iniciar Sesión</span>
             </button>
 
-            <button
+            {/* <button
               className="hover:text-neutral-950"
               aria-hidden="true"
               onClick={handleCartToggle}
             >
               <MdShoppingCart />
               <span className="hidden">Carrito</span>
-            </button>
+            </button> */}
 
             <div className="flex items-center sm:hidden">
               <button

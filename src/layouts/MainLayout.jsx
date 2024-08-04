@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import { ButtonContext } from "../context/ButtonContext";
 import { useState } from "react";
 import Cart from "../components/Cart";
-import UserDropdownMenu from "../components/UserDropdownMenu";
 
 const MainLayout = ({ children }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
