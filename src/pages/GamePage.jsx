@@ -13,8 +13,13 @@ import ImageSlider from "../components/ImageSlider";
 const GamePage = () => {
   const { gameId } = useParams();
   const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
-  const { handleRemoveFromCart, handleAddToCart, inCart } =
-    useContext(CartContext);
+  const {
+    handleAddToCart,
+    handleRemoveFromCart,
+    cartOpen,
+    inCart,
+    handleToggleCart,
+  } = useContext(CartContext);
   const [game, setGame] = useState({
     ProductName: "",
     Description: "",
@@ -198,9 +203,16 @@ const GamePage = () => {
           </div>
           <div className="flex flex-col space-y-6 sm:flex-row sm:space-y-0 sm:space-x-4 pb-10 md:pb-0 pt-10 md:pt-3">
             <button
-              onClick={
-                inCart ? handleClickRemoveFromCart : handleClickAddToCart
-              }
+              onClick={() => {
+                if (inCart) {
+                  handleClickRemoveFromCart();
+                } else {
+                  handleClickAddToCart();
+                }
+                if (!cartOpen) {
+                  handleToggleCart();
+                }
+              }}
               className="flex justify-center items-center w-full bg-neutral-100 text-neutral-800 font-semibold shadow-md rounded-2xl p-2 transition-transform hover:scale-105 hover:bg-neutral-50"
             >
               {inCart ? (

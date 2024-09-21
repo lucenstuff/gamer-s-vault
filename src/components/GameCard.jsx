@@ -5,7 +5,8 @@ import { CartContext } from "../context/CartContext";
 import { useContext, useState, useEffect } from "react";
 
 const GameCard = ({ id, name, price, img }) => {
-  const { handleAddToCart, handleRemoveFromCart } = useContext(CartContext);
+  const { handleAddToCart, handleRemoveFromCart, cartOpen, handleToggleCart } =
+    useContext(CartContext);
   const [inCart, setInCart] = useState(() => {
     return localStorage.getItem(`cartGameIds-${id}`) === id;
   });
@@ -51,7 +52,12 @@ const GameCard = ({ id, name, price, img }) => {
           <button
             type="button"
             className="px-2 py-1 rounded-md text-xl font-medium "
-            onClick={handleClickRemoveFromCart}
+            onClick={() => {
+              handleClickRemoveFromCart();
+              if (!cartOpen) {
+                handleToggleCart();
+              }
+            }}
           >
             <MdOutlineRemoveShoppingCart />
           </button>
@@ -59,7 +65,12 @@ const GameCard = ({ id, name, price, img }) => {
           <button
             type="button"
             className="px-2 py-1 rounded-md text-xl font-medium "
-            onClick={handleClickAddToCart}
+            onClick={() => {
+              handleClickAddToCart();
+              if (!cartOpen) {
+                handleToggleCart();
+              }
+            }}
           >
             <MdAddShoppingCart />
           </button>
