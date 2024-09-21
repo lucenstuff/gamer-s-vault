@@ -21,11 +21,8 @@ const RegisterModal = () => {
         firstName,
         lastName
       );
-      console.log("Registration successful:", data);
       navigate("/", { state: { openLoginModal: true } });
-    } catch (error) {
-      console.error("Registration failed:", error);
-    }
+    } catch (error) {}
   };
 
   const handleRegisterRedirect = () => {
