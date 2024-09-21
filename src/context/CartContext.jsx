@@ -28,30 +28,33 @@ const removeGameIdFromLocalStorage = (gameId) => {
 };
 
 const CartProvider = ({ children }) => {
-  const addToCart = () => {};
-  const removeFromCart = () => {};
+  const [cartOpen, setCartOpen] = useState(false);
   const [inCart, setInCart] = useState(false);
 
+  const handleToggleCart = () => {
+    setCartOpen(!cartOpen);
+  };
+
   const handleAddToCart = (id) => {
-    addToCart(id);
-    saveGameIdToLocalStorage(id);
     setInCart(true);
+    saveGameIdToLocalStorage(id);
   };
 
   const handleRemoveFromCart = (id) => {
-    removeFromCart(id);
-    removeGameIdFromLocalStorage(id);
     setInCart(false);
+    removeGameIdFromLocalStorage(id);
   };
 
   return (
     <CartContext.Provider
       value={{
+        cartOpen,
         inCart,
-        saveGameIdToLocalStorage,
-        removeGameIdFromLocalStorage,
+        handleToggleCart,
         handleAddToCart,
         handleRemoveFromCart,
+        saveGameIdToLocalStorage,
+        removeGameIdFromLocalStorage,
       }}
     >
       {children}
