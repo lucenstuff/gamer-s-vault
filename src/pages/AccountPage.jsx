@@ -15,7 +15,7 @@ const Account = () => {
             <p className="text-gray-600">Email: {user.email}</p>
           </div>
         </div>
-        <div className="flex flex-row justify-center items-center gap-36">
+        {/* <div className="flex flex-row justify-center items-center gap-36">
           <div className=" flex flex-col w-full max-w-xs">
             <hr className="border-t md:hidden border-neutral-400 my-4 mx-4" />
             <div className="md:mt-0 lg:mt-10 ">
@@ -33,7 +33,7 @@ const Account = () => {
               <GameListComponent />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

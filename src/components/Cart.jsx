@@ -1,10 +1,17 @@
 import { IoMdCart, IoMdClose } from "react-icons/io";
 import GameListComponent from "./GameListComponent";
 import { getSingleProducts } from "../services/apiConnection";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { cartOpen, handleToggleCart } = useContext(CartContext);
+
+  useEffect(() => {
+    setIsOpen(cartOpen);
+  }, [cartOpen]);
 
   const [products, setProducts] = useState([]);
 
@@ -13,6 +20,7 @@ export default function Cart() {
   };
 
   const closeCart = () => {
+    handleToggleCart();
     setIsOpen(false);
   };
 
@@ -41,8 +49,6 @@ export default function Cart() {
         console.error("Failed to fetch products", error);
       }
     };
-
-    console.log(updateProducts);
 
     updateProducts();
 

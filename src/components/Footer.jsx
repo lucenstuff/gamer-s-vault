@@ -2,32 +2,6 @@ function Footer() {
   return (
     <div className="bg-neutral-400 text-black py-5 text-center bottom-0 shadow-neutral-600 shadow-sm ">
       <div className="flex flex-col items-center py-4">
-        <ul className="space-x-2 flex items-center justify-center font-semibold text-sm md:text-md">
-          <li>
-            <a
-              href="store.html"
-              className="no-underline text-black hover:underline"
-            >
-              INICIO
-            </a>
-          </li>
-          <li>
-            <a
-              href="store.html"
-              className="no-underline text-black hover:underline"
-            >
-              TIENDA
-            </a>
-          </li>
-          <li>
-            <a
-              href="sales.html"
-              className="no-underline text-black hover:underline"
-            >
-              OFERTAS
-            </a>
-          </li>
-        </ul>
         <ul className="flex items-center space-x-2.5 pt-4">
           <li>
             <a href="http://x.com">

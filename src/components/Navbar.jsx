@@ -4,7 +4,6 @@ import { MdMenu, MdPerson, MdSearch, MdShoppingCart } from "react-icons/md";
 import { IoLogOut } from "react-icons/io5";
 import Searchbar from "./SearchBar";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { searchProducts } from "../services/apiConnection";
 import { useUser } from "../context/UserContext";
 import { Link } from "react-router-dom";
 import UserDropdownMenu from "./UserDropdownMenu";
@@ -20,20 +19,9 @@ const Navbar = () => {
 
   const { setIsLoginModalOpen, setIsCartOpen } = useContext(ButtonContext);
 
-  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
-
-  const toggleSearchBar = () => {
-    setIsSearchBarOpen((prev) => !prev);
-    setIsOpen(false);
-  };
-
   const handleLoginModalToggle = () => {
     setIsLoginModalOpen((prev) => !prev);
   };
-
-  // const handleCartToggle = () => {
-  //   setIsCartOpen((prev) => !prev);
-  // };
 
   const handleUserDropdownToggle = () => {
     setIsUserDropdownOpen((prev) => !prev);
@@ -54,52 +42,31 @@ const Navbar = () => {
               </a>
             </button>
           </div>
-          {isSearchBarOpen ? (
-            <div className="hidden justify-center items-center pl-40 md:flex ">
-              <Searchbar />
-            </div>
-          ) : (
-            <div className="md:ml-12 lg:ml-28 hidden sm:flex sm:items-center text-lg">
-              <Link
-                to="/"
-                className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
-              >
-                INICIO
-              </Link>
-              <Link
-                to="/store"
-                className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
-              >
-                TIENDA
-              </Link>
-              <Link
-                to="/#sales"
-                className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
-              >
-                OFERTAS
-              </Link>
-            </div>
-          )}
+
+          <div className="md:ml-12 lg:ml-28 hidden sm:flex sm:items-center text-lg pl-12">
+            <Link
+              to="/"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+            >
+              INICIO
+            </Link>
+            <Link
+              to="/store"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+            >
+              TIENDA
+            </Link>
+            {/* <Link
+              to="/#sales"
+              className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
+            >
+              OFERTAS
+            </Link> */}
+          </div>
+
           <div className="flex items-center gap-4 text-neutral-800 text-3xl ">
+            <Searchbar />
             <Cart />
-            <button
-              className=" hover:text-neutral-950"
-              aria-hidden="true"
-              onClick={toggleSearchBar}
-            >
-              <MdSearch />
-              <span className="hidden">Iniciar Sesión</span>
-            </button>
-
-            {/* <button
-              className="hover:text-neutral-950"
-              aria-hidden="true"
-              onClick={handleCartToggle}
-            >
-              <MdShoppingCart />
-              <span className="hidden">Carrito</span>
-            </button> */}
-
             <div className="flex items-center sm:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -134,11 +101,13 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      {isSearchBarOpen && (
+
+      {/* {isSearchBarOpen && (
         <div className="flex md:hidden w-full px-4 pt-2 pb-4">
           <Searchbar />
         </div>
-      )}
+      )} */}
+
       {isOpen && (
         <div className="sm:hidden">
           <div className="flex flex-col px-4 pt-2 pb-3 space-y-2">
@@ -156,13 +125,13 @@ const Navbar = () => {
             >
               TIENDA
             </Link>
-            <Link
+            {/* <Link
               to="/#sales"
               onClick={() => setIsOpen(false)}
               className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
             >
               OFERTAS
-            </Link>
+            </Link> */}
             {user ? (
               <div className="flex flex-col pb-3">
                 <div>
