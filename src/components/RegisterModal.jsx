@@ -98,7 +98,7 @@ const RegisterModal = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full border-none rounded pt-2 bg-transparent focus:outline-none"
                     required
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                    pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/"
                     title="Por favor ingrese un correo valido"
                   />
                   <hr className="border-neutral-500 my-2" />

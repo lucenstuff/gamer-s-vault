@@ -82,7 +82,7 @@ export default function Cart() {
       </button>
 
       <div
-        className={`fixed bottom-0 right-0 md:fixed md:h-screen h-full w-3/4 md:w-1/2 lg:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg transition-transform duration-300 ${
+        className={`cart-container fixed bottom-0 right-0 md:fixed md:h-screen h-full w-3/4 md:w-1/2 lg:w-1/4 bg-gray-200 z-40 shadow-black shadow-md rounded-l-lg transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
