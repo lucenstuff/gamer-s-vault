@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.slide-in {
+  animation: slideIn 0.5s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-out {
+  animation: slideOutAnimation 0.5s ease forwards;
+}
+
+@keyframes slideOutAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.search-bar-container {
+  animation: slideInFromRight 0.1s ease-out;
+}

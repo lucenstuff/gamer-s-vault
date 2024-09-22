@@ -43,7 +43,7 @@ const Navbar = () => {
             </button>
           </div>
 
-          <div className="md:ml-12 lg:ml-28 hidden sm:flex sm:items-center text-lg pl-12">
+          <div className="md:ml-12 lg:ml-28 hidden sm:flex sm:items-center text-lg ">
             <Link
               to="/"
               className="text-neutral-800 hover:underline px-3 py-2 rounded-md font-semibold"
