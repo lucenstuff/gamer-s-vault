@@ -12,7 +12,7 @@ const GameListComponent = ({ id, name, price, img }) => {
   return (
     <div className="w-full text-neutral-800 relative text-lg">
       <div className="flex flex-row justify-start px-4">
-        <div className="w-1/4 rounded-md">
+        <div className="w-1/6 rounded-md">
           <img src={img} alt={name} />
         </div>
         <div className="px-4 flex flex-col">
